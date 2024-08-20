@@ -4,7 +4,7 @@ RM		= rm -f
 
 SRC		= cub3d.c get_next_line.c utils.c\
 
-CFLAGS	= #-fsanitize=address -g3 #-Wall -Wextra -Werror
+CFLAGS	= -fsanitize=address -g3 #-Wall -Wextra -Werror
 
 OBJ		= $(SRC:.c=.o)
 

@@ -51,21 +51,54 @@ void    store_map(t_data *cub)
 	int		fd;
 	char	*line;
 	char	*tmp;
+	char	**map;
 
+	int i = 100;
+	int j = 100;
+	int k = 0;
 	line = get_next_line(cub->fd);
 	while (line)
 	{
 		tmp = line;
-		line = ft_strtrim(line, " \n");
-		if (*line)
-			cub->map = strjoin2d(cub->map, line);
-		free(tmp);
-		line = get_next_line(cub->fd);
-
+		line = ft_strtrim(line, "\n");
+		if (!*line || line[skip_char(line, ' ')] == '\0')
+			line = get_next_line(cub->fd);
+		else
+			break ;
+		// free(tmp);
+		// free(line);
 	}
-	// int i = 0;
-	// while (cub->map[i])
-	// printf("{{%s}}\n", cub->map[i++]);
+	tmp = NULL;
+	while (line)
+	{
+		tmp = line;
+		line = ft_strtrim_end(line, " \n");
+		if (i < j && line[0] != '1')
+			j = i;
+			// printf("{%d}\n", j);
+		// printf("{{%c}}\n", line[skip_char(line, ' ')]);
+		// if (*line)
+		// {
+		if (*line && line[0] != '1')
+			i = skip_char(line, ' ');
+		// if (*line)
+			cub->map = strjoin2d(cub->map, line);
+			// printf("<%d>\n", i);
+		// }
+		free(tmp);
+		free(line);
+		line = get_next_line(cub->fd);
+	}
+	printf("%d\n", j);
+	i = 0;
+	while (cub->map[i])
+		printf("{{%s}}\n", cub->map[i++]);
+	// while (cub->map[++i])
+	// {
+	// 	while ()
+	// }
+
+	
 
 }
 
@@ -118,45 +151,45 @@ void    store_instructions(char *s, t_data *cub)
 
 }
 
-void		check_walls(char **map)
-{
-	int		y;
-	int		y_len;
-	int		x;
-	int		x_len;
+// void		check_walls(char **map)
+// {
+// 	int		y;
+// 	int		y_len;
+// 	int		x;
+// 	int		x_len;
 
-	y = 0;
-	y_len = ft_strlen2d(map) - 2;
-	while (map[y])
-	{
-		x_len = ft_strlen(map[y] - 1);
-		if (map[y][x_len] == '\n')
-			printf("{{\\n}}\n");
-		else if (map[y][x_len] == '\0')
-			printf("{{\\0}}\n");
-		else 
-			printf("{{%c}\n", map[y][x_len]);
-			printf("[[%d]]\n", x_len);
-		x = 0;
-		// printf("=======================================\n");
-		// printf("line[%d] => map[%d][%d] == '%c'\n",y + 1, y, x, map[y][x]);
-		// printf("line[%d] => x_len = %d || value = '%c'\n",y + 1, x_len, map[y][x_len]);
-		// printf("line[%d] => y_len = %d || value = '%c'\n", y + 1, y_len, map[y_len][x]);
-		// if (map[0][x] != '1' || map[y_len][x] != '1') 
-		// 		(ft_putstr_fd("map : 1check walls\n", 2), exit(1));
-		if (map[y][0] != '1' || map[y][x_len] != '1')
-				(ft_putstr_fd("map : 2check walls\n", 2), exit(1));
-		x++;
-		y++;
-	}
-}
-
+// 	y = 0;
+// 	y_len = ft_strlen2d(map) - 1;
+// 	while (map[y])
+// 	{
+// 		x_len = ft_strlen(map[y]) - 1;
+// 		x = 0;
+// 		while (map[y][x])
+// 		{
+// 			if (map[0][x] != '1' || map[y_len][x] != '1')
+// 			{
+// 				printf("line = {%s}\n",map[y]);
+// 				printf("line = %d {%c}\n",y,  map[y_len][x]);
+// 					(ft_putstr_fd("1map : check walls\n", 2), exit(1));
+// 			} 
+// 			if (map[y][0] != '1' || map[y][x_len] != '1')
+// 					(ft_putstr_fd("2map : check walls\n", 2), exit(1));
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
 void	parse_it(char *s, t_data *cub)
 {
 	store_instructions(s, cub);
 	store_map(cub);
-	check_walls(cub->map);
+	int i = 0;
+	// printf("{{%c}}\n", cub->map[0][ft_strlen(cub->map[0]) - 1]);
+	// while (cub->map[i])
+	// 	printf("{{%s}}\n", cub->map[i++]);
+	// check_walls(cub->map);
+	// check_space(cub->map);
 
 }
 // printf("<%s>\n", cub->EA);
@@ -169,7 +202,9 @@ void	parse_it(char *s, t_data *cub)
 void	f(){
 	system("leaks cub3d");
 }
+
 #include <string.h>
+
 int main(int ac, char **av)
 {
 	t_data	*cub;

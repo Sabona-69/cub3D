@@ -1,26 +1,49 @@
 #include "cub3d.h"
 
-	char	**strjoin2d (char **str, char *s)
-	{
-		char **new;
-		int		i;
+char	*ft_strtrim_end(char const *s1, char const *set)
+{
+	size_t		i;
+	size_t		j;
+	char		*p;
 
-		i = -1;
-		if (!s)
-			return (str);
-		if (!str)
-		{
-			new = malloc(2 * sizeof(char *));
-			return (new[0] = ft_strdup(s), new[1] = NULL, new);
-		}
-		new = malloc(sizeof(char *) * (ft_strlen2d(str) + 2));
-		while (str[++i])
-			new[i] = ft_strdup(str[i]);
-		new[i++] = ft_strdup(s);
-		new[i] = NULL;
-		free_it(str, ft_strlen2d(str));
-		return (new);
+	if (s1 == NULL || set == NULL )
+		return (NULL);
+	i = 0;
+	j = ft_strlen(s1);
+	while (j && ft_strchr(set, s1[j]))
+	{
+		j--;
 	}
+	if (j == 0)
+		p = ft_substr(s1, 0, ft_strlen(s1) - 1);
+	else
+	p = ft_substr(s1, 0, j + 1);
+	if (!p)
+		return (NULL);
+	return (p);
+}
+
+char	**strjoin2d (char **str, char *s)
+{
+	char **new;
+	int		i;
+
+	i = -1;
+	if (!s)
+		return (str);
+	if (!str)
+	{
+		new = malloc(2 * sizeof(char *));
+		return (new[0] = ft_strdup(s), new[1] = NULL, new);
+	}
+	new = malloc(sizeof(char *) * (ft_strlen2d(str) + 2));
+	while (str[++i])
+		new[i] = ft_strdup(str[i]);
+	new[i++] = ft_strdup(s);
+	new[i] = NULL;
+	free_it(str, ft_strlen2d(str));
+	return (new);
+}
 
 void	free_it(char **str, int i)
 {
@@ -56,9 +79,22 @@ int	ft_strlen2d(char **s)
 	return (i);
 }
 
-char	*till_char(char *s, char c)
+// int		till_char(char *s, char c)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (s[i] && s[i] != c)
+// 		i++;
+// 	return (i);
+// }
+
+int		skip_char(char *s, char c)
 {
-	while (*s && *s == c)
-		s++;
-	return (s);
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] == c)
+		i++;
+	return (i);
 }
