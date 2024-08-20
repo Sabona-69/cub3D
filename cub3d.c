@@ -81,7 +81,7 @@ void    store_map(t_data *cub)
 		// {
 		if (*line && line[0] != '1')
 			i = skip_char(line, ' ');
-		// if (*line)
+		if (*line)
 			cub->map = strjoin2d(cub->map, line);
 			// printf("<%d>\n", i);
 		// }
