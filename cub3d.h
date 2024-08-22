@@ -9,17 +9,19 @@
 # include <limits.h>
 # include "libft/libft.h"
 # define BUFFER_SIZE 1024
+# define TRUE 1
+# define FALSE 0
 
 // utils
 // int		till_char(char *s, char c);
-int		skip_char(char *s, char c);
-char	*ft_strtrim_end(char const *s1, char const *set);
-int		ft_strlen2d(char **s);
-void	free_it(char **s, int i);
 char	**strjoin2d (char **str, char *s);
-int	my_atoi(char *str);
-
+char	*ft_strtrim_end(char const *s1, char const *set);
 char	*get_next_line(int fd);
+void	free_it(char **s, int i);
+int		skip_char(char *s, char c);
+int		ft_strlen2d(char **s);
+int		is_empty(char *s);
+int		my_atoi(char *str);
 
 
 typedef struct s_parse

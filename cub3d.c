@@ -65,7 +65,7 @@ void    store_map(t_data *cub)
 	{
 		tmp = cub->line;
 		cub->line= ft_strtrim(cub->line, "\n");
-		if (!*cub->line||cub->line[skip_char(cub->line, ' ')] == '\0')
+		if (!*cub->line || cub->line[skip_char(cub->line, ' ')] == '\0')
 		{
 			free(cub->line);
 			free(tmp);
@@ -85,7 +85,7 @@ void    store_map(t_data *cub)
 			i = skip_char(cub->line, ' ');
 		else if (cub->line[0])
 			i = 0;
-		if (*(cub->line))
+		// if (*(cub->line))`
 			map = strjoin2d(map,cub->line);
 		free(tmp);
 		free(cub->line);
@@ -156,7 +156,6 @@ void    store_instructions(char *s, t_data *cub)
 
 }
 
-
 void	check_elements(t_data *cub)
 {
 	int		x;
@@ -182,7 +181,6 @@ void	check_elements(t_data *cub)
 	}
 }
 
-
 void		check_walls(char **map)
 {
 	int		y_len;
@@ -204,7 +202,7 @@ void		check_walls(char **map)
 	{
 		x_len = ft_strlen(map[y]) - 1;
 		x = skip_char(map[y], ' ');
-		if (map[y][x] != '1' || map[y][x_len] != '1')
+		if (is_empty(map[y]) == FALSE  && (map[y][x] != '1' || map[y][x_len] != '1'))
 				(ft_putstr_fd("map : check walls\n", 2), exit(1));
 		y++;
 	}
@@ -222,7 +220,8 @@ void	check_space(char **map)
 		while (map[y][x])
 		{
 			// printf("<%c>", map[y][x]);
-			if (map[y][x] == '0')
+			if (map[y][x] == '0' || map[y][x] == 'N' ||  map[y][x] == 'S'
+				|| map[y][x] == 'E' || map[y][x] == 'W')
 			{
 				if (ft_strlen(map[y - 1]) - 1 < x || ft_strlen(map[y + 1]) - 1 < x)
 					(ft_putstr_fd("map : floor not covered with wall\n", 2), exit(1));
@@ -241,11 +240,11 @@ void	parse_it(char *s, t_data *cub)
 	store_map(cub);
 	check_elements(cub);
 	check_walls(cub->map);
-	check_space(cub->map);
+	// check_space(cub->map);
 	int i = 0;
 	// printf("{{%c}}\n", cub->map[0][ft_strlen(cub->map[0]) - 1]);
-	// while (cub->map[i])
-	// 	printf("{{%s}}\n", cub->map[i++]);
+	while (cub->map[i])
+		printf("{{%s}}\n", cub->map[i++]);
 
 }
 // printf("<%s>\n", cub->EA);

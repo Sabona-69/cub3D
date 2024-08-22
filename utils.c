@@ -1,5 +1,14 @@
 #include "cub3d.h"
 
+int	is_empty(char *s)
+{
+	while (*s && (*s == ' ' || *s == '\n'))
+		s++;
+	if (*s)
+		return (FALSE);
+	return (TRUE);
+}
+
 char	*ft_strtrim_end(char const *s1, char const *set)
 {
 	size_t		i;
