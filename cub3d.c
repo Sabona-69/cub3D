@@ -218,12 +218,14 @@ void	check_space(char **map)
 	y = 1;
 	while (map[y])
 	{
-		x = skip_char(map[y], ' ');
+		x = 1;
 		while (map[y][x])
 		{
 			// printf("<%c>", map[y][x]);
 			if (map[y][x] == '0')
 			{
+				if (ft_strlen(map[y - 1]) - 1 < x || ft_strlen(map[y + 1]) - 1 < x)
+					(ft_putstr_fd("map : floor not covered with wall\n", 2), exit(1));
 				if (map[y][x - 1] == ' ' || map[y][x + 1] == ' ' ||  map[y - 1][x] == ' '  ||  map[y + 1][x] == ' ')
 					(ft_putstr_fd("map : floor not covered with wall\n", 2), exit(1));
 
