@@ -21,6 +21,13 @@ int	my_atoi(char *str);
 
 char	*get_next_line(int fd);
 
+
+typedef struct s_parse
+{
+
+}	t_parse;
+
+
 typedef struct s_data
 {
 	char	**map;
@@ -28,8 +35,11 @@ typedef struct s_data
 	char	*SO;
 	char	*WE;
 	char	*EA;
-	int		fd;
+	char	Player_postition;
 	int		F[3];
 	int		C[3];
+	int		fd;
+	char	*line;
 }   t_data;
+
 #endif
