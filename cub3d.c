@@ -234,13 +234,39 @@ void	check_space(char **map)
 		y++;
 	}
 }
+
+// void	check_surrounded(char **map, char c)
+// {
+// 	int		y;
+// 	int		x;
+
+// 	y = 1;
+// 	while (map[y])
+// 	{
+// 		x = 1;
+// 		while (map[y][x])
+// 		{
+// 			// printf("<%c>", map[y][x]);
+// 			if (map[y][x] == c) // c = '0'
+// 			{
+// 				if ((ft_strlen(map[y - 1]) - 1) < x || (ft_strlen(map[y + 1]) - 1 < x))
+// 					(ft_putstr_fd("map : floor not covered with wall\n", 2), exit(1));
+// 				if (map[y][x - 1] == ' ' || map[y][x + 1] == ' ' ||  map[y - 1][x] == ' '  ||  map[y + 1][x] == ' ')
+// 					(ft_putstr_fd("map : floor not covered with wall\n", 2), exit(1));
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
 void	parse_it(char *s, t_data *cub)
 {
 	store_instructions(s, cub);
 	store_map(cub);
 	check_elements(cub);
 	check_walls(cub->map);
-	// check_space(cub->map);
+	check_space(cub->map);
 	int i = 0;
 	// printf("{{%c}}\n", cub->map[0][ft_strlen(cub->map[0]) - 1]);
 	while (cub->map[i])
