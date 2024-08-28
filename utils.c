@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int	is_empty(char *s)
+int is_empty(char *s)
 {
 	while (*s && (*s == ' ' || *s == '\n'))
 		s++;
@@ -9,13 +9,13 @@ int	is_empty(char *s)
 	return (TRUE);
 }
 
-char	*ft_strtrim_end(char const *s1, char const *set)
+char *ft_strtrim_end(char const *s1, char const *set)
 {
-	size_t		i;
-	size_t		j;
-	char		*p;
+	size_t i;
+	size_t j;
+	char *p;
 
-	if (s1 == NULL || set == NULL )
+	if (s1 == NULL || set == NULL)
 		return (NULL);
 	i = 0;
 	j = ft_strlen(s1);
@@ -26,16 +26,16 @@ char	*ft_strtrim_end(char const *s1, char const *set)
 	if (j == 0)
 		p = ft_substr(s1, 0, ft_strlen(s1) - 1);
 	else
-	p = ft_substr(s1, 0, j + 1);
+		p = ft_substr(s1, 0, j + 1);
 	if (!p)
 		return (NULL);
 	return (p);
 }
 
-char	**strjoin2d (char **str, char *s)
+char **strjoin2d(char **str, char *s)
 {
 	char **new;
-	int		i;
+	int i;
 
 	i = -1;
 	if (!s)
@@ -54,20 +54,20 @@ char	**strjoin2d (char **str, char *s)
 	return (new);
 }
 
-void	free_it(char **str, int i)
+void free_it(char **str, int i)
 {
 	while (i--)
 		free(str[i]);
 	free(str);
 }
 
-int	my_atoi(char *str)
+int my_atoi(char *str)
 {
-	int		res;
+	int res;
 
 	res = 0;
-if (!*str)
-return (-1);
+	if (!*str)
+		return (-1);
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
@@ -80,9 +80,9 @@ return (-1);
 	return (res);
 }
 
-int	ft_strlen2d(char **s)
+int ft_strlen2d(char **s)
 {
-	int		i;
+	int i;
 
 	i = 0;
 	while (s[i])
@@ -100,9 +100,9 @@ int	ft_strlen2d(char **s)
 // 	return (i);
 // }
 
-int		skip_char(char *s, char c)
+int skip_char(char *s, char c)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (s[i] && s[i] == c)
