@@ -66,6 +66,8 @@ int	my_atoi(char *str)
 	int		res;
 
 	res = 0;
+if (!*str)
+return (-1);
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
