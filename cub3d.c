@@ -2,8 +2,9 @@
 
 char *get_texture_line(char *s)
 {
-	char **split;
-	char *new;
+	char	**split;
+	char	*new;
+	int		check;
 
 	split = ft_split(s, " ");
 	if (ft_strlen2d(split) != 2)
@@ -11,6 +12,10 @@ char *get_texture_line(char *s)
 	new = ft_strdup(split[1]);
 	// free(s);
 	// printf("<%s>\n", new);
+	check = open(new, O_RDONLY);
+	if (check == -1)
+		(ft_putstr_fd("invalid texture\n", 2), exit(1));
+	close(check);
 	free_it(split, ft_strlen2d(split));
 	return (new);
 }
@@ -55,26 +60,22 @@ void store_map(t_data *cub)
 	char **map;
 
 	map = NULL;
-	int i = 100;
-	int j = 100;
-	int k = 0;
+	int i;
+	int j;
 
-	if (!cub->line)
-		return (printf("empty map !\n"), exit(1));
 	while (cub->line)
 	{
-		tmp = cub->line;
-		cub->line = ft_strtrim(cub->line, "\n");
-		if (!*cub->line || cub->line[skip_char(cub->line, ' ')] == '\0')
-		{
-			free(cub->line);
-			free(tmp);
-			cub->line = get_next_line(cub->fd);
-		}
-		else
+		tmp = ft_strtrim(cub->line, "\n");
+		if (!is_empty(tmp))
 			break;
+		free(cub->line);
+		free(tmp);
+		cub->line = get_next_line(cub->fd);
 	}
-	i = 100;
+	if (!cub->line)
+		return (printf("empty map !\n"), exit(1));
+	i = ft_strlen(cub->line);
+	j = i;
 	while (cub->line)
 	{
 		tmp = cub->line;
@@ -85,14 +86,11 @@ void store_map(t_data *cub)
 			i = skip_char(cub->line, ' ');
 		else if (cub->line[0])
 			i = 0;
-		// if (*(cub->line))`
 		map = strjoin2d(map, cub->line);
 		free(tmp);
 		free(cub->line);
 		cub->line = get_next_line(cub->fd);
 	}
-
-	// printf("%d\n", j);
 	i = -1;
 	while (map[++i])
 		cub->map = strjoin2d(cub->map, &(map[i][j]));
@@ -115,34 +113,27 @@ void store_instructions(char *s, t_data *cub)
 	cub->line = get_next_line(cub->fd);
 	while (cub->line)
 	{
-		if (i == 6)
-		{
-			free(cub->line);
-			free(tmp);
-			break;
-		}
-		tmp = cub->line;
-		cub->line = ft_strtrim(cub->line, " \n");
-		if (ft_strncmp("NO ", cub->line, 3) == 0)
-			(1) && (cub->NO = get_texture_line(cub->line), i++);
-		else if (ft_strncmp("SO ", cub->line, 3) == 0)
-			(1) && (cub->WE = get_texture_line(cub->line), i++);
-		else if (ft_strncmp("WE ", cub->line, 3) == 0)
-			(1) && (cub->EA = get_texture_line(cub->line), i++);
-		else if (ft_strncmp("EA ", cub->line, 3) == 0)
-			(1) && (cub->SO = get_texture_line(cub->line), i++);
-		else if (ft_strncmp("F ", cub->line, 2) == 0)
-			(get_colors(cub->F, cub->line + 2), i++);
-		else if (ft_strncmp("C ", cub->line, 2) == 0)
-			(get_colors(cub->C, cub->line + 2), i++);
-		else if (i != 6 && *cub->line != '\0' && *cub->line != ' ')
+		tmp = ft_strtrim(cub->line, " \n");
+		if (ft_strncmp("NO ", tmp, 3) == 0)
+			(1) && (cub->NO = get_texture_line(tmp), i++);
+		else if (ft_strncmp("SO ", tmp, 3) == 0)
+			(1) && (cub->WE = get_texture_line(tmp), i++);
+		else if (ft_strncmp("WE ", tmp, 3) == 0)
+			(1) && (cub->EA = get_texture_line(tmp), i++);
+		else if (ft_strncmp("EA ", tmp, 3) == 0)
+			(1) && (cub->SO = get_texture_line(tmp), i++);
+		else if (ft_strncmp("F ", tmp, 2) == 0)
+			(get_colors(cub->F, tmp + 2), i++);
+		else if (ft_strncmp("C ", tmp, 2) == 0)
+			(get_colors(cub->C, tmp + 2), i++);
+		else if (i != 6 && !is_empty(tmp))
 			printf("Invalid ins !\n"), exit(1);
-		(free(tmp), tmp = NULL);
+		free(tmp);
 		free(cub->line);
 		cub->line = get_next_line(cub->fd);
+		if (i == 6)
+			break;
 	}
-	// close(cub->fd);
-	// printf("<<%s>>\n",cub->line);
 	if (i != 6 || (cub->C[0] == -1 || cub->F[0] == -1))
 		return (printf("Invalid map instructions\n"), exit(1));
 	if (!cub->EA)
@@ -159,25 +150,25 @@ void check_elements(t_data *cub)
 {
 	int x;
 	int y;
-	int flag;
+	int count;
 
 	y = 0;
-	flag = 0;
+	count = 0;
 	while (cub->map[y])
 	{
 		x = 0;
 		while (cub->map[y][x])
 		{
-			if (cub->map[y][x] != '1' && cub->map[y][x] != '0' && cub->map[y][x] != ' ' && cub->map[y][x] != 'W' && cub->map[y][x] != 'N' && cub->map[y][x] != 'S' && cub->map[y][x] != 'E')
-				(ft_putstr_fd("Invalid elements!\n", 2), exit(1));
-			if (cub->map[y][x] == 'W' || cub->map[y][x] == 'N' || cub->map[y][x] == 'S' || cub->map[y][x] == 'E' && flag == 0)
-				(1) && (cub->Player_postition = cub->map[y][x], flag++);
-			if (flag > 1)
-				(ft_putstr_fd("Player Position error\n", 2), exit(1));
+			if (!ft_strchr("10 WESN", cub->map[y][x]))
+				(ft_putstr_fd("Invalid elements 1!\n", 2), exit(1));
+			if (ft_strchr("WESN", cub->map[y][x]))
+				(1) && (cub->Player_postition = cub->map[y][x], count++);
 			x++;
 		}
 		y++;
 	}
+	if (count != 1)
+		(ft_putstr_fd("Player Position error\n", 2), exit(1));
 }
 
 void check_walls(char **map)
@@ -189,13 +180,19 @@ void check_walls(char **map)
 
 	x = skip_char(map[0], ' ');
 	while (map[0][x])
-		if (map[0][x++] != '1')
-			(ft_putstr_fd("map : check walls\n", 2), exit(1));
+	{
+		if (map[0][x] != '1' && map[0][x] != ' ')
+			(ft_putstr_fd("map : check wallsq\n", 2), exit(1));
+		x++;
+	}
 	y_len = ft_strlen2d(map) - 1;
 	x = skip_char(map[y_len], ' ');
 	while (map[y_len][x])
-		if (map[y_len][x++] != '1')
-			(ft_putstr_fd("1map : check walls\n", 2), exit(1));
+	{
+		if (map[y_len][x] != '1' && map[y_len][x] != ' ')
+			(ft_putstr_fd("map : check walls\n", 2), exit(1));
+		x++;
+	}
 	y = 1;
 	while (map[y])
 	{
@@ -209,8 +206,8 @@ void check_walls(char **map)
 
 void check_space(char **map)
 {
-	int y;
-	int x;
+	int		y;
+	int		x;
 
 	y = 1;
 	while (map[y])
@@ -218,8 +215,7 @@ void check_space(char **map)
 		x = 1;
 		while (map[y][x])
 		{
-			// printf("<%c>", map[y][x]);
-			if (map[y][x] == '0' || map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E' || map[y][x] == 'W')
+			if (ft_strchr("WESN", map[y][x]))
 			{
 				if (ft_strlen(map[y - 1]) - 1 < x || ft_strlen(map[y + 1]) - 1 < x)
 					(ft_putstr_fd("map : floor not covered with wall\n", 2), exit(1));
@@ -232,31 +228,6 @@ void check_space(char **map)
 	}
 }
 
-// void	check_surrounded(char **map, char c)
-// {
-// 	int		y;
-// 	int		x;
-
-// 	y = 1;
-// 	while (map[y])
-// 	{
-// 		x = 1;
-// 		while (map[y][x])
-// 		{
-// 			// printf("<%c>", map[y][x]);
-// 			if (map[y][x] == c) // c = '0'
-// 			{
-// 				if ((ft_strlen(map[y - 1]) - 1) < x || (ft_strlen(map[y + 1]) - 1 < x))
-// 					(ft_putstr_fd("map : floor not covered with wall\n", 2), exit(1));
-// 				if (map[y][x - 1] == ' ' || map[y][x + 1] == ' ' ||  map[y - 1][x] == ' '  ||  map[y + 1][x] == ' ')
-// 					(ft_putstr_fd("map : floor not covered with wall\n", 2), exit(1));
-// 			}
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
-
 void parse_it(char *s, t_data *cub)
 {
 	store_instructions(s, cub);
@@ -266,14 +237,14 @@ void parse_it(char *s, t_data *cub)
 	check_space(cub->map);
 	int i = 0;
 	// printf("{{%c}}\n", cub->map[0][ft_strlen(cub->map[0]) - 1]);
+	// printf("<%s>\n", cub->EA);
+	// 	printf("<%s>\n", cub->NO);
+	// 	printf("<%s>\n", cub->SO);
+	// 	printf("<%s>\n", cub->WE);
+	// 	printf("%d %d %d \n", cub->C[0], cub->C[1], cub->C[2]);
 	while (cub->map[i])
 		printf("{{%s}}\n", cub->map[i++]);
 }
-// printf("<%s>\n", cub->EA);
-// 	printf("<%s>\n", cub->NO);
-// 	printf("<%s>\n", cub->SO);
-// 	printf("<%s>\n", cub->WE);
-// 	printf("%d %d %d \n", cub->C[0], cub->C[1], cub->C[2]);
 
 void f()
 {
