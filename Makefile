@@ -2,7 +2,7 @@ NAME	= cub3D
 
 RM		= rm -f
 
-SRC		= cub3d.c get_next_line.c utils.c\
+SRC		= cub3d.c get_next_line.c utils.c parse/map.c \
 
 CFLAGS	= -fsanitize=address -g3 #-Wall -Wextra -Werror
 

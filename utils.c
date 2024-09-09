@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int is_empty(char *s)
+int	is_empty(char *s)
 {
 	while (*s && (*s == ' ' || *s == '\n'))
 		s++;
@@ -32,10 +32,10 @@ char *ft_strtrim_end(char const *s1, char const *set)
 	return (p);
 }
 
-char **strjoin2d(char **str, char *s)
+char	**strjoin2d(char **str, char *s)
 {
-	char **new;
-	int i;
+	char	**new;
+	int		i;
 
 	i = -1;
 	if (!s)
@@ -54,16 +54,16 @@ char **strjoin2d(char **str, char *s)
 	return (new);
 }
 
-void free_it(char **str, int i)
+void	free_it(char **str, int i)
 {
 	while (i--)
 		free(str[i]);
 	free(str);
 }
 
-int my_atoi(char *str)
+int	my_atoi(char *str)
 {
-	int res;
+	int	res;
 
 	res = 0;
 	if (!*str)
@@ -80,7 +80,7 @@ int my_atoi(char *str)
 	return (res);
 }
 
-int ft_strlen2d(char **s)
+int	ft_strlen2d(char **s)
 {
 	int i;
 
