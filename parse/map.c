@@ -245,7 +245,7 @@ void parse_it(char *s, t_data *cub)
 	// 	printf("<%s>\n", cub->SO);
 	// 	printf("<%s>\n", cub->WE);
 	// 	printf("%d %d %d \n", cub->C[0], cub->C[1], cub->C[2]);
-	// int i = 0;
-	// while (cub->map[i])
-	// 	printf("{{%s}}\n", cub->map[i++]);
+	int i = 0;
+	while (cub->map[i])
+		printf("{{%s}}\n", cub->map[i++]);
 }
