@@ -55,7 +55,7 @@ void get_colors(int *tab, char *s)
 
 void store_map(t_data *cub)
 {
-	int fd;
+	// int fd;
 	char *tmp;
 	char **map;
 
@@ -102,7 +102,7 @@ void store_map(t_data *cub)
 
 void store_instructions(char *s, t_data *cub)
 {
-	char *line;
+	// char *line;
 	char *tmp;
 	int i;
 
@@ -210,8 +210,8 @@ void check_walls(char **map)
 
 void check_space(char **map)
 {
-	int		y;
-	int		x;
+	size_t		y;
+	size_t		x;
 
 	y = 1;
 	while (map[y])

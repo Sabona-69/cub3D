@@ -8,7 +8,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <math.h>
-# include <mlx.h>
+# include "mlx.h"
 # include "libft/libft.h"
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -49,7 +49,7 @@ int		ft_strlen2d(char **s);
 int		is_empty(char *s);
 int		my_atoi(char *str);
 void	parse_it(char *s, t_data *cub);
-
+void	create_game(t_data *cub);
 
 
 
