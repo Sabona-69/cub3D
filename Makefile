@@ -4,7 +4,7 @@ RM		= rm -f
 
 SRC		= cub3d.c get_next_line.c utils.c parse/map.c \
 
-CFLAGS	= -fsanitize=address -g3 #-Wall -Wextra -Werror
+CFLAGS	=  -Wall -Wextra -Werror  
 
 OBJ		= $(SRC:.c=.o)
 
@@ -21,7 +21,7 @@ $(LIBFT) :
 			make -C libft
 
 $(NAME)	: $(OBJ) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $@
+			$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -lmlx -framework OpenGL -framework AppKit    -o $@
 
 clean	: 
 			$(RM) $(OBJ)
