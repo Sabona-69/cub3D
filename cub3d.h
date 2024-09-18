@@ -14,7 +14,10 @@
 # define TRUE 1
 # define FALSE 0
 
-
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define RESET "\033[0m"
 
 typedef struct s_pos
 {
@@ -43,7 +46,7 @@ typedef struct s_data
 char	**strjoin2d(char **str, char *s);
 char	*ft_strtrim_end(char const *s1, char const *set);
 char	*get_next_line(int fd);
-void	free_it(char **s, int i);
+void	free2d(char **s, int i);
 int		skip_char(char *s, char c);
 int		ft_strlen2d(char **s);
 int		is_empty(char *s);

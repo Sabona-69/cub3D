@@ -50,11 +50,11 @@ char	**strjoin2d(char **str, char *s)
 		new[i] = ft_strdup(str[i]);
 	new[i++] = ft_strdup(s);
 	new[i] = NULL;
-	free_it(str, ft_strlen2d(str));
+	free2d(str, ft_strlen2d(str));
 	return (new);
 }
 
-void	free_it(char **str, int i)
+void	free2d(char **str, int i)
 {
 	while (i--)
 		free(str[i]);
