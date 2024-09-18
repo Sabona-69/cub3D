@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 01:03:15 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/08/18 01:05:06 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:29:02 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*ft_allocate(const char *str, char *charset, int *i)
 	return (word);
 }
 
-static void	free_it(char **str)
+static void	free2d(char **str)
 {
 	int	i;
 
@@ -89,7 +89,7 @@ char	**ft_split(const char *str, char *charset)
 		ret[n] = ft_allocate(str, charset, &i);
 		if (!ret[n])
 		{
-			free_it(ret);
+			free2d(ret);
 			return (NULL);
 		}
 		n++;

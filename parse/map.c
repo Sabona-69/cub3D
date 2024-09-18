@@ -1,5 +1,19 @@
 #include "../cub3d.h"
 
+void	error_exit(t_data *cub)
+{
+	free(cub->EA);
+	free(cub->WE);
+	free(cub->SO);
+	free(cub->EA);
+	if (cub->map)
+		free2d(cub->map, ft_strlen2d(cub->map));
+	free(cub->line);
+	close(cub->fd);
+	ft_putstr_fd(RED"Error\n"RESET, 2);
+	exit(1);
+}
+
 char *get_texture_line(char *s)
 {
 	char	**split;
@@ -16,7 +30,7 @@ char *get_texture_line(char *s)
 	if (check == -1)
 		(ft_putstr_fd("invalid texture\n", 2), exit(1));
 	close(check);
-	free_it(split, ft_strlen2d(split));
+	free2d(split, ft_strlen2d(split));
 	return (new);
 }
 
@@ -50,7 +64,7 @@ void get_colors(int *tab, char *s)
 	}
 	if (tab[0] == -1 || tab[1] == -1 || tab[2] == -1)
 		(ft_putstr_fd("Invalid Colors", 2), exit(1));
-	free_it(split, ft_strlen2d(split));
+	free2d(split, ft_strlen2d(split));
 }
 
 void store_map(t_data *cub)
@@ -80,12 +94,18 @@ void store_map(t_data *cub)
 	{
 		tmp = cub->line;
 		cub->line = ft_strtrim_end(cub->line, " \n");
+		printf("cub->line = ::%s::\n", cub->line);
+		if (!cub->line[0])
+			cub->line = ft_strdup(" ");
+			// puts("23");
 		if (i < j)
 			j = i;
 		if (cub->line[0] == ' ')
 			i = skip_char(cub->line, ' ');
 		else if (cub->line[0])
 			i = 0;
+
+		// printf("cub->line[0] = ::%c::\n", cub->line[0]);1
 		map = strjoin2d(map, cub->line);
 		free(tmp);
 		free(cub->line);
@@ -94,10 +114,10 @@ void store_map(t_data *cub)
 	i = -1;
 	while (map[++i])
 		cub->map = strjoin2d(cub->map, &(map[i][j]));
-	free_it(map, ft_strlen2d(map));
-	// i = -1;
-	// while (cub->map[++i])
-	// 	printf("{{%s}}\n", cub->map[i]);
+	free2d(map, ft_strlen2d(map));
+	i = -1;
+	while (cub->map[++i])
+		printf("{{%s}}\n", cub->map[i]);
 }
 
 void store_instructions(char *s, t_data *cub)
@@ -109,7 +129,7 @@ void store_instructions(char *s, t_data *cub)
 	i = 0;
 	cub->fd = open(s, O_RDONLY);
 	if (cub->fd == -1)
-		return (printf("Invalid map file !\n"), exit(1));
+		return (error_exit(cub));
 	cub->line = get_next_line(cub->fd);
 	while (cub->line)
 	{
@@ -127,12 +147,12 @@ void store_instructions(char *s, t_data *cub)
 		else if (ft_strncmp("C ", tmp, 2) == 0)
 			(get_colors(cub->C, tmp + 2), i++);
 		else if (i != 6 && !is_empty(tmp))
-			printf("Invalid ins !\n"), exit(1);
+			(printf("Invalid ins !\n"), exit(1));
 		free(tmp);
 		free(cub->line);
 		cub->line = get_next_line(cub->fd);
 		if (i == 6)
-			break;
+			break ;
 	}
 	if (i != 6 || (cub->C[0] == -1 || cub->F[0] == -1))
 		return (printf("Invalid map instructions\n"), exit(1));
@@ -146,11 +166,11 @@ void store_instructions(char *s, t_data *cub)
 		return (printf("Please set  the west texture !\n"), exit(1));
 }
 
-void check_elements(t_data *cub)
+void	check_elements(t_data *cub)
 {
-	int x;
-	int y;
-	int count;
+	int		x;
+	int		y;
+	int		count;
 
 	y = 0;
 	count = 0;
@@ -177,10 +197,10 @@ void check_elements(t_data *cub)
 
 void check_walls(char **map)
 {
-	int y_len;
-	int x_len;
-	int y;
-	int x;
+	int		y_len;
+	int		x_len;
+	int		y;
+	int		x;
 
 	x = skip_char(map[0], ' ');
 	while (map[0][x])
@@ -222,9 +242,9 @@ void check_space(char **map)
 			if (ft_strchr("WESN0", map[y][x]))
 			{
 				if (ft_strlen(map[y - 1]) - 1 < x || ft_strlen(map[y + 1]) - 1 < x)
-					(ft_putstr_fd("map : floor not covered with wall\n", 2), exit(1));
+					(ft_putstr_fd("map : floor not covered with wall 1\n", 2), exit(1));
 				if (map[y][x - 1] == ' ' || map[y][x + 1] == ' ' || map[y - 1][x] == ' ' || map[y + 1][x] == ' ')
-					(ft_putstr_fd("map : floor not covered with wall\n", 2), exit(1));
+					(ft_putstr_fd("map : floor not covered with wall 2\n", 2), exit(1));
 			}
 			x++;
 		}
@@ -239,13 +259,14 @@ void parse_it(char *s, t_data *cub)
 	check_elements(cub);
 	check_walls(cub->map);
 	check_space(cub->map);
+	close(cub->fd);
 	// printf("{{%c}}\n", cub->map[0][ft_strlen(cub->map[0]) - 1]);
 	// printf("<%s>\n", cub->EA);
 	// 	printf("<%s>\n", cub->NO);
 	// 	printf("<%s>\n", cub->SO);
 	// 	printf("<%s>\n", cub->WE);
 	// 	printf("%d %d %d \n", cub->C[0], cub->C[1], cub->C[2]);
-	int i = 0;
-	while (cub->map[i])
-		printf("{{%s}}\n", cub->map[i++]);
+	// int i = 0;
+	// while (cub->map[i])
+	// 	printf("{{%s}}\n", cub->map[i++]);
 }
