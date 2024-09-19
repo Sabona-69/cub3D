@@ -11,13 +11,11 @@ int	is_empty(char *s)
 
 char *ft_strtrim_end(char const *s1, char const *set)
 {
-	size_t i;
 	size_t j;
 	char *p;
 
 	if (s1 == NULL || set == NULL)
 		return (NULL);
-	i = 0;
 	j = ft_strlen(s1);
 	while (j && ft_strchr(set, s1[j]))
 	{

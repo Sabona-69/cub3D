@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-void	error_exit(t_data *cub)
+void	exiting(t_data *cub, int status)
 {
 	free(cub->EA);
 	free(cub->WE);
@@ -10,6 +10,8 @@ void	error_exit(t_data *cub)
 		free2d(cub->map, ft_strlen2d(cub->map));
 	free(cub->line);
 	close(cub->fd);
+	if (status == 0)
+		exit(0);
 	ft_putstr_fd(RED"Error\n"RESET, 2);
 	exit(1);
 }
@@ -69,14 +71,12 @@ void get_colors(int *tab, char *s)
 
 void store_map(t_data *cub)
 {
-	// int fd;
 	char *tmp;
 	char **map;
-
-	map = NULL;
 	int i;
 	int j;
 
+	map = NULL;
 	while (cub->line)
 	{
 		tmp = ft_strtrim(cub->line, "\n");
@@ -87,14 +87,15 @@ void store_map(t_data *cub)
 		cub->line = get_next_line(cub->fd);
 	}
 	if (!cub->line)
-		return (printf("empty map !\n"), exit(1));
+		return (exiting(cub, 1));
 	i = ft_strlen(cub->line);
 	j = i;
+	free(tmp);
 	while (cub->line)
 	{
 		tmp = cub->line;
 		cub->line = ft_strtrim_end(cub->line, " \n");
-		printf("cub->line = ::%s::\n", cub->line);
+		// printf("cub->line = ::%s::\n", cub->line);
 		if (!cub->line[0])
 			cub->line = ft_strdup(" ");
 			// puts("23");
@@ -105,7 +106,7 @@ void store_map(t_data *cub)
 		else if (cub->line[0])
 			i = 0;
 
-		// printf("cub->line[0] = ::%c::\n", cub->line[0]);1
+		// printf("cub->line[0] = ::%c::\n", cub->line[0]);
 		map = strjoin2d(map, cub->line);
 		free(tmp);
 		free(cub->line);
@@ -129,7 +130,7 @@ void store_instructions(char *s, t_data *cub)
 	i = 0;
 	cub->fd = open(s, O_RDONLY);
 	if (cub->fd == -1)
-		return (error_exit(cub));
+		return (exiting(cub, 1));
 	cub->line = get_next_line(cub->fd);
 	while (cub->line)
 	{
@@ -147,23 +148,15 @@ void store_instructions(char *s, t_data *cub)
 		else if (ft_strncmp("C ", tmp, 2) == 0)
 			(get_colors(cub->C, tmp + 2), i++);
 		else if (i != 6 && !is_empty(tmp))
-			(printf("Invalid ins !\n"), exit(1));
+			exiting(cub, 1);
 		free(tmp);
 		free(cub->line);
 		cub->line = get_next_line(cub->fd);
 		if (i == 6)
 			break ;
 	}
-	if (i != 6 || (cub->C[0] == -1 || cub->F[0] == -1))
-		return (printf("Invalid map instructions\n"), exit(1));
-	if (!cub->EA)
-		return (printf("Please set the east texture !\n"), exit(1));
-	else if (!cub->NO)
-		return (printf("Please set the north texture !\n"), exit(1));
-	else if (!cub->SO)
-		return (printf("Please set  the south texture !\n"), exit(1));
-	else if (!cub->WE)
-		return (printf("Please set  the west texture !\n"), exit(1));
+	if (i != 6 || cub->C[0] == -1 || cub->F[0] == -1 || !cub->EA || !cub->NO || !cub->SO || !cub->WE)
+		exiting(cub, 1);
 }
 
 void	check_elements(t_data *cub)
@@ -255,6 +248,7 @@ void check_space(char **map)
 void parse_it(char *s, t_data *cub)
 {
 	store_instructions(s, cub);
+	// puts()
 	store_map(cub);
 	check_elements(cub);
 	check_walls(cub->map);
