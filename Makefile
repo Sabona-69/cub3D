@@ -4,7 +4,7 @@ RM		= rm -f
 
 SRC		= cub3d.c get_next_line.c utils.c parse/map.c \
 
-CFLAGS	=  -Wall -Wextra -Werror  
+CFLAGS	=  #-Wall -Wextra -Werror  
 
 OBJ		= $(SRC:.c=.o)
 
@@ -21,7 +21,7 @@ $(LIBFT) :
 			make -C libft
 
 $(NAME)	: $(OBJ) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -lmlx -framework OpenGL -framework AppKit    -o $@
+			$(CC) $(CFLAGS) $(OBJ) $(LIBFT)  -o $@ #-lmlx -framework OpenGL -framework AppKit   
 
 clean	: 
 			$(RM) $(OBJ)
