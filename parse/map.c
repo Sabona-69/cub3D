@@ -16,7 +16,7 @@ void	exiting(t_data *cub, int status)
 	exit(1);
 }
 
-char *get_texture_line(char *s)
+char	*get_texture_line(char *s, t_data *cub)
 {
 	char	**split;
 	char	*new;
@@ -24,19 +24,19 @@ char *get_texture_line(char *s)
 
 	split = ft_split(s, " ");
 	if (ft_strlen2d(split) != 2)
-		(ft_putstr_fd("invalid texture\n", 2), exit(1));
+		exiting(cub, 1);
 	new = ft_strdup(split[1]);
 	// free(s);
 	// printf("<%s>\n", new);
 	check = open(new, O_RDONLY);
 	if (check == -1)
-		(ft_putstr_fd("invalid texture\n", 2), exit(1));
+		exiting(cub, 1);
 	close(check);
 	free2d(split, ft_strlen2d(split));
 	return (new);
 }
 
-void get_colors(int *tab, char *s)
+void	get_colors(int *tab, char *s, t_data *cub)
 {
 	char **split;
 	char *tmp;
@@ -46,17 +46,17 @@ void get_colors(int *tab, char *s)
 	i = -1;
 	j = 0;
 	if (!ft_isdigit(*s) || !ft_isdigit(s[ft_strlen(s) - 1]))
-		(ft_putstr_fd("Invalid Colors1", 2), exit(1));
+		exiting(cub, 1);
 	while (s[++i])
 	{
 		if (s[i] == ',')
 			j++;
 	}
 	if (j != 2)
-		(ft_putstr_fd("Invalid comma !", 2), exit(1));
+		exiting(cub, 1);
 	split = ft_split(s, ",");
 	if (ft_strlen2d(split) != 3)
-		(ft_putstr_fd("set 3 colors\n", 2), exit(1));
+		exiting(cub, 1);
 	i = -1;
 	while (++i < 3)
 	{
@@ -65,11 +65,11 @@ void get_colors(int *tab, char *s)
 		free(tmp);
 	}
 	if (tab[0] == -1 || tab[1] == -1 || tab[2] == -1)
-		(ft_putstr_fd("Invalid Colors", 2), exit(1));
+		exiting(cub, 1);
 	free2d(split, ft_strlen2d(split));
 }
 
-void store_map(t_data *cub)
+void	store_map(t_data *cub)
 {
 	char *tmp;
 	char **map;
@@ -95,18 +95,14 @@ void store_map(t_data *cub)
 	{
 		tmp = cub->line;
 		cub->line = ft_strtrim_end(cub->line, " \n");
-		// printf("cub->line = ::%s::\n", cub->line);
 		if (!cub->line[0])
 			cub->line = ft_strdup(" ");
-			// puts("23");
 		if (i < j)
 			j = i;
 		if (cub->line[0] == ' ')
 			i = skip_char(cub->line, ' ');
 		else if (cub->line[0])
 			i = 0;
-
-		// printf("cub->line[0] = ::%c::\n", cub->line[0]);
 		map = strjoin2d(map, cub->line);
 		free(tmp);
 		free(cub->line);
@@ -123,30 +119,29 @@ void store_map(t_data *cub)
 
 void store_instructions(char *s, t_data *cub)
 {
-	// char *line;
-	char *tmp;
-	int i;
+	char	*tmp;
+	int		i;
 
 	i = 0;
 	cub->fd = open(s, O_RDONLY);
 	if (cub->fd == -1)
-		return (exiting(cub, 1));
+		exiting(cub, 1);
 	cub->line = get_next_line(cub->fd);
 	while (cub->line)
 	{
 		tmp = ft_strtrim(cub->line, " \n");
 		if (ft_strncmp("NO ", tmp, 3) == 0)
-			(1) && (cub->NO = get_texture_line(tmp), i++);
+			(1) && (cub->NO = get_texture_line(tmp, cub), i++);
 		else if (ft_strncmp("SO ", tmp, 3) == 0)
-			(1) && (cub->WE = get_texture_line(tmp), i++);
+			(1) && (cub->WE = get_texture_line(tmp, cub), i++);
 		else if (ft_strncmp("WE ", tmp, 3) == 0)
-			(1) && (cub->EA = get_texture_line(tmp), i++);
+			(1) && (cub->EA = get_texture_line(tmp, cub), i++);
 		else if (ft_strncmp("EA ", tmp, 3) == 0)
-			(1) && (cub->SO = get_texture_line(tmp), i++);
+			(1) && (cub->SO = get_texture_line(tmp, cub), i++);
 		else if (ft_strncmp("F ", tmp, 2) == 0)
-			(get_colors(cub->F, tmp + 2), i++);
+			(get_colors(cub->F, tmp + 2, cub), i++);
 		else if (ft_strncmp("C ", tmp, 2) == 0)
-			(get_colors(cub->C, tmp + 2), i++);
+			(get_colors(cub->C, tmp + 2, cub), i++);
 		else if (i != 6 && !is_empty(tmp))
 			exiting(cub, 1);
 		free(tmp);
@@ -173,7 +168,7 @@ void	check_elements(t_data *cub)
 		while (cub->map[y][x])
 		{
 			if (!ft_strchr("10 WESN", cub->map[y][x]))
-				(ft_putstr_fd("Invalid elements 1!\n", 2), exit(1));
+				exiting(cub, 1);
 			if (ft_strchr("WESN", cub->map[y][x]))
 			{
 				cub->player_postion.x = x;
@@ -185,10 +180,10 @@ void	check_elements(t_data *cub)
 		y++;
 	}
 	if (count != 1)
-		(ft_putstr_fd("Player Position error\n", 2), exit(1));
+		exiting(cub, 1);
 }
 
-void check_walls(char **map)
+void check_walls(char **map, t_data *cub)
 {
 	int		y_len;
 	int		x_len;
@@ -199,7 +194,7 @@ void check_walls(char **map)
 	while (map[0][x])
 	{
 		if (map[0][x] != '1' && map[0][x] != ' ')
-			(ft_putstr_fd("map : check wallsq\n", 2), exit(1));
+			exiting(cub, 1);
 		x++;
 	}
 	y_len = ft_strlen2d(map) - 1;
@@ -207,7 +202,7 @@ void check_walls(char **map)
 	while (map[y_len][x])
 	{
 		if (map[y_len][x] != '1' && map[y_len][x] != ' ')
-			(ft_putstr_fd("map : check walls\n", 2), exit(1));
+			exiting(cub, 1);
 		x++;
 	}
 	y = 1;
@@ -216,12 +211,12 @@ void check_walls(char **map)
 		x_len = ft_strlen(map[y]) - 1;
 		x = skip_char(map[y], ' ');
 		if (is_empty(map[y]) == FALSE && (map[y][x] != '1' || map[y][x_len] != '1'))
-			(ft_putstr_fd("map : check walls\n", 2), exit(1));
+			exiting(cub, 1);
 		y++;
 	}
 }
 
-void check_space(char **map)
+void check_space(char **map, t_data *cub)
 {
 	size_t		y;
 	size_t		x;
@@ -235,9 +230,9 @@ void check_space(char **map)
 			if (ft_strchr("WESN0", map[y][x]))
 			{
 				if (ft_strlen(map[y - 1]) - 1 < x || ft_strlen(map[y + 1]) - 1 < x)
-					(ft_putstr_fd("map : floor not covered with wall 1\n", 2), exit(1));
+					exiting(cub, 1);
 				if (map[y][x - 1] == ' ' || map[y][x + 1] == ' ' || map[y - 1][x] == ' ' || map[y + 1][x] == ' ')
-					(ft_putstr_fd("map : floor not covered with wall 2\n", 2), exit(1));
+					exiting(cub, 1);
 			}
 			x++;
 		}
@@ -251,8 +246,8 @@ void parse_it(char *s, t_data *cub)
 	// puts()
 	store_map(cub);
 	check_elements(cub);
-	check_walls(cub->map);
-	check_space(cub->map);
+	check_walls(cub->map, cub);
+	check_space(cub->map, cub);
 	close(cub->fd);
 	// printf("{{%c}}\n", cub->map[0][ft_strlen(cub->map[0]) - 1]);
 	// printf("<%s>\n", cub->EA);
