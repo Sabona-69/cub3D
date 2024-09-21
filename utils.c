@@ -88,16 +88,6 @@ int	ft_strlen2d(char **s)
 	return (i);
 }
 
-// int		till_char(char *s, char c)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (s[i] && s[i] != c)
-// 		i++;
-// 	return (i);
-// }
-
 int skip_char(char *s, char c)
 {
 	int i;
