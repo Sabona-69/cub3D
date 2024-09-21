@@ -73,6 +73,9 @@ int main(int ac, char **av)
 	if (!cub)
 		return (ft_putstr_fd("malloc failed ", 2), 1);
 	ft_memset(cub, 0, sizeof(t_data));
+	// if (cub->EA == NULL)
+	// 	printf("NULL");
+	// free(cub->EA);
 	// (1) && (cub->C[0] = -1, cub->F[0] = -1);
 	parse_it(av[1], cub);
 	// create_game(cub);
