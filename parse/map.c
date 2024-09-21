@@ -5,7 +5,7 @@ void	exiting(t_data *cub, int status)
 	free(cub->EA);
 	free(cub->WE);
 	free(cub->SO);
-	free(cub->EA);
+	free(cub->NO);
 	if (cub->map)
 		free2d(cub->map, ft_strlen2d(cub->map));
 	free(cub->line);
@@ -130,20 +130,21 @@ void store_instructions(char *s, t_data *cub)
 	while (cub->line)
 	{
 		tmp = ft_strtrim(cub->line, " \n");
+		printf("%s\n", tmp);
 		if (ft_strncmp("NO ", tmp, 3) == 0)
 			(1) && (cub->NO = get_texture_line(tmp, cub), i++);
 		else if (ft_strncmp("SO ", tmp, 3) == 0)
-			(1) && (cub->WE = get_texture_line(tmp, cub), i++);
-		else if (ft_strncmp("WE ", tmp, 3) == 0)
-			(1) && (cub->EA = get_texture_line(tmp, cub), i++);
-		else if (ft_strncmp("EA ", tmp, 3) == 0)
 			(1) && (cub->SO = get_texture_line(tmp, cub), i++);
+		else if (ft_strncmp("WE ", tmp, 3) == 0)
+			(1) && (cub->WE = get_texture_line(tmp, cub), i++);
+		else if (ft_strncmp("EA ", tmp, 3) == 0)
+			(1) && (cub->EA = get_texture_line(tmp, cub), i++);
 		else if (ft_strncmp("F ", tmp, 2) == 0)
 			(get_colors(cub->F, tmp + 2, cub), i++);
 		else if (ft_strncmp("C ", tmp, 2) == 0)
 			(get_colors(cub->C, tmp + 2, cub), i++);
-		else if (i != 6 && !is_empty(tmp))
-			exiting(cub, 1);
+		else if (i != 6 && tmp[0])
+			(exiting(cub, 1));
 		free(tmp);
 		free(cub->line);
 		cub->line = get_next_line(cub->fd);
@@ -243,7 +244,6 @@ void check_space(char **map, t_data *cub)
 void parse_it(char *s, t_data *cub)
 {
 	store_instructions(s, cub);
-	// puts()
 	store_map(cub);
 	check_elements(cub);
 	check_walls(cub->map, cub);
