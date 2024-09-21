@@ -26,8 +26,6 @@ char	*get_texture_line(char *s, t_data *cub)
 	if (ft_strlen2d(split) != 2)
 		exiting(cub, 1);
 	new = ft_strdup(split[1]);
-	// free(s);
-	// printf("<%s>\n", new);
 	check = open(new, O_RDONLY);
 	if (check == -1)
 		exiting(cub, 1);
@@ -66,6 +64,7 @@ void	get_colors(int *tab, char *s, t_data *cub)
 	}
 	if (tab[0] == -1 || tab[1] == -1 || tab[2] == -1)
 		exiting(cub, 1);
+
 	free2d(split, ft_strlen2d(split));
 }
 
@@ -96,7 +95,7 @@ void	store_map(t_data *cub)
 		tmp = cub->line;
 		cub->line = ft_strtrim_end(cub->line, " \n");
 		if (!cub->line[0])
-			cub->line = ft_strdup(" ");
+			(free(cub->line), cub->line = ft_strdup(" "));
 		if (i < j)
 			j = i;
 		if (cub->line[0] == ' ')
@@ -109,12 +108,11 @@ void	store_map(t_data *cub)
 		cub->line = get_next_line(cub->fd);
 	}
 	i = -1;
+	// free(tmp);
+	free(cub->line);
 	while (map[++i])
 		cub->map = strjoin2d(cub->map, &(map[i][j]));
 	free2d(map, ft_strlen2d(map));
-	i = -1;
-	while (cub->map[++i])
-		printf("{{%s}}\n", cub->map[i]);
 }
 
 void store_instructions(char *s, t_data *cub)
@@ -130,7 +128,6 @@ void store_instructions(char *s, t_data *cub)
 	while (cub->line)
 	{
 		tmp = ft_strtrim(cub->line, " \n");
-		printf("%s\n", tmp);
 		if (ft_strncmp("NO ", tmp, 3) == 0)
 			(1) && (cub->NO = get_texture_line(tmp, cub), i++);
 		else if (ft_strncmp("SO ", tmp, 3) == 0)
@@ -144,7 +141,7 @@ void store_instructions(char *s, t_data *cub)
 		else if (ft_strncmp("C ", tmp, 2) == 0)
 			(get_colors(cub->C, tmp + 2, cub), i++);
 		else if (i != 6 && tmp[0])
-			(exiting(cub, 1));
+			(free(tmp), exiting(cub, 1));
 		free(tmp);
 		free(cub->line);
 		cub->line = get_next_line(cub->fd);

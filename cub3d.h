@@ -9,6 +9,7 @@
 # include <limits.h>
 # include <math.h>
 // # include "mlx.h
+#include "track_leaks.h"
 # include "libft/libft.h"
 # define BUFFER_SIZE 1024
 # define TRUE 1
@@ -43,6 +44,7 @@ typedef struct s_data
 
 // utils
 // int		till_char(char *s, char c);
+void	exiting(t_data *cub, int status);
 char	**strjoin2d(char **str, char *s);
 char	*ft_strtrim_end(char const *s1, char const *set);
 char	*get_next_line(int fd);
