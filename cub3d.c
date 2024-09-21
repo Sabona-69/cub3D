@@ -60,13 +60,14 @@
 //     mlx_loop(init);
 // }
 
-
-#include <string.h>
+void f(){
+	system("leaks cub3D");
+}
 
 int main(int ac, char **av)
 {
 	t_data *cub;
-	// atexit(f);
+	atexit(f);
 	if (ac != 2 || ft_strlen(av[1]) < 4 || ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
 		return (printf("Please Insert \"./cub\" + valid map\n"), 1);
 	cub = malloc(sizeof(t_data));
@@ -78,6 +79,7 @@ int main(int ac, char **av)
 	// free(cub->EA);
 	// (1) && (cub->C[0] = -1, cub->F[0] = -1);
 	parse_it(av[1], cub);
+	exiting(cub, 0);
 	// create_game(cub);
 	// raycasti 
 }
