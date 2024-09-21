@@ -8,8 +8,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <math.h>
-// # include "mlx.h
-#include "track_leaks.h"
+# include "mlx.h
 # include "libft/libft.h"
 # define BUFFER_SIZE 1024
 # define TRUE 1
