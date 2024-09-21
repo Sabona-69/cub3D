@@ -21,7 +21,7 @@ $(LIBFT) :
 			make -C libft
 
 $(NAME)	: $(OBJ) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJ) $(LIBFT)  -o $@ #-lmlx -framework OpenGL -framework AppKit   
+			$(CC) $(CFLAGS) $(OBJ) $(LIBFT)  -o $@ -lmlx -framework OpenGL -framework AppKit   
 
 clean	: 
 			$(RM) $(OBJ)
