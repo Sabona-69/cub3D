@@ -1,73 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/18 10:10:45 by tbesbess          #+#    #+#             */
+/*   Updated: 2024/10/18 10:10:45 by tbesbess         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-
-void draw_square(void *init, void *window, int x, int y, int color)
+void set_player(t_game *game)
 {
-    int i = 0;
-    while (i < 32)
-	{
-        int j = 0;
-        while (j < 32)
-		{
-            mlx_pixel_put(init, window, x + i, y + j, color);
-            j++;
-        }
-        i++;
+    char c;
+
+    game->player = malloc(sizeof(t_pl));
+    if (!game->player) {
+        fprintf(stderr, "Memory allocation failed for player.\n");
+        exit(EXIT_FAILURE);
     }
+
+    if (!game->data || !game->data->map) {
+        fprintf(stderr, "Map data not initialized properly.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    c = game->data->map[game->data->player_postion.y][game->data->player_postion.x];
+    if (c == 'E')
+        game->player->derection = 0;
+    else if (c == 'N')
+        game->player->derection = (3 * M_PI) / 2;
+    else if (c == 'W')
+        game->player->derection = M_PI;
+    else if (c == 'S')
+        game->player->derection = M_PI / 2;
+
+    printf("Setting player direction: %c\n", c);
+    game->player->star.x = (game->data->player_postion.x * TILE_SIZE) + TILE_SIZE / 2;
+    game->player->star.y = (game->data->player_postion.y * TILE_SIZE) + TILE_SIZE / 2;
+    game->player->view = VIEW * (M_PI / 180);
+    game->player->walk = STOP;
+    game->player->turn = STOP;
 }
 
-void draw_circle(void *init, void *window, int x, int y, int radius, int color)
+void    create_game(t_game *game)
 {
-    int i = -radius;
-    while (i <= radius)
-	{
-        int j = -radius;
-        while (j <= radius)
-		{
-            if (i * i + j * j <= radius * radius)
-                mlx_pixel_put(init, window, x + i, y + j, color);
-            j++;
-        }
-        i++;
-    }
-}
-
-void create_game(t_data *cub)
-{
-    int i, j;
-    void *init = mlx_init();
-    void *window = mlx_new_window(init, 32 * 36, 15 * 32, "cub3d");
-
-    i = 0;
-    while (cub->map[i])
-	 {
-        j = 0;
-        while (cub->map[i][j])
-		{
-            if (cub->map[i][j] == '0') 
-                draw_square(init, window, j * 32, i * 32,0x00FFFFFF ); // Black square
-            if (cub->map[i][j] == '1')
-                draw_square(init, window, j * 32, i * 32, 0x00000000); // White square
-            if (ft_strchr("EWSN", cub->map[i][j]))
-			{
-                draw_square(init, window, j * 32, i * 32,0x00FFFFFF ); // Black square
-                draw_circle(init, window, j * 32 + 16, i * 32 + 16, 4, 0x00FF0000); // Red circle
-			}
-            j++;
-        }
-        i++;
-    }
-    mlx_loop(init);
-}
-
-void f(){
-	system("leaks cub3D");
+    int32_t     window_w;
+    int32_t     window_h;
+    game->win = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+    if (!game->win)
+        printf("error init\n");
+    window_w = game->win->width;
+    window_h = game->win->height;
+    game->img = mlx_new_image(game->win, window_w, window_h);
+    if (!game->img)
+        printf("error img\n");
+    if (mlx_image_to_window(game->win, game->img, 0, 0) == -1)
+        printf("error image to window");
+    set_player(game);
+  
 }
 
 int main(int ac, char **av)
 {
-	t_data *cub;
-	// atexit(f);
+	t_data  *cub;
+    t_game  *game;
+    int i = 0;
+
+
 	if (ac != 2 || ft_strlen(av[1]) < 4 || ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
 		return (printf("Please Insert \"./cub\" + valid map\n"), 1);
 	cub = malloc(sizeof(t_data));
@@ -75,6 +77,11 @@ int main(int ac, char **av)
 		return (ft_putstr_fd("malloc failed ", 2), 1);
 	ft_memset(cub, 0, sizeof(t_data));
 	parse_it(av[1], cub);
-	// create_game(cub);
+    game = malloc(sizeof(t_game));
+	ft_memset(game, 0, sizeof(t_game));
+    game->data = cub;
+    while (game->data->map[i])
+        printf ("[%s]\n", game->data->map[i++]);
+	create_game(game);
 	exiting(cub, 0);
 }
