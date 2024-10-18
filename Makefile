@@ -1,49 +1,51 @@
+
 NAME	= cub3D
-
-BNAME	= cub3D_bonus
-
-RM		= rm -f
-
-SRC		= mandatory/cub3d.c mandatory/get_next_line.c mandatory/utils.c mandatory/parse/map.c \
-
-BSRC		= bonus/cub3d_b.c bonus/get_next_line_b.c bonus/utils_b.c bonus/parse/map_b.c \
-
-CFLAGS	=   #-g -fsanitize=address#-Wall -Wextra -Werror 
-
-OBJ		= $(SRC:.c=.o)
-
-BOBJ		= $(BSRC:.c=.o)
-
-LIBFT	= libft/libft.a
 
 CC		= cc
 
-all				: $(NAME) #clean
+RM		= rm -f
 
-bonus			: $(BNAME)
-			
-mandatory/%.o	: mandatory/%.c mandatory/cub3d.h Makefile
+OBJ		= $(SRC:.c=.o)
+
+BOBJ	= $(BSRC:.c=.o)
+
+SRC		= mandatory/cub3d.c mandatory/get_next_line.c mandatory/utils.c mandatory/parse/map.c \
+
+CFLAGS	= -Wall -Werror -Wextra
+
+BNAME	= cub3D_bonus
+
+LIBFT	= libft/libft.a
+
+all: $(NAME)
+
+bonus: $(BNAME)
+
+mandatory/%.o: mandatory/%.c mandatory/cub3d.h libft/libft.h Makefile
 			$(CC) $(CFLAGS) -c $<  -o $@
 
-bonus/%.o		: bonus/%.c bonus/cub3d_b.h Makefile
+bonus/%.o: bonus/%.c bonus/cub3d_b.h Makefile 
 			$(CC) $(CFLAGS) -c $<  -o $@
 
-$(LIBFT) 		:
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) /Users/$(USER)/MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/homebrew/opt/glfw/lib" -o $(NAME)
+
+
+$(BNAME): $(BOBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) /Users/$(USER)/MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/homebrew/opt/glfw/lib" -o $(BNAME)
+
+$(LIBFT):
 			make -C libft
 
-$(NAME)			: $(OBJ) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJ) $(LIBFT)  -o $@ -lmlx -framework OpenGL -framework AppKit
+%.o: %.c Makefile
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BNAME)			: $(BOBJ) $(LIBFT)
-			$(CC) $(CFLAGS) $(BOBJ) $(LIBFT)  -o $@ -lmlx -framework OpenGL -framework AppKit
+clean: 
+	$(RM) $(OBJ) $(BOBJ)
+	make -C libft/ clean
 
-clean			: 
-			$(RM) $(OBJ) $(BOBJ)
-			make -C libft/ clean
+fclean: clean
+	$(RM) $(NAME) $(BNAME)
+	make -C libft/ fclean
 
-fclean			: clean
-			$(RM) $(NAME) $(BNAME)
-			make -C libft/ fclean
-
-re				: fclean all
-
+re: fclean all
