@@ -26,18 +26,15 @@ void set_player(t_game *game)
         fprintf(stderr, "Map data not initialized properly.\n");
         exit(EXIT_FAILURE);
     }
-
     c = game->data->map[game->data->player_postion.y][game->data->player_postion.x];
     if (c == 'E')
-        game->player->derection = 0;
+        game->player->direction = 0;
     else if (c == 'N')
-        game->player->derection = (3 * M_PI) / 2;
+        game->player->direction = (3 * M_PI) / 2;
     else if (c == 'W')
-        game->player->derection = M_PI;
+        game->player->direction = M_PI;
     else if (c == 'S')
-        game->player->derection = M_PI / 2;
-
-    printf("Setting player direction: %c\n", c);
+        game->player->direction = M_PI / 2;
     game->player->star.x = (game->data->player_postion.x * TILE_SIZE) + TILE_SIZE / 2;
     game->player->star.y = (game->data->player_postion.y * TILE_SIZE) + TILE_SIZE / 2;
     game->player->view = VIEW * (M_PI / 180);
@@ -45,29 +42,53 @@ void set_player(t_game *game)
     game->player->turn = STOP;
 }
 
-void    create_game(t_game *game)
+int handle_key(int keycode, t_game *game){
+    if (keycode == MLX_KEY_ESCAPE) { // ESC key
+        // game->isGameRunning = FALSE;
+		exit(1);
+    }
+    if (keycode == MLX_KEY_W) { 
+		game->player->move.x += cos(game->player->direction) * MOVE_SPEED;
+		game->player->move.y += sin(game->player->direction) * MOVE_SPEED;
+	}
+	if (keycode == MLX_KEY_S) { 
+		game->player->move.x -= cos(game->player->direction) * MOVE_SPEED;
+		game->player->move.y -= sin(game->player->direction) * MOVE_SPEED;
+	}
+	if (keycode == MLX_KEY_D) { // D key
+        game->player->turn = LEFT;
+    }
+    if (keycode == MLX_KEY_A) { // A key
+        game->player->turn = RIGHT;
+    }
+    return 0;
+}
+
+void update(t_game *game)
 {
-    int32_t     window_w;
-    int32_t     window_h;
+	
+}
+void create_game(t_game *game)
+{
+    int32_t window_w;
+    int32_t window_h;
+
     game->win = mlx_init(WIDTH, HEIGHT, "cub3d", false);
-    if (!game->win)
-        printf("error init\n");
-    window_w = game->win->width;
+    window_w = game->win->width ;
     window_h = game->win->height;
     game->img = mlx_new_image(game->win, window_w, window_h);
-    if (!game->img)
-        printf("error img\n");
-    if (mlx_image_to_window(game->win, game->img, 0, 0) == -1)
-        printf("error image to window");
+	mlx_image_to_window(game->win, game->img, 0, 0);
     set_player(game);
-  
+	mlx_key_hook(game->win, handle_key, game);
+	mlx_loop_hook(game->win, update, game);
+	// mlx_new_image();
+    mlx_loop(game->win);
 }
 
 int main(int ac, char **av)
 {
 	t_data  *cub;
     t_game  *game;
-    int i = 0;
 
 
 	if (ac != 2 || ft_strlen(av[1]) < 4 || ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
@@ -80,6 +101,7 @@ int main(int ac, char **av)
     game = malloc(sizeof(t_game));
 	ft_memset(game, 0, sizeof(t_game));
     game->data = cub;
+    int i = 0;
     while (game->data->map[i])
         printf ("[%s]\n", game->data->map[i++]);
 	create_game(game);
