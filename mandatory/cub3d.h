@@ -79,7 +79,7 @@ typedef struct s_tx
 
 typedef	struct s_pl
 {
-	double		derection;
+	double		direction;
 	t_pos		star;
 	t_pos		move;
 	double		view;
@@ -111,6 +111,7 @@ typedef struct s_game
 	t_data		*data;
 	t_pl		*player;
 	t_ray		*rays;
+	bool		isGameRunning;
 }	t_game;
 
 

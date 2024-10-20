@@ -157,7 +157,7 @@ void renderPlayer(struct Game *game) {
     for (int i = 0; i < 40; i++) { // Length of the direction line
         int lineX = (int)(game->player.x + cos(game->player.rotationAngle) * i);
         int lineY = (int)(game->player.y + sin(game->player.rotationAngle) * i);
-        mlx_pixel_put(game->mlx_ptr, game->win_ptr, lineX, lineY, directionColor);
+        mlx_pixel_put(game->mlx_ptr, game->win_ptr, lineX, lineY, 0xFFFFFF);
     }
 }
 

@@ -238,6 +238,36 @@ void check_space(char **map, t_data *cub)
 	}
 }
 
+void	get_map_ready(t_data *cub)
+{
+	int		len;
+	int		tmp;
+	int		i;
+	char	*str;
+
+	i = -1;
+	len = 0;
+	tmp = 0;
+	while (cub->map[++i])
+	{
+		tmp = len; // 0
+		len = ft_strlen(cub->map[i]); // 10 
+		if (tmp > len)
+			len = tmp;
+	}
+	i = -1;
+	while (cub->map[++i])
+	{
+		tmp = len - ft_strlen(cub->map[i]);
+		while (tmp--)
+		{
+			str = cub->map[i];
+			cub->map[i] = ft_strjoin(cub->map[i], " ");
+			free(str);
+		}
+	}
+}
+
 void parse_it(char *s, t_data *cub)
 {
 	store_instructions(s, cub);
@@ -245,6 +275,7 @@ void parse_it(char *s, t_data *cub)
 	check_elements(cub);
 	check_walls(cub->map, cub);
 	check_space(cub->map, cub);
+	get_map_ready(cub);
 	close(cub->fd);
 	// printf("{{%c}}\n", cub->map[0][ft_strlen(cub->map[0]) - 1]);
 	// printf("<%s>\n", cub->EA);
@@ -254,5 +285,5 @@ void parse_it(char *s, t_data *cub)
 	// 	printf("%d %d %d \n", cub->C[0], cub->C[1], cub->C[2]);
 	// int i = 0;
 	// while (cub->map[i])
-	// 	printf("{{%s}}\n", cub->map[i++]);
+		// printf("{{%s}}\n", cub->map[i++]);
 }

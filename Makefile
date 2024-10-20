@@ -11,41 +11,36 @@ BOBJ	= $(BSRC:.c=.o)
 
 SRC		= mandatory/cub3d.c mandatory/get_next_line.c mandatory/utils.c mandatory/parse/map.c \
 
-CFLAGS	= -Wall -Werror -Wextra
+GLFW        = -L$(HOME)/.brew/Cellar/glfw/3.4/lib -lglfw \
+
+CFLAGS	=# -Wall -Werror -Wextra
+
+MLX         = -L$(HOME)/.local/lib -lmlx42
 
 BNAME	= cub3D_bonus
 
-LIBFT	= libft/libft.a
+LIBFTA	= libft/libft.a
+LIBFT       = -L./libft -lft
 
-all: $(NAME)
+all: $(NAME) clean
 
 bonus: $(BNAME)
 
-mandatory/%.o: mandatory/%.c mandatory/cub3d.h libft/libft.h Makefile
+mandatory/%.o: mandatory/%.c mandatory/cub3d.h Makefile
 			$(CC) $(CFLAGS) -c $<  -o $@
 
 bonus/%.o: bonus/%.c bonus/cub3d_b.h Makefile 
 			$(CC) $(CFLAGS) -c $<  -o $@
 
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) /Users/$(USER)/MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/homebrew/opt/glfw/lib" -o $(NAME)
-
-
-$(BNAME): $(BOBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) /Users/$(USER)/MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/homebrew/opt/glfw/lib" -o $(BNAME)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(GLFW) libft/libft.a $(MLX)  -o $(NAME)
 
 $(LIBFT):
 			make -C libft
-
-%.o: %.c Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
 
 clean: 
 	$(RM) $(OBJ) $(BOBJ)
 	make -C libft/ clean
 
-fclean: clean
-	$(RM) $(NAME) $(BNAME)
-	make -C libft/ fclean
+re : clean all
 
-re: fclean all

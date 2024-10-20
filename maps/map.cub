@@ -6,7 +6,6 @@ WE textures/path_to_the_west_texture
 SO textures/path_to_the_south_texture
 NO textures/path_to_the_north_texture
 
-111111111111
-110000N00011
-110000100011
-111111111111
+                            1  11111111111
+                                  11N011111111
+                            111111111111
