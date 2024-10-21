@@ -13,7 +13,7 @@ SRC		= mandatory/cub3d.c mandatory/get_next_line.c mandatory/utils.c mandatory/p
 
 GLFW        = -L$(HOME)/.brew/Cellar/glfw/3.4/lib -lglfw \
 
-CFLAGS	=# -Wall -Werror -Wextra
+CFLAGS	= -fsanitize=address # -Wall -Werror -Wextra
 
 MLX         = -L$(HOME)/.local/lib -lmlx42
 

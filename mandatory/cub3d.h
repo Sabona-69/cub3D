@@ -35,6 +35,12 @@ typedef struct s_pos
 	int		y;
 }	t_pos;
 
+typedef struct s_pos_d
+{
+	double		x;
+	double		y;
+}	t_pos_d;
+
 typedef enum e_status
 {
 	STOP,
@@ -54,6 +60,8 @@ typedef struct s_data
 	char	*SO;
 	char	*WE;
 	char	*EA;
+	int		height;
+	int		width;
 	char	player_facing;
 	t_pos	player_postion;
 	int		F[3];
@@ -80,8 +88,8 @@ typedef struct s_tx
 typedef	struct s_pl
 {
 	double		direction;
-	t_pos		star;
-	t_pos		move;
+	t_pos_d		star;
+	t_pos_d		move;
 	double		view;
 	t_status	walk;
 	t_status	turn;
@@ -91,8 +99,8 @@ typedef struct s_ray
 {
 	int			index;
 	double		angl;
-	t_pos		h_wall;
-	t_pos		v_wall;
+	t_pos_d		h_wall;
+	t_pos_d		v_wall;
 	double		distance;
 	double		angle;
 	int			up;

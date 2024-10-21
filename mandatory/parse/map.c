@@ -266,6 +266,8 @@ void	get_map_ready(t_data *cub)
 			free(str);
 		}
 	}
+	cub->height = len;
+	cub->width = ft_strlen2d(cub->map);
 }
 
 void parse_it(char *s, t_data *cub)
