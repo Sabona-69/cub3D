@@ -25,26 +25,26 @@ void	my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 	mlx_put_pixel(img, x, y, color);
 }
 
-void set_player(t_game *game)
+void	set_player(t_game *game)
 {
-	char c;
+	char	c;
 
-    game->player = malloc(sizeof(t_pl));
+	game->player = malloc(sizeof(t_pl));
 	game->rays = malloc(sizeof(t_ray));
-    c = game->data->map[game->data->player_postion.y][game->data->player_postion.x];
-    if (c == 'E')
-        game->player->direction = 0;
-    else if (c == 'N')
-        game->player->direction = (3 * M_PI) / 2;
-    else if (c == 'W')
-        game->player->direction = M_PI;
-    else if (c == 'S')
-        game->player->direction = M_PI / 2;
-    game->player->star.x = (game->data->player_postion.x * TILE_SIZE) + TILE_SIZE / 2;
-    game->player->star.y = (game->data->player_postion.y * TILE_SIZE) + TILE_SIZE / 2;
-    game->player->view = VIEW * (M_PI / 180);
-    game->player->walk = STOP;
-    game->player->turn = STOP;
+	c = game->data->player_facing;
+	if (c == 'E')
+		game->player->direction = 0;
+	else if (c == 'N')
+		game->player->direction = (3 * M_PI) / 2;
+	else if (c == 'W')
+		game->player->direction = M_PI;
+	else if (c == 'S')
+		game->player->direction = M_PI / 2;
+	game->player->star.x = (game->data->player_postion.x * TILE_SIZE) + TILE_SIZE / 2;
+	game->player->star.y = (game->data->player_postion.y * TILE_SIZE) + TILE_SIZE / 2;
+	game->player->view = VIEW * (M_PI / 180);
+	game->player->walk = STOP;
+	game->player->turn = STOP;
 }
 
 void handle_key(mlx_key_data_t keydata, void *param){
@@ -79,18 +79,14 @@ void handle_key(mlx_key_data_t keydata, void *param){
 		game->player->turn = STOP;
 }
 
-void load_textures(t_game *game)
+void	load_textures(t_game *game)
 {
 	game->tx = malloc(sizeof(t_tx));
-
-	// if (!)
 	game->tx->e = mlx_load_png(game->data->EA);
 	game->tx->w = mlx_load_png(game->data->WE);
 	game->tx->s = mlx_load_png(game->data->SO);
 	game->tx->n = mlx_load_png(game->data->NO);
 }
-
-
 
 double	normalize_angle(double angle)
 {
@@ -100,16 +96,18 @@ double	normalize_angle(double angle)
 	return (angle);
 }
 
-static void	turnright(t_game *game)
+static void	turn(t_game *game, t_status status)
 {
-	game->player->direction += ROTATION_SPEED;
-	game->player->direction = normalize_angle(game->player->direction);
-}
-
-static void	turnleft(t_game *game)
-{
-	game->player->direction -= ROTATION_SPEED;
-	game->player->direction = normalize_angle(game->player->direction);
+	if (status == RIGHT)
+	{
+		game->player->direction += ROTATION_SPEED;
+		game->player->direction = normalize_angle(game->player->direction);
+	}
+	else if (status == LEFT)
+	{
+		game->player->direction -= ROTATION_SPEED;
+		game->player->direction = normalize_angle(game->player->direction);
+	}
 }
 
 int	is_wall(double x, double y, t_game *game)
@@ -152,9 +150,9 @@ void	walk_player(t_game *game, double move_x, double move_y)
 void	movement(t_game *game, double move_x, double move_y)
 {
 	if (game->player->turn == TURN_RIGHT)
-		turnright(game);
+		turn(game, RIGHT);
 	else if (game->player->turn == TURN_LEFT)
-		turnleft(game);
+		turn(game, LEFT);
 	if (game->player->walk == RIGHT)
 	{
 		move_x = -sin(game->player->direction) * MOVE_SPEED;
@@ -177,8 +175,6 @@ void	movement(t_game *game, double move_x, double move_y)
 	}
 	walk_player(game, move_x, move_y);
 }
-
-
 
 void	adjust_step(t_game *game, t_pos_d *delta, int is_vertical)
 {
@@ -434,48 +430,102 @@ void	ft_clear_img(mlx_image_t *img)
 		i++;
 	}
 }
+#include <time.h>
+
+#define ANIMATION_DELAY 100 // Delay in milliseconds
+
+void animation(t_game *game)
+{
+	static mlx_image_t *img[10];
+	static mlx_texture_t *tx[10];
+	static char *paths[10];
+	static int i = 0;
+	static clock_t last_update = 0;
+
+	if (paths[0] == NULL) // Load paths only once
+	{
+		paths[0] = "textures/animation/1.png";
+		paths[1] = "textures/animation/2.png";
+		paths[2] = "textures/animation/3.png";
+		paths[3] = "textures/animation/4.png";
+		paths[4] = "textures/animation/5.png";
+		paths[5] = "textures/animation/6.png";
+		paths[6] = "textures/animation/7.png";
+		paths[7] = "textures/animation/8.png";
+		paths[8] = "textures/animation/9.png";
+		paths[9] = "textures/animation/10.png";
+		for (int j = 0; j < 10; j++)
+			tx[j] = mlx_load_png(paths[j]);
+		for (int j = 0; j < 10; j++)
+			img[j] = mlx_texture_to_image(game->win, tx[j]);
+	}
+
+	if ((clock() - last_update) * 1000 / CLOCKS_PER_SEC >= ANIMATION_DELAY)
+	{
+		i = (i + 1) % 10; 
+		last_update = clock();
+	}
+
+	if (img[i] != NULL)
+		mlx_image_to_window(game->win, img[i], 0, 0);
+}
+
+
 
 void update(void *param)
 {
-	t_game *game = param;
+	t_game	*game;
+
+	game = param;
 	ft_clear_img(game->img);
 	mlx_resize_image(game->img, game->win->width, game->win->height);
 	movement(game, 0, 0);
+	animation(game);
 	raycasting(game);
 }
+
+
 void create_game(t_game *game)
 {
-    int32_t window_w;
-    int32_t window_h;
+	int32_t	window_w;
+	int32_t	window_h;
 
-    game->win = mlx_init(WIDTH, HEIGHT, "cub3D", false);
-    window_w = game->win->width ;
-    window_h = game->win->height;
-    game->img = mlx_new_image(game->win, window_w, window_h);
+	game->win = mlx_init(WIDTH, HEIGHT, "cub3D", false);
+	// init_animation(game);
+	window_w = game->win->width ;
+	window_h = game->win->height;
+	game->img = mlx_new_image(game->win, window_w, window_h);
 	load_textures(game);
 	mlx_image_to_window(game->win, game->img, 0, 0);
-    set_player(game);
+	set_player(game);
 	mlx_loop_hook(game->win, &update, game);
+	// mlx_loop_hook(game->win, &animation, game);
 	mlx_key_hook(game->win, &handle_key, game);
-    mlx_loop(game->win);
+	mlx_loop(game->win);
 }
 
-int main(int ac, char **av)
+void	check_input(int ac, char **av)
 {
-	t_data  *cub;
-    t_game  *game;
+	if (ac != 2 || ft_strlen(av[1]) < 4
+		| ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
+	{
+		ft_putstr_fd(RED"Error\n"RESET, 2);
+		exit(1);
+	}
+}
 
+int	main(int ac, char **av)
+{
+	t_game	*game;
 
-	if (ac != 2 || ft_strlen(av[1]) < 4 || ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
-		return (printf("Please Insert \"./cub\" + valid map\n"), 1);
-	cub = malloc(sizeof(t_data));
-	if (!cub)
-		return (ft_putstr_fd("malloc failed ", 2), 1);
-	ft_memset(cub, 0, sizeof(t_data));
-	parse_it(av[1], cub);
-    game = malloc(sizeof(t_game));
+	check_input(ac, av);
+	game = malloc(sizeof(t_game));
 	ft_memset(game, 0, sizeof(t_game));
-    game->data = cub;
+	game->data = malloc(sizeof(t_data));
+	if (!game->data)
+		return (ft_putstr_fd("malloc failed ", 2), 1);
+	ft_memset(game->data, 0, sizeof(t_data));
+	parse_it(av[1], game->data);
 	create_game(game);
-	exiting(cub, 0);
+	exiting(game->data, 0);
 }

@@ -77,6 +77,13 @@ typedef struct s_tx
 	mlx_texture_t	*e;
 }	t_tx;
 
+
+typedef	struct s_flag
+{
+	char	*s[10];
+}	t_flag;
+
+
 typedef	struct s_pl
 {
 	double		direction;
@@ -110,6 +117,7 @@ typedef struct s_game
 	t_data		*data;
 	t_pl		*player;
 	t_ray		*rays;
+	t_flag		flag;
 }	t_game;
 
 // Utils
