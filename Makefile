@@ -9,11 +9,12 @@ OBJ		= $(SRC:.c=.o)
 
 BOBJ	= $(BSRC:.c=.o)
 
-SRC		= mandatory/cub3d.c mandatory/get_next_line.c mandatory/utils.c mandatory/parse/map.c mandatory/parse/parse.c\
+SRC		= mandatory/cub3d.c mandatory/get_next_line.c mandatory/utils.c \
+			mandatory/parse/map.c mandatory/parse/store_instructions.c mandatory/parse/store_map.c mandatory/parse/check_walls.c\
 
 GLFW        = -L$(HOME)/.brew/Cellar/glfw/3.4/lib -lglfw \
 
-CFLAGS	= -fsanitize=address # -Wall -Werror -Wextra
+CFLAGS	= -g3 -fsanitize=address # -Wall -Werror -Wextra
 
 MLX         = -L$(HOME)/MLX42/build -lmlx42
 
@@ -22,7 +23,7 @@ BNAME	= cub3D_bonus
 LIBFTA	= libft/libft.a
 LIBFT       = -L./libft -lft
 
-all: $(NAME) clean
+all: $(NAME)
 
 bonus: $(BNAME)
 

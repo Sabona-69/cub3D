@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:57:37 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/08/18 01:16:31 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:59:15 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int			ft_atoi(const char *str);
 char		*ft_strdup(const char *s1);
 void		*ft_calloc(size_t count, size_t size);
 int			ft_strcmp(const char *s1, const char *s2);
-
 
 // Additional functions
 char		*ft_substr(char const *s, unsigned int start, size_t len);

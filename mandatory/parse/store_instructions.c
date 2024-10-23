@@ -20,10 +20,10 @@ char	*get_texture_line(char *s, t_data *cub)
 
 void	get_colors(int *tab, char *s, t_data *cub)
 {
-	char **split;
-	char *tmp;
-	int i;
-	int j;
+	char	**split;
+	char	*tmp;
+	int		i;
+	int		j;
 
 	i = -1;
 	j = 0;
@@ -33,8 +33,8 @@ void	get_colors(int *tab, char *s, t_data *cub)
 	if (j != 2)
 		exiting(cub, 1);
 	split = ft_split(s, ",");
-	// if (ft_strlen2d(split) != 3)
-
+	if (ft_strlen2d(split) != 3)
+		exiting(cub, 1);
 	i = -1;
 	while (++i < 3)
 	{
@@ -66,7 +66,7 @@ int	check_line(t_data *cub, char *tmp)
 	return (1);
 }
 
-void store_instructions(char *s, t_data *cub)
+void	store_instructions(char *s, t_data *cub)
 {
 	char	*tmp;
 	int		i;
@@ -82,7 +82,7 @@ void store_instructions(char *s, t_data *cub)
 			i++;
 		else if (i != 6 && tmp[0])
 			(free(tmp), exiting(cub, 1));
-		free(tmp), free(cub->line);
+		(free(tmp), free(cub->line));
 		cub->line = get_next_line(cub->fd);
 		if (i == 6)
 			break ;
