@@ -70,13 +70,6 @@ typedef struct s_data
 	char	*line;
 }   t_data;
 
-
-typedef struct s_texture
-{
-	char	*alias;
-	char	*src;
-}	t_texture;
-
 typedef struct s_tx
 {
 	mlx_texture_t	*n;
@@ -115,17 +108,16 @@ typedef struct s_game
 	mlx_t		*win;
 	mlx_image_t	*img;
 	t_tx		*tx;
-	t_texture	t_texture;
 	t_data		*data;
 	t_pl		*player;
 	t_ray		*rays;
-	bool		isGameRunning;
 }	t_game;
 
 
 
-// utils
-// int		till_char(char *s, char c);
+// Utils
+
+void store_instructions(char *s, t_data *cub);
 void	exiting(t_data *cub, int status);
 char	**strjoin2d(char **str, char *s);
 char	*ft_strtrim_end(char const *s1, char const *set);
@@ -137,6 +129,8 @@ int		is_empty(char *s);
 int		my_atoi(char *str);
 void	parse_it(char *s, t_data *cub);
 void    set_player(t_game *game);
+
+// Game
 void    create_game(t_game *game);
 
 
