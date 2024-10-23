@@ -52,7 +52,6 @@ typedef enum e_status
 	TURN_LEFT,
 }	t_status;
 
-
 typedef struct s_data
 {
 	char	**map;
@@ -68,7 +67,7 @@ typedef struct s_data
 	int		C[3];
 	int		fd;
 	char	*line;
-}   t_data;
+}	t_data;
 
 typedef struct s_tx
 {
@@ -113,11 +112,10 @@ typedef struct s_game
 	t_ray		*rays;
 }	t_game;
 
-
-
 // Utils
 
-void store_instructions(char *s, t_data *cub);
+void	check_walls(char **map, t_data *cub);
+void	store_instructions(char *s, t_data *cub);
 void	exiting(t_data *cub, int status);
 char	**strjoin2d(char **str, char *s);
 char	*ft_strtrim_end(char const *s1, char const *set);
@@ -128,11 +126,10 @@ int		ft_strlen2d(char **s);
 int		is_empty(char *s);
 int		my_atoi(char *str);
 void	parse_it(char *s, t_data *cub);
-void    set_player(t_game *game);
+void	set_player(t_game *game);
+void	store_map(t_data *cub);
 
 // Game
-void    create_game(t_game *game);
-
-
+void	create_game(t_game *game);
 
 #endif
