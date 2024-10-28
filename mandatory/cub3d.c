@@ -25,27 +25,26 @@ void	my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 	mlx_put_pixel(img, x, y, color);
 }
 
-void	set_player(t_game *game)
-{
-	char	c;
+// void	set_player(t_game *game)
+// {
+// 	char	c;
 
-	game->player = malloc(sizeof(t_pl));
-	game->rays = malloc(sizeof(t_ray));
-	c = game->data->player_facing;
-	if (c == 'E')
-		game->player->direction = 0;
-	else if (c == 'N')
-		game->player->direction = (3 * M_PI) / 2;
-	else if (c == 'W')
-		game->player->direction = M_PI;
-	else if (c == 'S')
-		game->player->direction = M_PI / 2;
-	game->player->star.x = (game->data->player_postion.x * TILE_SIZE) + TILE_SIZE / 2;
-	game->player->star.y = (game->data->player_postion.y * TILE_SIZE) + TILE_SIZE / 2;
-	game->player->view = VIEW * (M_PI / 180);
-	game->player->walk = STOP;
-	game->player->turn = STOP;
-}
+// 	game->player = malloc(sizeof(t_pl));
+// 	c = game->data->player_facing;
+// 	if (c == 'E')
+// 		game->player->direction = 0;
+// 	else if (c == 'N')
+// 		game->player->direction = (3 * M_PI) / 2;
+// 	else if (c == 'W')
+// 		game->player->direction = M_PI;
+// 	else if (c == 'S')
+// 		game->player->direction = M_PI / 2;
+// 	game->player->star.x = (game->data->player_postion.x * TILE_SIZE) + TILE_SIZE / 2;
+// 	game->player->star.y = (game->data->player_postion.y * TILE_SIZE) + TILE_SIZE / 2;
+// 	game->player->view = VIEW * (M_PI / 180);
+// 	game->player->walk = STOP;
+// 	game->player->turn = STOP;
+// }
 
 void handle_key(mlx_key_data_t keydata, void *param){
 	t_game	*game;
@@ -88,93 +87,93 @@ void	load_textures(t_game *game)
 	game->tx->n = mlx_load_png(game->data->NO);
 }
 
-double	normalize_angle(double angle)
-{
-	angle = fmod(angle, 2 * M_PI);
-	if (angle < 0)
-		angle += 2 * M_PI;
-	return (angle);
-}
+// double	normalize_angle(double angle)
+// {
+// 	angle = fmod(angle, 2 * M_PI);
+// 	if (angle < 0)
+// 		angle += 2 * M_PI;
+// 	return (angle);
+// }
 
-static void	turn(t_game *game, t_status status)
-{
-	if (status == RIGHT)
-	{
-		game->player->direction += ROTATION_SPEED;
-		game->player->direction = normalize_angle(game->player->direction);
-	}
-	else if (status == LEFT)
-	{
-		game->player->direction -= ROTATION_SPEED;
-		game->player->direction = normalize_angle(game->player->direction);
-	}
-}
+// static void	turn(t_game *game, t_status status)
+// {
+// 	if (status == RIGHT)
+// 	{
+// 		game->player->direction += ROTATION_SPEED;
+// 		game->player->direction = normalize_angle(game->player->direction);
+// 	}
+// 	else if (status == LEFT)
+// 	{
+// 		game->player->direction -= ROTATION_SPEED;
+// 		game->player->direction = normalize_angle(game->player->direction);
+// 	}
+// }
 
-int	is_wall(double x, double y, t_game *game)
-{
-	t_pos	m;
+// int	is_wall(double x, double y, t_game *game)
+// {
+// 	t_pos	m;
 
-	if (x < 0 || y < 0)
-		return (1);
-	m.x = floor(x / TILE_SIZE);
-	m.y = floor(y / TILE_SIZE);
-	if (m.y < 0 || m.y >= game->data->width
-		|| m.x < 0 || m.x >= game->data->height)
-		return (1);
-	if (game->data->map[m.y][m.x] == '1')
-		return (1);
-	return (0);
-}
+// 	if (x < 0 || y < 0)
+// 		return (1);
+// 	m.x = floor(x / TILE_SIZE);
+// 	m.y = floor(y / TILE_SIZE);
+// 	if (m.y < 0 || m.y >= game->data->width
+// 		|| m.x < 0 || m.x >= game->data->height)
+// 		return (1);
+// 	if (game->data->map[m.y][m.x] == '1')
+// 		return (1);
+// 	return (0);
+// }
 
-static int	check_collision(t_game *game, int x, int y)
-{
-	return (is_wall(x - COLLISION, y - COLLISION, game)
-		|| is_wall(x + COLLISION, y - COLLISION, game)
-		|| is_wall(x - COLLISION, y + COLLISION, game)
-		|| is_wall(x + COLLISION, y + COLLISION, game));
-}
+// static int	check_collision(t_game *game, int x, int y)
+// {
+// 	return (is_wall(x - COLLISION, y - COLLISION, game)
+// 		|| is_wall(x + COLLISION, y - COLLISION, game)
+// 		|| is_wall(x - COLLISION, y + COLLISION, game)
+// 		|| is_wall(x + COLLISION, y + COLLISION, game));
+// }
 
-void	walk_player(t_game *game, double move_x, double move_y)
-{
-	int	new_x;
-	int	new_y;
+// void	walk_player(t_game *game, double move_x, double move_y)
+// {
+// 	int	new_x;
+// 	int	new_y;
 
-	new_x = round(game->player->star.x + move_x);
-	new_y = round(game->player->star.y + move_y);
-	if (!check_collision(game, new_x, game->player->star.y))
-		game->player->star.x = new_x;
-	if (!check_collision(game, game->player->star.x, new_y))
-		game->player->star.y = new_y;
-}
+// 	new_x = round(game->player->start.x + move_x);
+// 	new_y = round(game->player->start.y + move_y);
+// 	if (!check_collision(game, new_x, game->player->start.y))
+// 		game->player->start.x = new_x;
+// 	if (!check_collision(game, game->player->start.x, new_y))
+// 		game->player->start.y = new_y;
+// }
 
-void	movement(t_game *game, double move_x, double move_y)
-{
-	if (game->player->turn == TURN_RIGHT)
-		turn(game, RIGHT);
-	else if (game->player->turn == TURN_LEFT)
-		turn(game, LEFT);
-	if (game->player->walk == RIGHT)
-	{
-		move_x = -sin(game->player->direction) * MOVE_SPEED;
-		move_y = cos(game->player->direction) * MOVE_SPEED;
-	}
-	else if (game->player->walk == LEFT)
-	{
-		move_x = sin(game->player->direction) * MOVE_SPEED;
-		move_y = -cos(game->player->direction) * MOVE_SPEED;
-	}
-	else if (game->player->walk == DOWN)
-	{
-		move_x = -cos(game->player->direction) * MOVE_SPEED;
-		move_y = -sin(game->player->direction) * MOVE_SPEED;
-	}
-	else if (game->player->walk == UP)
-	{
-		move_x = cos(game->player->direction) * MOVE_SPEED;
-		move_y = sin(game->player->direction) * MOVE_SPEED;
-	}
-	walk_player(game, move_x, move_y);
-}
+// void	movement(t_game *game, double move_x, double move_y)
+// {
+// 	if (game->player->turn == TURN_RIGHT)
+// 		turn(game, RIGHT);
+// 	else if (game->player->turn == TURN_LEFT)
+// 		turn(game, LEFT);
+// 	if (game->player->walk == RIGHT)
+// 	{
+// 		move_x = -sin(game->player->direction) * MOVE_SPEED;
+// 		move_y = cos(game->player->direction) * MOVE_SPEED;
+// 	}
+// 	else if (game->player->walk == LEFT)
+// 	{
+// 		move_x = sin(game->player->direction) * MOVE_SPEED;
+// 		move_y = -cos(game->player->direction) * MOVE_SPEED;
+// 	}
+// 	else if (game->player->walk == DOWN)
+// 	{
+// 		move_x = -cos(game->player->direction) * MOVE_SPEED;
+// 		move_y = -sin(game->player->direction) * MOVE_SPEED;
+// 	}
+// 	else if (game->player->walk == UP)
+// 	{
+// 		move_x = cos(game->player->direction) * MOVE_SPEED;
+// 		move_y = sin(game->player->direction) * MOVE_SPEED;
+// 	}
+// 	walk_player(game, move_x, move_y);
+// }
 
 void	adjust_step(t_game *game, t_pos_d *delta, int is_vertical)
 {
@@ -333,6 +332,7 @@ static void	draw_wall(t_game *game, int wall_t, int wall_b, double wall_h)
 	uint32_t		color;
 	int				y;
 
+	// load_textures(game);
 	texture = get_texture(game);
 	arr = (uint32_t *)texture->pixels;
 	offset.x = get_texture_x(texture, game);
@@ -388,7 +388,7 @@ void	check_rayfacing(t_game *game, double angle)
 void raycasting(t_game *game)
 {
 	t_pos_d	distance;
-
+	game->rays = malloc(sizeof(t_ray));
 	game->rays->index = 0;
 	game->rays->angl = game->player->direction - (game->player->view / 2);
 	while (game->rays->index < game->win->width)
@@ -478,25 +478,28 @@ void update(void *param)
 
 	game = param;
 	ft_clear_img(game->img);
-	mlx_resize_image(game->img, game->win->width, game->win->height);
+	// mlx_resize_image(game->img, game->win->width, game->win->height); SOS
 	movement(game, 0, 0);
-	animation(game);
+	// animation(game);
 	raycasting(game);
 }
 
 
+// void	check_macros()
+// {
+// 	if (HEIGHT != )
+// 	if (HEIGHT != )
+// 	if (HEIGHT != )
+// 	if (HEIGHT != )
+// }
+
 void create_game(t_game *game)
 {
-	int32_t	window_w;
-	int32_t	window_h;
-
-	game->win = mlx_init(WIDTH, HEIGHT, "cub3D", false);
+	game->win = mlx_init(WIDTH, HEIGHT, "cub3D", true);
 	// init_animation(game);
-	window_w = game->win->width ;
-	window_h = game->win->height;
-	game->img = mlx_new_image(game->win, window_w, window_h);
-	load_textures(game);
+	game->img = mlx_new_image(game->win, WIDTH, HEIGHT);
 	mlx_image_to_window(game->win, game->img, 0, 0);
+	load_textures(game);
 	set_player(game);
 	mlx_loop_hook(game->win, &update, game);
 	// mlx_loop_hook(game->win, &animation, game);
