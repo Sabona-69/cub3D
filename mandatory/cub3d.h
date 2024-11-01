@@ -17,7 +17,7 @@
 
 # define HEIGHT			1440
 # define WIDTH			2560
-# define FOV			90
+# define FOV			60
 # define TILE_SIZE		32
 # define ROTATION_SPEED 0.045
 # define MOVE_SPEED		5
@@ -26,7 +26,7 @@
 //colors
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
-# define YELLOW "\033[0;33m"
+# define YELLOW "\033[0;3`3m"
 # define RESET "\033[0m"
 
 typedef enum e_status
