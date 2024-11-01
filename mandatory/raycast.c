@@ -8,28 +8,51 @@ void	check_rayfacing(t_game *game, double angle)
 	game->rays->left = !game->rays->right;
 }
 
-// static double	intersect(t_game *game, t_pos_d *wall)
-// {
-// 	t_pos_d	inter;
-// 	t_pos_d	delta;
+static double	horizontal_intersect(t_game *game)
+{
+	t_pos_d	inter;
+	t_pos_d	delta;
 
-// 	inter.x = floor(game->player->start.x / TILE_SIZE) * TILE_SIZE;
-// 	if (game->rays->right)
-// 		inter.x += TILE_SIZE;
-// 	inter.y = game->player->start.y
-// 		+ (inter.x - game->player->start.x) * tan(game->rays->angl);
-// 	delta.x = TILE_SIZE;
-// 	delta.y = TILE_SIZE * tan(game->rays->angl);
-// 	adjust_step(game, &delta, 1);
-// 	while (!is_wall(inter.x - game->rays->left, inter.y, game))
-// 	{
-// 		inter.x += delta.x;
-// 		inter.y += delta.y;
-// 	}
-// 	wall->x = inter.x;
-// 	wall->y = inter.y;
-// 	return (calcul_distance(inter, game->player->start));
-// }
+	inter.y = floor(game->player->start.y / TILE_SIZE) * TILE_SIZE;
+	if (game->rays->down)
+		inter.y += TILE_SIZE;
+	inter.x = game->player->start.x
+		+ (inter.y - game->player->start.y) / tan(game->rays->angl);
+	delta.y = TILE_SIZE;
+	delta.x = TILE_SIZE / tan(game->rays->angl);
+	adjust_step(game, &delta, 0);
+	while (!is_wall(inter.x, inter.y - game->rays->up, game))
+	{
+		inter.x += delta.x;
+		inter.y += delta.y;
+	}
+	game->rays->h_wall.x = inter.x;
+	game->rays->h_wall.y = inter.y;
+	return (calcul_distance(inter, game->player->start));
+}
+
+static double	vertical_intersect(t_game *game)
+{
+	t_pos_d	inter;
+	t_pos_d	delta;
+
+	inter.x = floor(game->player->start.x / TILE_SIZE) * TILE_SIZE;
+	if (game->rays->right)
+		inter.x += TILE_SIZE;
+	inter.y = game->player->start.y
+		+ (inter.x - game->player->start.x) * tan(game->rays->angl);
+	delta.x = TILE_SIZE;
+	delta.y = TILE_SIZE * tan(game->rays->angl);
+	adjust_step(game, &delta, 1);
+	while (!is_wall(inter.x - game->rays->left, inter.y, game))
+	{
+		inter.x += delta.x;
+		inter.y += delta.y;
+	}
+	game->rays->v_wall.x = inter.x;
+	game->rays->v_wall.y = inter.y;
+	return (calcul_distance(inter, game->player->start));
+}
 
 void raycasting(t_game *game)
 {
@@ -41,8 +64,8 @@ void raycasting(t_game *game)
 	{
 		game->rays->angl = normalize_angle(game->rays->angl);
 		check_rayfacing(game, game->rays->angl);
-		distance.x = intersect(game, &game->rays->v_wall);
-		distance.y = intersect(game, &game->rays->h_wall);
+		distance.y = vertical_intersect(game);
+		distance.x = horizontal_intersect(game);
 		if (distance.y <= distance.x)
 		{
 			game->rays->distance = distance.y;
