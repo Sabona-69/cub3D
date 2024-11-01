@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:27:11 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/10/27 13:23:50 by tbesbess         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:51:07 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+double	calcul_distance(t_pos_d start, t_pos_d end)
+{
+	return (sqrt(pow(start.x - end.x, 2) + pow(start.y - end.y, 2)));
+}
+
+uint32_t	ft_get_color(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
+{
+	return (r << 24 | g << 16 | b << 8 | a << 0);
+}
+
+uint32_t	reverse_bytes(uint32_t c)
+{
+	uint32_t	b;
+
+	b = 0;
+	b |= (c & 0xFF) << 24;
+	b |= (c & 0xFF00) << 8;
+	b |= (c & 0xFF0000) >> 8;
+	b |= (c & 0xFF000000) >> 24;
+	return (b);
+}
 
 int	is_wall(double x, double y, t_game *game)
 {
