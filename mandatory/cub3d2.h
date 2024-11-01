@@ -69,13 +69,7 @@ typedef struct s_data
 	char	*line;
 }	t_data;
 
-typedef struct s_tx
-{
-	mlx_texture_t	*n;
-	mlx_texture_t	*s;
-	mlx_texture_t	*w;
-	mlx_texture_t	*e;
-}	t_tx;
+
 
 
 typedef	struct s_flag
@@ -94,20 +88,7 @@ typedef	struct s_pl
 	t_status	turn;
 } t_pl;
 
-typedef struct s_ray
-{
-	int			index;
-	double		angl;
-	t_pos_d		h_wall;
-	t_pos_d		v_wall;
-	double		distance;
-	double		angle;
-	int			up;
-	int			down;
-	int			right;
-	int			left;
-	int			was_hit_vertical;
-}	t_ray;
+
 
 typedef struct s_game
 {
@@ -120,24 +101,6 @@ typedef struct s_game
 	t_flag		flag;
 }	t_game;
 
-// Utils
 
-void	check_walls(char **map, t_data *cub);
-void	store_instructions(char *s, t_data *cub);
-void	exiting(t_data *cub, int status);
-char	**strjoin2d(char **str, char *s);
-char	*ft_strtrim_end(char const *s1, char const *set);
-char	*get_next_line(int fd);
-void	free2d(char **s, int i);
-int		skip_char(char *s, char c);
-int		ft_strlen2d(char **s);
-int		is_empty(char *s);
-int		my_atoi(char *str);
-void	parse_it(char *s, t_data *cub);
-void	set_player(t_game *game);
-void	store_map(t_data *cub);
-
-// Game
-void	create_game(t_game *game);
 
 // #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:22:45 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/10/27 13:11:17 by tbesbess         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:42:59 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int check_collision(t_game *game, int x, int y)
 
     return (top_left || top_right || bottom_left || bottom_right);
 }
-
 
 void	walk_player(t_game *game, double move_x, double move_y)
 {

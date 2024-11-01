@@ -1,5 +1,3 @@
-#teddy makefile
-
 NAME	= cub3D
 
 CC		= cc
@@ -10,20 +8,21 @@ OBJ		= $(SRC:.c=.o)
 
 BOBJ	= $(BSRC:.c=.o)
 
-SRC		= mandatory/cub3d.c mandatory/get_next_line.c mandatory/utils.c \
-			mandatory/parse/map.c mandatory/parse/store_instructions.c mandatory/parse/store_map.c mandatory/parse/check_walls.c\
+SRC		= mandatory/cub3d.c mandatory/get_next_line.c mandatory/parse/parse_utils.c\
+			mandatory/parse/map.c mandatory/parse/store_instructions.c mandatory/parse/store_map.c mandatory/parse/check_walls.c \
+			mandatory/create_game.c mandatory/raycast.c mandatory/movement.c mandatory/game_utils.c mandatory/walls.c \
 
-CFLAGS	= #-Wall -Werror -Wextra
+CFLAGS	= -g3 -fsanitize=address#-Wall -Werror -Wextra
 
 BNAME	= cub3D_bonus
 
 LIBFT	= libft/libft.a
 
-all: $(NAME)
+all: $(NAME) clean
 
 bonus: $(BNAME)
 
-mandatory/%.o: mandatory/%.c mandatory/cub3d.h libft/libft.h Makefile
+mandatory/%.o: mandatory/%.c
 			$(CC) $(CFLAGS) -c $<  -o $@
 
 bonus/%.o: bonus/%.c bonus/cub3d_b.h Makefile 

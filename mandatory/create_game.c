@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_game.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:28:17 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/10/27 12:08:49 by tbesbess         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:43:03 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,22 @@ void	ft_clear_img(mlx_image_t *img)
 	}
 }
 
+void	load_textures(t_game *game)
+{
+	game->tx = malloc(sizeof(t_tx));
+	game->tx->e = mlx_load_png(game->data->EA);
+	game->tx->w = mlx_load_png(game->data->WE);
+	game->tx->s = mlx_load_png(game->data->SO);
+	game->tx->n = mlx_load_png(game->data->NO);
+}
+
 void update(void *p)
 {
 	t_game	*game;
 
 	game = p;
 	ft_clear_img(game->img);
-	// mlx_resize_image(game->img, game->win->width, game->win->height); SOS
 	movement(game, 0, 0);
-	// animation(game);
 	raycasting(game);
 }
 
@@ -66,17 +73,11 @@ void	set_player(t_game *game)
 void create_game(t_game *game)
 {
 	game->win = mlx_init(WIDTH, HEIGHT, "cub3D", true);
-    if (!game->win)
-        (ft_putstr_fd("Error\n", 2), exit(2));
 	game->img = mlx_new_image(game->win, WIDTH, HEIGHT);
-    if (!game->img)
-        (ft_putstr_fd("Error\n", 2), exit(2));
-	if (mlx_image_to_window(game->win, game->img, 0, 0) < 0)
-        (ft_putstr_fd("Error\n", 2), exit(2));
-	// load_textures(game);
+	mlx_image_to_window(game->win, game->img, 0, 0);
+	load_textures(game);
 	set_player(game);
 	mlx_loop_hook(game->win, &update, game);
-	// mlx_loop_hook(game->win, &animation, game);
 	mlx_key_hook(game->win, &handle_key, game);
 	mlx_loop(game->win);
 }
