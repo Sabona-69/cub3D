@@ -26,7 +26,7 @@
 //colors
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
-# define YELLOW "\033[0;3`3m"
+# define YELLOW "\033[0;33m"
 # define RESET "\033[0m"
 
 typedef enum e_status
@@ -54,16 +54,16 @@ typedef struct s_pos_d
 typedef struct s_data
 {
 	char	**map;
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
 	int		height;
 	int		width;
 	char	player_facing;
 	t_pos	player_postion;
-	int		F[3];
-	int		C[3];
+	int		f[3];
+	int		c[3];
 	int		fd;
 	char	*line;
 }	t_data;

@@ -51,7 +51,7 @@ static void	draw_ceiling(t_game *game, int wall_t)
 	int		i;
 	int		color;
 
-	color = ft_get_color(game->data->C[0], game->data->C[1],game->data->C[2], 255);
+	color = ft_get_color(game->data->c[0], game->data->c[1],game->data->c[2], 255);
 	i = 0;
 	while (i < wall_t)
 		my_pixel_put(game->img, game->rays->index, i++, color);
@@ -65,7 +65,6 @@ static void	draw_wall(t_game *game, int wall_t, int wall_b, double wall_h)
 	uint32_t		color;
 	int				y;
 
-	// load_textures(game);
 	texture = get_texture(game);
 	arr = (uint32_t *)texture->pixels;
 	offset.x = get_texture_x(texture, game);
@@ -84,7 +83,7 @@ static void	draw_wall(t_game *game, int wall_t, int wall_b, double wall_h)
 static void	draw_floor(t_game *game, int wall_b)
 {
 	int		color;
-	color = ft_get_color(game->data->F[0], game->data->F[1], game->data->F[2], 255);
+	color = ft_get_color(game->data->f[0], game->data->f[1], game->data->f[2], 255);
 	while (wall_b < game->win->height)
 		my_pixel_put(game->img, game->rays->index, wall_b++, color);
 }

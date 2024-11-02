@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   create_game_b.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 23:55:30 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/11/02 04:41:50 by hel-omra         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d_b.h"
 
 void	ft_clear_img(mlx_image_t *img)
@@ -32,10 +20,10 @@ void	ft_clear_img(mlx_image_t *img)
 
 void	load_textures(t_game *game)
 {
-	game->tx->e = mlx_load_png(game->data->EA);
-	game->tx->w = mlx_load_png(game->data->WE);
-	game->tx->s = mlx_load_png(game->data->SO);
-	game->tx->n = mlx_load_png(game->data->NO);
+	game->tx->e = mlx_load_png(game->data->ea);
+	game->tx->w = mlx_load_png(game->data->we);
+	game->tx->s = mlx_load_png(game->data->so);
+	game->tx->n = mlx_load_png(game->data->no);
 }
 
 long	get_time(void)

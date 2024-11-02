@@ -2,10 +2,10 @@
 
 void	exiting(t_data *cub, int status)
 {
-	free(cub->EA);
-	free(cub->WE);
-	free(cub->SO);
-	free(cub->NO);
+	free(cub->ea);
+	free(cub->we);
+	free(cub->so);
+	free(cub->no);
 	if (cub->map)
 		free2d(cub->map, ft_strlen2d(cub->map));
 	free(cub->line);

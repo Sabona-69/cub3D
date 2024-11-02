@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:28:17 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/01 23:18:51 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/02 05:19:22 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	ft_clear_img(mlx_image_t *img)
 
 void	load_textures(t_game *game)
 {
-	game->tx->e = mlx_load_png(game->data->EA);
-	game->tx->w = mlx_load_png(game->data->WE);
-	game->tx->s = mlx_load_png(game->data->SO);
-	game->tx->n = mlx_load_png(game->data->NO);
+	game->tx->e = mlx_load_png(game->data->ea);
+	game->tx->w = mlx_load_png(game->data->we);
+	game->tx->s = mlx_load_png(game->data->so);
+	game->tx->n = mlx_load_png(game->data->no);
 }
 
 void update(void *p)
