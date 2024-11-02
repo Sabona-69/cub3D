@@ -57,16 +57,16 @@ typedef struct s_pos_d
 typedef struct s_data
 {
 	char	**map;
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
 	int		height;
 	int		width;
 	char	player_facing;
 	t_pos	player_postion;
-	int		F[3];
-	int		C[3];
+	int		f[3];
+	int		c[3];
 	int		fd;
 	char	*line;
 }	t_data;

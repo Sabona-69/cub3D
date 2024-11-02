@@ -50,17 +50,17 @@ void	get_colors(int *tab, char *s, t_data *cub)
 int	check_line(t_data *cub, char *tmp)
 {
 	if (ft_strncmp("NO ", tmp, 3) == 0)
-		cub->NO = get_texture_line(tmp, cub);
+		cub->no = get_texture_line(tmp, cub);
 	else if (ft_strncmp("SO ", tmp, 3) == 0)
-		cub->SO = get_texture_line(tmp, cub);
+		cub->so = get_texture_line(tmp, cub);
 	else if (ft_strncmp("WE ", tmp, 3) == 0)
-		cub->WE = get_texture_line(tmp, cub);
+		cub->we = get_texture_line(tmp, cub);
 	else if (ft_strncmp("EA ", tmp, 3) == 0)
-		cub->EA = get_texture_line(tmp, cub);
+		cub->ea = get_texture_line(tmp, cub);
 	else if (ft_strncmp("F ", tmp, 2) == 0)
-		get_colors(cub->F, tmp + 2, cub);
+		get_colors(cub->f, tmp + 2, cub);
 	else if (ft_strncmp("C ", tmp, 2) == 0)
-		get_colors(cub->C, tmp + 2, cub);
+		get_colors(cub->c, tmp + 2, cub);
 	else
 		return (0);
 	return (1);
@@ -87,7 +87,7 @@ void	store_instructions(char *s, t_data *cub)
 		if (i == 6)
 			break ;
 	}
-	if (i != 6 || cub->C[0] == -1 || cub->F[0] == -1 || !cub->EA
-		|| !cub->NO || !cub->SO || !cub->WE)
+	if (i != 6 || cub->c[0] == -1 || cub->f[0] == -1 || !cub->ea
+		|| !cub->no || !cub->so || !cub->we)
 		exiting(cub, 1);
 }
