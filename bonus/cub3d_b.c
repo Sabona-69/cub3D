@@ -1,80 +1,111 @@
 #include "cub3d_b.h"
 
-
-void draw_square(void *init, void *window, int x, int y, int color)
+void	my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
-    int i = 0;
-    while (i < 32)
+	if (x < 0)
+		return ;
+	else if (x >= img->width)
+		return ;
+	if (y < 0)
+		return ;
+	else if (y >= img->height)
+		return ;
+	mlx_put_pixel(img, x, y, color);
+}
+
+void handle_key(mlx_key_data_t keydata, void *param)
+{
+	t_game	*game;
+
+	game = param;
+	if (keydata.key == MLX_KEY_ESCAPE && (keydata.action == MLX_PRESS))
+		exit(0);
+	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS))
+		game->player->walk = LEFT;
+	else if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS))
+		game->player->walk = RIGHT;
+	else if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS))
+		game->player->walk = DOWN;
+	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+		game->player->walk = UP;
+	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
+		game->player->turn = TURN_LEFT;
+	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
+		game->player->turn = TURN_RIGHT;
+	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_RELEASE))
+		game->player->walk = STOP;
+	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_RELEASE))
+		game->player->walk = STOP;
+	else if (keydata.key == MLX_KEY_S && (keydata.action == MLX_RELEASE))
+		game->player->walk = STOP;
+	else if (keydata.key == MLX_KEY_W && (keydata.action == MLX_RELEASE))
+		game->player->walk = STOP;
+	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE)
+		game->player->turn = STOP;
+	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
+		game->player->turn = STOP;
+}
+
+void	adjust_step(t_game *game, t_pos_d *delta, int is_vertical)
+{
+	if (is_vertical)
 	{
-        int j = 0;
-        while (j < 32)
-		{
-            mlx_pixel_put(init, window, x + i, y + j, color);
-            j++;
-        }
-        i++;
-    }
-}
-
-void draw_circle(void *init, void *window, int x, int y, int radius, int color)
-{
-    int i = -radius;
-    while (i <= radius)
+		if (game->rays->left)
+			delta->x *= -1;
+		if (game->rays->up && delta->y > 0)
+			delta->y *= -1;
+		if (game->rays->down && delta->y < 0)
+			delta->y *= -1;
+	}
+	else
 	{
-        int j = -radius;
-        while (j <= radius)
-		{
-            if (i * i + j * j <= radius * radius)
-                mlx_pixel_put(init, window, x + i, y + j, color);
-            j++;
-        }
-        i++;
-    }
+		if (game->rays->up)
+			delta->y *= -1;
+		if (game->rays->left && delta->x > 0)
+			delta->x *= -1;
+		if (game->rays->right && delta->x < 0)
+			delta->x *= -1;
+	}
 }
 
-void create_game(t_data *cub)
+void	check_input(int ac, char **av)
 {
-    int i, j;
-    void *init = mlx_init();
-    void *window = mlx_new_window(init, 32 * 36, 15 * 32, "cub3d");
-
-    i = 0;
-    while (cub->map[i])
-	 {
-        j = 0;
-        while (cub->map[i][j])
-		{
-            if (cub->map[i][j] == '0') 
-                draw_square(init, window, j * 32, i * 32,0x00FFFFFF ); // Black square
-            if (cub->map[i][j] == '1')
-                draw_square(init, window, j * 32, i * 32, 0x00000000); // White square
-            if (ft_strchr("EWSN", cub->map[i][j]))
-			{
-                draw_square(init, window, j * 32, i * 32,0x00FFFFFF ); // Black square
-                draw_circle(init, window, j * 32 + 16, i * 32 + 16, 4, 0x00FF0000); // Red circle
-			}
-            j++;
-        }
-        i++;
-    }
-    mlx_loop(init);
+	if (ac != 2 || ft_strlen(av[1]) < 4
+		| ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
+	{
+		ft_putstr_fd(RED"Error\n"RESET, 2);
+		exit(1);
+	}
 }
 
-void f(){
-	system("leaks cub3D");
-}
-
-int main(int ac, char **av)
+void    *ft_malloc(size_t size)
 {
-	t_data *cub;
-	// atexit(f);
-	if (ac != 2 || ft_strlen(av[1]) < 4 || ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
-		return (printf("Please Insert \"./cub\" + valid map\n"), 1);
-	cub = malloc(sizeof(t_data));
-	if (!cub)
-		return (ft_putstr_fd("malloc failed ", 2), 1);
-	ft_memset(cub, 0, sizeof(t_data));
-	parse_it(av[1], cub);
-	// create_game(cub);
-	exiting(cub, 0);
+    void    *new;
+
+    new = malloc(size);
+    if (!new)
+        (ft_putstr_fd("malloc failed !", 2), exit(1));
+    ft_bzero(new, size);
+    return(new);
+}
+
+void    allocate_t_game(t_game **game)
+{
+    (*game) = ft_malloc(sizeof(t_game));
+    (*game)->data = ft_malloc(sizeof(t_data));
+    (*game)->rays = ft_malloc(sizeof(t_ray));
+    (*game)->player = ft_malloc(sizeof(t_pl));
+    (*game)->anim= ft_malloc(sizeof(t_anim));
+    (*game)->tx = ft_malloc(sizeof(t_tx));
+}
+
+int    main(int ac, char **av)
+{
+    t_game    *game;
+
+    check_input(ac, av);
+    allocate_t_game(&game);
+    parse_it(av[1], game->data);
+    create_game(game);
+    exiting(game->data, 0);
 }
