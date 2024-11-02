@@ -1,4 +1,4 @@
-#include "cub3d_b.h"
+#include "../cub3d_b.h"
 
 int	is_empty(char *s)
 {

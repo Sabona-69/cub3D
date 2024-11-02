@@ -1,12 +1,12 @@
 C 1, 1, 1
 F 1, 1, 1
 
-EA textures/path_to_the_east_texture
-WE textures/path_to_the_west_texture
-SO textures/path_to_the_south_texture
-NO textures/path_to_the_north_texture
+EA assets/1.png
+WE assets/1.png
+SO assets/1.png
+NO assets/1.png
 
 111111111111
-110000N00011
-110D00100011
+110000ED0001
+110000100011
 111111111111

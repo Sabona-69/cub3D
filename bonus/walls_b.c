@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_b.h"
 
 mlx_texture_t	*get_texture(t_game *game)
 {
@@ -65,6 +65,7 @@ static void	draw_wall(t_game *game, int wall_t, int wall_b, double wall_h)
 	uint32_t		color;
 	int				y;
 
+	// load_textures(game);
 	texture = get_texture(game);
 	arr = (uint32_t *)texture->pixels;
 	offset.x = get_texture_x(texture, game);

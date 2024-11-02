@@ -22,12 +22,12 @@ void	check_elements(t_data *cub)
 	int		y;
 	int		count;
 
-	y = 0;
+	y = -1;
 	count = 0;
-	while (cub->map[y])
+	while (cub->map[++y])
 	{
-		x = 0;
-		while (cub->map[y][x])
+		x = -1;
+		while (cub->map[y][++x])
 		{
 			if (!ft_strchr("10 WESN", cub->map[y][x]))
 				exiting(cub, 1);
@@ -37,9 +37,7 @@ void	check_elements(t_data *cub)
 				cub->player_postion.y = y;
 				(1) && (cub->player_facing = cub->map[y][x], count++);
 			}
-			x++;
 		}
-		y++;
 	}
 	if (count != 1)
 		exiting(cub, 1);
