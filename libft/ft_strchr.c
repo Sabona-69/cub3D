@@ -6,21 +6,20 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:08:53 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/09/18 19:56:09 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/03 02:36:43 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
-
 {
 	size_t	i;
 
 	i = 0;
 	while (s[i] != (char)c)
 	{
-		if (s[i] == '\0') 
+		if (s[i] == '\0')
 			return (NULL);
 		i++;
 	}

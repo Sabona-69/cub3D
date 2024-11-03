@@ -71,7 +71,7 @@ void	adjust_step(t_game *game, t_pos_d *delta, int is_vertical)
 void	check_input(int ac, char **av)
 {
 	if (ac != 2 || ft_strlen(av[1]) < 4
-		| ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
+		|| ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
 	{
 		ft_putstr_fd(RED"Error\n"RESET, 2);
 		exit(1);

@@ -23,13 +23,13 @@
 # define ROTATION_SPEED 0.045
 # define MOVE_SPEED		5
 # define COLLISION		3
-# define ANIMATION_DELAY 100
+# define ANIMATION_DELAY 33
 
 //colors
 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
-# define YELLOW "\033[0;3`3m"
+# define YELLOW "\033[0;33m"
 # define RESET "\033[0m"
 
 typedef enum e_status
