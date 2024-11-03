@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:24:15 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/08/19 02:05:47 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/03 02:25:58 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*ft_strdup(const char *s1)
 	char	*s2;
 
 	if (!s1)
-		// return (ft_strdup(""));
 		return (NULL);
 	s2 = malloc(ft_strlen(s1) + 1);
 	if (!s2)

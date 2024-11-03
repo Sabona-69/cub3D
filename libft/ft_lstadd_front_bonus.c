@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 03:58:39 by hel-omra          #+#    #+#             */
-/*   Updated: 2023/11/22 14:18:35 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/03 02:36:11 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (lst && new) 
+	if (lst && new)
 	{
 		new->next = *lst;
 		*lst = new;

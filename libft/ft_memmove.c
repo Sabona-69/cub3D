@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:24:22 by hel-omra          #+#    #+#             */
-/*   Updated: 2023/11/23 19:20:25 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/03 02:35:19 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	else
 	{
 		while (len--)
-			d[len] = s[len]; 
+			d[len] = s[len];
 	}
 	return (d);
 }

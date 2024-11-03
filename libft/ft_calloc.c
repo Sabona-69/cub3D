@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:21:09 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/10/30 17:24:25 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/03 02:35:01 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	s = malloc(bytes);
 	if (!s)
-		ft_putstr_fd("malloc failed", 2), exit(1);
+		(ft_putstr_fd("malloc failed", 2), exit(1));
 	ft_bzero(s, bytes);
 	return (s);
 }

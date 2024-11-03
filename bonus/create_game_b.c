@@ -41,16 +41,25 @@ void	init_animation(t_game *game)
 
 	game->anim->i = 0;
 	game->anim->time = get_time();
-	game->anim->tx[0] = mlx_load_png("assets/animation/1.png");
-	game->anim->tx[1] = mlx_load_png("assets/animation/2.png");
-	game->anim->tx[2] = mlx_load_png("assets/animation/3.png");
-	game->anim->tx[3] = mlx_load_png("assets/animation/4.png");
-	game->anim->tx[4] = mlx_load_png("assets/animation/5.png");
-	game->anim->tx[5] = mlx_load_png("assets/animation/6.png");
-	game->anim->tx[6] = mlx_load_png("assets/animation/7.png");
-	game->anim->tx[7] = mlx_load_png("assets/animation/8.png");
-	game->anim->tx[8] = mlx_load_png("assets/animation/9.png");
-	game->anim->tx[9] = mlx_load_png("assets/animation/10.png");
+	game->anim->tx[0] = mlx_load_png("assets/animation1/1.png");
+	game->anim->tx[1] = mlx_load_png("assets/animation1/2.png");
+	game->anim->tx[2] = mlx_load_png("assets/animation1/3.png");
+	game->anim->tx[3] = mlx_load_png("assets/animation1/4.png");
+	game->anim->tx[4] = mlx_load_png("assets/animation1/5.png");
+	game->anim->tx[5] = mlx_load_png("assets/animation1/6.png");
+	game->anim->tx[6] = mlx_load_png("assets/animation1/7.png");
+	game->anim->tx[7] = mlx_load_png("assets/animation1/8.png");
+	game->anim->tx[8] = mlx_load_png("assets/animation1/9.png");
+	game->anim->tx[9] = mlx_load_png("assets/animation1/10.png");
+	i = -1;
+	while (++i < 10)
+	{
+		if (game->anim->tx[i] == NULL)
+			{
+				fprintf(stderr, "Error: Failed to load texture at index %d\n", i);
+				exit(EXIT_FAILURE); // Exit if any texture fails to load
+			}
+	}
 	i = -1;
 	while (++i < 10)
 	{
@@ -59,16 +68,32 @@ void	init_animation(t_game *game)
 	}
 }
 
-void animation(t_game *game)
-{
-	if (get_time() - game->anim->time >= ANIMATION_DELAY)
-	{
-		mlx_image_to_window(game->win, game->anim->img[game->anim->i], 0 , 0);
-		game->anim->time = get_time();
-		game->anim->i = (game->anim->i + 1) % 10;
-	}
-	
-	
+void animation(t_game *game) {
+    static long last_update = 0; // Store the last update time
+    long current_time = get_time();
+
+    // Check if it's time to update the animation frame
+    if (current_time - last_update >= ANIMATION_DELAY) {
+        last_update = current_time; // Update the last update time
+
+        // Delete the previous frame if not the first frame
+        if (game->anim->i > 0) {
+            printf(RED"delete {%d}\n"RESET, game->anim->i - 1);
+            mlx_delete_image(game->win, game->anim->img[game->anim->i - 1]);
+            game->anim->img[game->anim->i - 1] = NULL; // Set to NULL after deletion
+        }
+
+        // Render the current frame
+        printf(YELLOW"before putting {%d}\n"RESET, game->anim->i);
+        if (game->anim->img[game->anim->i] != NULL) {
+            mlx_image_to_window(game->win, game->anim->img[game->anim->i], 0, 0);
+        }
+        printf(YELLOW"after putting {%d}\n"RESET, game->anim->i);
+
+        // Increment the index for the next frame
+        game->anim->i = (game->anim->i + 1) % 10; // Loop back to the start
+        printf(GREEN"new value !{%d}\n"RESET, game->anim->i);
+    }
 }
 
 void update(void *p)
