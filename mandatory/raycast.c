@@ -57,7 +57,6 @@ static double	vertical_intersect(t_game *game)
 void raycasting(t_game *game)
 {
 	t_pos_d	distance;
-	game->rays = malloc(sizeof(t_ray));
 	game->rays->index = 0;
 	game->rays->angl = game->player->direction - (game->player->view / 2);
 	while (game->rays->index < game->win->width)
