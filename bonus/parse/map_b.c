@@ -1,6 +1,6 @@
 #include "../cub3d_b.h"
 
-void	exiting(t_data *cub, int status, t_game *game)
+void	exiting(t_data *cub, int status)
 {
 	free(cub->ea);
 	free(cub->we);
@@ -10,10 +10,6 @@ void	exiting(t_data *cub, int status, t_game *game)
 		free2d(cub->map, ft_strlen2d(cub->map));
 	free(cub->line);
 	close(cub->fd);
-	free(game->rays);
-	free(game->player);
-	free(game->tx);
-	free(game);
 	if (status == 0)
 		exit(0);
 	ft_putstr_fd(RED"Error\n"RESET, 2);

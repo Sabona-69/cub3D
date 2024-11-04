@@ -52,7 +52,7 @@ void	init_animation(t_game *game)
 	game->anim->tx[8] = mlx_load_png("assets/animation1/9.png");
 	game->anim->tx[9] = mlx_load_png("assets/animation1/10.png");
 	i = -1;
-	while (++i < 10)
+	while (++i < FRAMES)
 	{
 		if (game->anim->tx[i] == NULL)
 			{
@@ -61,38 +61,25 @@ void	init_animation(t_game *game)
 			}
 	}
 	i = -1;
-	while (++i < 10)
+	
+	while (++i < FRAMES)
 	{
 		game->anim->img[i] = mlx_texture_to_image(game->win, game->anim->tx[i]);
+		game->anim->img[i]->enabled = (i == 0); // Only enable the first frame initially
 		mlx_resize_image(game->anim->img[i], WIDTH, HEIGHT);
+		mlx_image_to_window(game->win, game->anim->img[i], 0, 0);
 	}
 }
 
-void animation(t_game *game) {
-    static long last_update = 0; // Store the last update time
-    long current_time = get_time();
-
-    // Check if it's time to update the animation frame
-    if (current_time - last_update >= ANIMATION_DELAY) {
-        last_update = current_time; // Update the last update time
-
-        // Delete the previous frame if not the first frame
-        if (game->anim->i > 0) {
-            printf(RED"delete {%d}\n"RESET, game->anim->i - 1);
-            mlx_delete_image(game->win, game->anim->img[game->anim->i - 1]);
-            game->anim->img[game->anim->i - 1] = NULL; // Set to NULL after deletion
-        }
-
-        // Render the current frame
-        printf(YELLOW"before putting {%d}\n"RESET, game->anim->i);
-        if (game->anim->img[game->anim->i] != NULL) {
-            mlx_image_to_window(game->win, game->anim->img[game->anim->i], 0, 0);
-        }
-        printf(YELLOW"after putting {%d}\n"RESET, game->anim->i);
-
-        // Increment the index for the next frame
-        game->anim->i = (game->anim->i + 1) % 10; // Loop back to the start
-        printf(GREEN"new value !{%d}\n"RESET, game->anim->i);
+void	animation(t_game *game)
+{
+    if (get_time() - game->anim->time >= ANIMATION_DELAY)
+	{
+        game->anim->time = get_time();
+        game->anim->img[game->anim->i % 10]->enabled = true;
+		if (game->anim->i % 10 != 0)
+        	game->anim->img[game->anim->i % 10 - 1]->enabled = false;
+        game->anim->i = (game->anim->i + 1) % FRAMES;
     }
 }
 

@@ -23,7 +23,8 @@
 # define ROTATION_SPEED 0.045
 # define MOVE_SPEED		5
 # define COLLISION		3
-# define ANIMATION_DELAY 33
+# define ANIMATION_DELAY 100
+# define FRAMES 10
 
 //colors
 
