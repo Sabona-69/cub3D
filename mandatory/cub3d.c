@@ -106,7 +106,7 @@ int    main(int ac, char **av)
 {
     t_game    *game;
 
-	atexit(f);
+	// atexit(f);
     check_input(ac, av);
     allocate_t_game(&game);
     parse_it(av[1], game->data);
