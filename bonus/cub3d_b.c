@@ -1,4 +1,5 @@
 #include "cub3d_b.h"
+#include "leaks.h"
 
 void	my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
@@ -108,7 +109,7 @@ int    main(int ac, char **av)
 {
     t_game    *game;
 
-	// atexit(f);
+	atexit(f);
     check_input(ac, av);
     allocate_t_game(&game);
     parse_it(av[1], game->data);
@@ -118,6 +119,7 @@ int    main(int ac, char **av)
 	while (i < FRAMES)
 		free(game->anim->img[i++]);
 	free(game->anim->img);
+	free(game->anim);
 	free(game->rays);
 	free(game->player);
 	free(game->tx);
