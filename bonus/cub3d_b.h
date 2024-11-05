@@ -18,9 +18,9 @@
 
 # define HEIGHT			1440
 # define WIDTH			2560
-# define FOV			60
+# define FOV			90
 # define TILE_SIZE		32
-# define ROTATION_SPEED 0.045
+# define ROTATION_SPEED 0.06
 # define MOVE_SPEED		5
 # define COLLISION		3
 # define ANIMATION_DELAY 100

@@ -37,11 +37,11 @@ long	get_time(void)
 
 mlx_image_t		**generating_frames(t_game *game, char *path, int frames)
 {
-	int		i;
-	mlx_image_t		**new;
 	char			*full_path;
 	char			*itoa;
 	char			*join;
+	int				i;
+	mlx_image_t		**new;
 
 	i = 0;
 	new = ft_malloc(frames * sizeof(mlx_image_t *));
@@ -92,7 +92,7 @@ void update(void *p)
 	game = p;
 	ft_clear_img(game->img);
 	movement(game, 0, 0);
-	// animation(game);
+	animation(game);
 	raycasting(game);
 }
 
