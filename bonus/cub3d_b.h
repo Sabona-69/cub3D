@@ -107,8 +107,7 @@ typedef struct s_ray
 
 typedef struct s_anim
 {
-	mlx_image_t		*img[10];
-	mlx_texture_t	*tx[10];
+	mlx_image_t		**img;;
 	long			time;
 	int				i;
 } t_anim;
@@ -141,6 +140,8 @@ int		my_atoi(char *str);
 void	parse_it(char *s, t_data *cub);
 void	set_player(t_game *game);
 void	store_map(t_data *cub);
+void    *ft_malloc(size_t size);
+
 
 // Game
 void		create_game(t_game *game);

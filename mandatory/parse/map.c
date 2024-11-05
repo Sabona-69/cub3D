@@ -10,7 +10,7 @@ void	exiting(t_data *cub, int status)
 		free2d(cub->map, ft_strlen2d(cub->map));
 	free(cub->line);
 	close(cub->fd);
-	free(cub);
+	// free(cub);
 	// if (status == 0)
 	// 	exit(0);
 	// ft_putstr_fd(RED"Error\n"RESET, 2);

@@ -35,52 +35,54 @@ long	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	init_animation(t_game *game)
+mlx_image_t		**generating_frames(t_game *game, char *path, int frames)
 {
 	int		i;
+	mlx_image_t		**new;
+	char			*full_path;
+	char			*itoa;
+	char			*join;
 
-	game->anim->i = 0;
-	game->anim->time = get_time();
-	game->anim->tx[0] = mlx_load_png("assets/animation1/1.png");
-	game->anim->tx[1] = mlx_load_png("assets/animation1/2.png");
-	game->anim->tx[2] = mlx_load_png("assets/animation1/3.png");
-	game->anim->tx[3] = mlx_load_png("assets/animation1/4.png");
-	game->anim->tx[4] = mlx_load_png("assets/animation1/5.png");
-	game->anim->tx[5] = mlx_load_png("assets/animation1/6.png");
-	game->anim->tx[6] = mlx_load_png("assets/animation1/7.png");
-	game->anim->tx[7] = mlx_load_png("assets/animation1/8.png");
-	game->anim->tx[8] = mlx_load_png("assets/animation1/9.png");
-	game->anim->tx[9] = mlx_load_png("assets/animation1/10.png");
-	i = -1;
-	while (++i < FRAMES)
+	i = 0;
+	new = ft_malloc(frames * sizeof(mlx_image_t *));
+	while (i < frames)
 	{
-		if (game->anim->tx[i] == NULL)
-			{
-				fprintf(stderr, "Error: Failed to load texture at index %d\n", i);
-				exit(EXIT_FAILURE); // Exit if any texture fails to load
-			}
+		itoa = ft_itoa(i + 1);
+		join = ft_strjoin(path, itoa);
+		full_path = ft_strjoin(join, ".png");
+		new[i] = mlx_texture_to_image(game->win, mlx_load_png(full_path));
+		new[i]->enabled = (i == 0);
+		mlx_resize_image(new[i], WIDTH, HEIGHT);
+		mlx_image_to_window(game->win, new[i], 0, 0);
+		free(join);
+		free(itoa);
+		free(full_path);
+		i++;
 	}
-	i = -1;
-	
-	while (++i < FRAMES)
-	{
-		game->anim->img[i] = mlx_texture_to_image(game->win, game->anim->tx[i]);
-		game->anim->img[i]->enabled = (i == 0); // Only enable the first frame initially
-		mlx_resize_image(game->anim->img[i], WIDTH, HEIGHT);
-		mlx_image_to_window(game->win, game->anim->img[i], 0, 0);
-	}
+	return (new);
 }
 
-void	animation(t_game *game)
+void	init_animation(t_game *game)
 {
+	game->anim->i = 0;
+	game->anim->time = get_time();
+	game->anim->img = generating_frames(game, "assets/animation/", FRAMES);
+}
+
+void animation(t_game *game)
+{
+	int current_frame;
+	int previous_frame;
+
     if (get_time() - game->anim->time >= ANIMATION_DELAY)
 	{
-        game->anim->time = get_time();
-        game->anim->img[game->anim->i % 10]->enabled = true;
-		if (game->anim->i % 10 != 0)
-        	game->anim->img[game->anim->i % 10 - 1]->enabled = false;
-        game->anim->i = (game->anim->i + 1) % FRAMES;
-    }
+		game->anim->time = get_time();
+		current_frame = game->anim->i % FRAMES;
+		previous_frame = (current_frame - 1 + FRAMES) % FRAMES;
+		game->anim->img[current_frame]->enabled = true;
+		game->anim->img[previous_frame]->enabled = false;
+		game->anim->i = (game->anim->i + 1) % FRAMES;
+	}
 }
 
 void update(void *p)
@@ -90,7 +92,7 @@ void update(void *p)
 	game = p;
 	ft_clear_img(game->img);
 	movement(game, 0, 0);
-	animation(game);
+	// animation(game);
 	raycasting(game);
 }
 
