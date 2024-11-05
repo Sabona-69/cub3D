@@ -99,13 +99,28 @@ void    allocate_t_game(t_game **game)
     (*game)->tx = ft_malloc(sizeof(t_tx));
 }
 
+void f()
+{
+	system("leaks cub3D");
+}
+
 int    main(int ac, char **av)
 {
     t_game    *game;
 
+	// atexit(f);
     check_input(ac, av);
     allocate_t_game(&game);
     parse_it(av[1], game->data);
     create_game(game);
     exiting(game->data, 0);
+	int i = 0;
+	while (i < FRAMES)
+		free(game->anim->img[i++]);
+	free(game->anim->img);
+	free(game->rays);
+	free(game->player);
+	free(game->tx);
+	free(game->data);
+	free(game);
 }
