@@ -1,1 +1,12 @@
-Memory allocated at address: 0x7f9c64d1ef00, file: bonus/cub3d_b.c, line: 86
+Memory allocated at address: 0x7ffc75a1b990, file: bonus/cub3d_b.c, line: 105
+Memory freed from address: 0x7ffc75a1b990, file: bonus/cub3d_b.c, line: 30
+Memory freed from address: 0x7ffc7340e330, file: bonus/cub3d_b.c, line: 31
+Memory freed from address: 0x7ffc7340e290, file: bonus/cub3d_b.c, line: 32
+Memory freed from address: 0x7ffc7340e2f0, file: bonus/cub3d_b.c, line: 33
+Memory freed from address: 0x7ffc75d08c80, file: bonus/cub3d_b.c, line: 34
+Memory freed from address: 0x7ffc75c11bd0, file: bonus/cub3d_b.c, line: 35
+Memory freed from address: 0x7ffc75a199e0, file: bonus/cub3d_b.c, line: 36
+Memory freed from address: 0x7ffc7350e340, file: bonus/cub3d_b.c, line: 37
+Memory freed from address: 0x7ffc7340e350, file: bonus/cub3d_b.c, line: 38
+Memory freed from address: 0x7ffc7340e730, file: bonus/cub3d_b.c, line: 39
+Memory freed from address: 0x7ffc7340e6f0, file: bonus/cub3d_b.c, line: 40
