@@ -1,5 +1,6 @@
 #include "cub3d_b.h"
-#include "leaks.h"
+
+
 
 void	my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
@@ -20,7 +21,25 @@ void handle_key(mlx_key_data_t keydata, void *param)
 
 	game = param;
 	if (keydata.key == MLX_KEY_ESCAPE && (keydata.action == MLX_PRESS))
+	{
+		exiting(game->data, 0);
+		int i ;
+		i = 0;
+		while (i < FRAMES)
+			free(game->anim->img[i++]);
+		free(game->anim->img);
+		free(game->anim);
+		free(game->rays);
+		free(game->player);
+		free(game->tx->e);
+		free(game->tx->w);
+		free(game->tx->s);
+		free(game->tx->n);
+		free(game->tx);
+		free(game->data);
+		free(game);
 		exit(0);
+	}
 	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS))
 		game->player->walk = LEFT;
 	else if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS))
@@ -114,15 +133,16 @@ int    main(int ac, char **av)
     allocate_t_game(&game);
     parse_it(av[1], game->data);
     create_game(game);
-    exiting(game->data, 0);
-	int i = 0;
-	while (i < FRAMES)
-		free(game->anim->img[i++]);
-	free(game->anim->img);
-	free(game->anim);
-	free(game->rays);
-	free(game->player);
-	free(game->tx);
-	free(game->data);
-	free(game);
+	// int i = 0;
+	// while (i < FRAMES)
+	// 	free(game->anim->img[i++]);
+
+	// free(game->anim->img);
+	// free(game->anim);
+	// free(game->rays);
+	// free(game->player);
+	// free(game->tx);
+    // exiting(game->data, 0);
+	// free(game->data);
+	// free(game);
 }

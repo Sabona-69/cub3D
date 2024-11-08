@@ -24,6 +24,7 @@ void	load_textures(t_game *game)
 	game->tx->w = mlx_load_png(game->data->we);
 	game->tx->s = mlx_load_png(game->data->so);
 	game->tx->n = mlx_load_png(game->data->no);
+	printf("address of game->tx->e == %p\n", game->tx->e);
 }
 
 long	get_time(void)
@@ -37,26 +38,28 @@ long	get_time(void)
 
 mlx_image_t		**generating_frames(t_game *game, char *path, int frames)
 {
-	char			*full_path;
-	char			*itoa;
+	mlx_image_t		**new;
+	mlx_texture_t	*tx;
+	char			*tmp;
 	char			*join;
 	int				i;
-	mlx_image_t		**new;
 
 	i = 0;
 	new = ft_malloc(frames * sizeof(mlx_image_t *));
 	while (i < frames)
 	{
-		itoa = ft_itoa(i + 1);
-		join = ft_strjoin(path, itoa);
-		full_path = ft_strjoin(join, ".png");
-		new[i] = mlx_texture_to_image(game->win, mlx_load_png(full_path));
+		tmp = ft_itoa(i + 1);
+		join = ft_strjoin(path, tmp);
+		free(tmp);
+		tmp = ft_strjoin(join, ".png");
+		tx = mlx_load_png(tmp);
+		new[i] = mlx_texture_to_image(game->win, tx);
 		new[i]->enabled = (i == 0);
 		mlx_resize_image(new[i], WIDTH, HEIGHT);
 		mlx_image_to_window(game->win, new[i], 0, 0);
+		free(tx);
 		free(join);
-		free(itoa);
-		free(full_path);
+		free(tmp);
 		i++;
 	}
 	return (new);
@@ -67,6 +70,9 @@ void	init_animation(t_game *game)
 	game->anim->i = 0;
 	game->anim->time = get_time();
 	game->anim->img = generating_frames(game, "assets/animation/", FRAMES);
+	// printf("address of game->tx->e == %p\n", game->tx->e);
+	// printf("address of game->anim->img == %p\n", game->anim->img);
+	// printf("address of game->anim->img == %p\n", game->anim->img);
 }
 
 void animation(t_game *game)
