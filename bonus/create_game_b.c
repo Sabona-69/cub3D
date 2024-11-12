@@ -1,4 +1,4 @@
-#include "cub3d_b.h"
+#include "../include/cub3d_b.h"
 
 void	ft_clear_img(mlx_image_t *img)
 {
@@ -37,26 +37,28 @@ long	get_time(void)
 
 mlx_image_t		**generating_frames(t_game *game, char *path, int frames)
 {
-	char			*full_path;
-	char			*itoa;
+	mlx_image_t		**new;
+	mlx_texture_t	*tx;
+	char			*tmp;
 	char			*join;
 	int				i;
-	mlx_image_t		**new;
 
 	i = 0;
 	new = ft_malloc(frames * sizeof(mlx_image_t *));
 	while (i < frames)
 	{
-		itoa = ft_itoa(i + 1);
-		join = ft_strjoin(path, itoa);
-		full_path = ft_strjoin(join, ".png");
-		new[i] = mlx_texture_to_image(game->win, mlx_load_png(full_path));
+		tmp = ft_itoa(i + 1);
+		join = ft_strjoin(path, tmp);
+		free(tmp);
+		tmp = ft_strjoin(join, ".png");
+		tx = mlx_load_png(tmp);
+		new[i] = mlx_texture_to_image(game->win, tx);
 		new[i]->enabled = (i == 0);
 		mlx_resize_image(new[i], WIDTH, HEIGHT);
 		mlx_image_to_window(game->win, new[i], 0, 0);
 		free(join);
-		free(itoa);
-		free(full_path);
+		free(tx);
+		free(tmp);
 		i++;
 	}
 	return (new);

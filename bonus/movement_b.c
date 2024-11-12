@@ -6,11 +6,11 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:22:45 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/01 21:27:27 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:20:35 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_b.h"
+#include "../include/cub3d_b.h"
 
 int check_collision(t_game *game, int x, int y)
 {

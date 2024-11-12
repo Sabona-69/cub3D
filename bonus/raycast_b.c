@@ -1,4 +1,4 @@
-#include "cub3d_b.h"
+#include "../include/cub3d_b.h"
 
 void	check_rayfacing(t_game *game, double angle)
 {

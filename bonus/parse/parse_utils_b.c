@@ -1,4 +1,4 @@
-#include "../cub3d_b.h"
+#include "../../include/cub3d_b.h"
 
 int	is_empty(char *s)
 {
@@ -18,9 +18,7 @@ char *ft_strtrim_end(char const *s1, char const *set)
 		return (NULL);
 	j = ft_strlen(s1);
 	while (j && ft_strchr(set, s1[j]))
-	{
 		j--;
-	}
 	if (j == 0)
 		p = ft_substr(s1, 0, ft_strlen(s1) - 1);
 	else
@@ -83,6 +81,8 @@ int	ft_strlen2d(char **s)
 	int i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
