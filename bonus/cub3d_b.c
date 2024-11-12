@@ -1,5 +1,45 @@
-#include "cub3d_b.h"
-#include "leaks.h"
+#include "../include/cub3d_b.h"
+// #include "../leaks.h"
+
+
+// #define ERROR 2
+
+void	exiting(t_game *game, char *message, int status)
+{
+	int		i;
+
+	free(game->data->ea);
+	free(game->data->we);
+	free(game->data->so);
+	free(game->data->no);
+	if (game->data->map)
+		free2d(game->data->map, ft_strlen2d(game->data->map));
+	free(game->data->line);
+	close(game->data->fd);
+	if (status == GAME)
+	{
+		mlx_close_window(game->win);
+		mlx_delete_image(game->win, game->img);
+		i = -1;
+		while (++i < FRAMES)
+			if (game->anim->img[i])
+				mlx_delete_image(game->win, game->anim->img[i]);
+		free(game->anim->img);
+		free(game->anim);
+		mlx_delete_texture(game->tx->e);
+		mlx_delete_texture(game->tx->w);
+		mlx_delete_texture(game->tx->s);
+		mlx_delete_texture(game->tx->n);
+		free(game->tx);
+		free(game->rays);
+		free(game->player);
+		free(game->data);
+		free(game);
+	}
+	if (message)
+		(printf(RED"%s !\n" RESET, message), exit(1));
+	exit(0);
+}
 
 void	my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
@@ -20,7 +60,7 @@ void handle_key(mlx_key_data_t keydata, void *param)
 
 	game = param;
 	if (keydata.key == MLX_KEY_ESCAPE && (keydata.action == MLX_PRESS))
-		exit(0);
+		exiting(game, NULL, GAME);
 	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS))
 		game->player->walk = LEFT;
 	else if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS))
@@ -102,7 +142,7 @@ void    allocate_t_game(t_game **game)
 
 void f()
 {
-	system("leaks cub3D");
+	system("leaks --fullStacks --list cub3D_bonus");
 }
 
 int    main(int ac, char **av)
@@ -112,17 +152,6 @@ int    main(int ac, char **av)
 	// atexit(f);
     check_input(ac, av);
     allocate_t_game(&game);
-    parse_it(av[1], game->data);
+    parse_it(av[1], game);
     create_game(game);
-    exiting(game->data, 0);
-	int i = 0;
-	while (i < FRAMES)
-		free(game->anim->img[i++]);
-	free(game->anim->img);
-	free(game->anim);
-	free(game->rays);
-	free(game->player);
-	free(game->tx);
-	free(game->data);
-	free(game);
 }
