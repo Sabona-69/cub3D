@@ -1,5 +1,6 @@
 # ifndef CUB3D_H
 # define CUB3D_H
+// #include "../leaks.h"
 
 
 # include <fcntl.h>
@@ -26,12 +27,19 @@
 # define ANIMATION_DELAY 100
 # define FRAMES 10
 
-//colors
+// flags exiting
+
+# define PARSE 0
+# define GAME 1
+
+// colors
 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define YELLOW "\033[0;33m"
 # define RESET "\033[0m"
+
+typedef struct s_game t_game;
 
 typedef enum e_status
 {
@@ -70,6 +78,7 @@ typedef struct s_data
 	int		c[3];
 	int		fd;
 	char	*line;
+	t_game	*game;
 }	t_data;
 
 typedef	struct s_pl
@@ -126,9 +135,9 @@ typedef struct s_game
 
 // Utils
 
-void	check_walls(char **map, t_data *cub);
-void	store_instructions(char *s, t_data *cub);
-void	exiting(t_data *cub, int status);
+void	exiting(t_game *game, char *message, int status);
+void    *ft_malloc(size_t size);
+
 char	**strjoin2d(char **str, char *s);
 char	*ft_strtrim_end(char const *s1, char const *set);
 char	*get_next_line(int fd);
@@ -137,13 +146,19 @@ int		skip_char(char *s, char c);
 int		ft_strlen2d(char **s);
 int		is_empty(char *s);
 int		my_atoi(char *str);
-void	parse_it(char *s, t_data *cub);
-void	set_player(t_game *game);
-void	store_map(t_data *cub);
-void    *ft_malloc(size_t size);
 
+// Parse
+
+void	parse_it(char *s, t_game *game);
+void	store_instructions(char *s, t_data *data);
+void	check_empty_map(t_data *data);
+void	store_map(t_data *data);
+void	check_walls(char **map, t_game *game);
+void	check_space(char **map, t_game *game);
 
 // Game
+
+void		set_player(t_game *game);
 void		create_game(t_game *game);
 void		handle_key(mlx_key_data_t keydata, void *param);
 void		raycasting(t_game *game);
@@ -153,9 +168,9 @@ void		projected_wall(t_game *game);
 uint32_t	reverse_bytes(uint32_t c);
 uint32_t	ft_get_color(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
 double		calcul_distance(t_pos_d start, t_pos_d end);
-double	normalize_angle(double angle);
-void	adjust_step(t_game *game, t_pos_d *delta, int is_vertical);
-void	my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+double		normalize_angle(double angle);
+void		adjust_step(t_game *game, t_pos_d *delta, int is_vertical);
+void		my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 
 
 
