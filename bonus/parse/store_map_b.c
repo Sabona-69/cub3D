@@ -1,48 +1,90 @@
-#include "../cub3d_b.h"
+#include "../../include/cub3d_b.h"
 
-void	check_empty_map(t_data *cub)
+void	check_sides(char **map, int x_len, t_game *game)
+{
+	int		y;
+	int		x;
+
+	y = 1;
+	while (map[y])
+	{
+		x_len = ft_strlen(map[y]) - 1;
+		x = skip_char(map[y], ' ');
+		if (is_empty(map[y]) == FALSE && (!ft_strchr("1 ", map[y][x_len])
+			|| !ft_strchr("1 ", map[y][x_len])))
+			exiting(game, "Invalid map", PARSE);
+		y++;
+	}
+}
+
+void	check_walls(char **map, t_game *game)
+{
+	int		y_len;
+	int		x_len;
+	int		y;
+	int		x;
+
+	x = skip_char(map[0], ' ');
+	while (map[0][x])
+	{
+		if (!ft_strchr("1 ", map[0][x]))
+			exiting(game, "Invalid map", PARSE);
+		x++;
+	}
+	y_len = game->data->width - 1;
+	x = skip_char(map[y_len], ' ');
+	while (map[y_len][x])
+	{
+		if (!ft_strchr("1 ", map[y_len][x]))
+			exiting(game, "Invalid map", PARSE);
+		x++;
+	}
+	check_sides(map, x_len, game);
+}
+
+void	check_empty_map(t_data *data)
 {
 	char	*tmp;
 
-	while (cub->line)
+	while (data->line)
 	{
-		tmp = ft_strtrim(cub->line, "\n");
+		tmp = ft_strtrim(data->line, "\n");
 		if (!is_empty(tmp))
 			break ;
-		free(cub->line);
+		free(data->line);
 		free(tmp);
-		cub->line = get_next_line(cub->fd);
+		data->line = get_next_line(data->fd);
 	}
 	free(tmp);
-	if (!cub->line)
-		return (exiting(cub, 1));
+	if (!data->line)
+		return (exiting(data->game, "Empty map", PARSE));
 }
 
-void	store_map(t_data *cub)
+void	store_map(t_data *data)
 {
 	char	*tmp;
 	char	**map;
-	int		i;
-	int		j;
+	int		min_len;
+	int		line_start;
 
-	check_empty_map(cub);
-	(1) && (map = NULL, i = ft_strlen(cub->line), j = i);
-	while (cub->line)
+	(1) && (map = NULL, min_len = ft_strlen(data->line), line_start = min_len);
+	while (data->line)
 	{
-		(1) && (tmp = cub->line, cub->line = ft_strtrim_end(cub->line, " \n"));
-		if (!cub->line[0])
-			(free(cub->line), cub->line = ft_strdup(" "));
-		if (i < j)
-			j = i;
-		if (cub->line[0] == ' ')
-			i = skip_char(cub->line, ' ');
-		else if (cub->line[0])
-			i = 0;
-		map = strjoin2d(map, cub->line);
-		(free(tmp), free(cub->line), cub->line = get_next_line(cub->fd));
+		tmp = data->line;
+		data->line = ft_strtrim_end(data->line, " \n");
+		if (!data->line[0])
+			(free(data->line), data->line = ft_strdup(" "));
+		if (min_len < line_start)
+			line_start = min_len;
+		if (data->line[0] == ' ')
+			min_len = skip_char(data->line, ' ');
+		else if (data->line[0])
+			min_len = 0;
+		map = strjoin2d(map, data->line);
+		(free(tmp), free(data->line), data->line = get_next_line(data->fd));
 	}
-	(free(cub->line), i = -1);
-	while (map[++i])
-		cub->map = strjoin2d(cub->map, &(map[i][j]));
+	(free(data->line), min_len = -1);
+	while (map[++min_len])
+		data->map = strjoin2d(data->map, &(map[min_len][line_start]));
 	free2d(map, ft_strlen2d(map));
 }

@@ -1,4 +1,4 @@
-#include "cub3d_b.h"
+#include "../include/cub3d_b.h"
 
 int	check_nl(char *s)
 {

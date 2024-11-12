@@ -1,6 +1,6 @@
-#include "../cub3d_b.h"
+#include "../../include/cub3d_b.h"
 
-char	*get_texture_line(char *s, t_data *cub)
+char	*get_texture_line(char *s, t_game *game)
 {
 	char	**split;
 	char	*new;
@@ -8,17 +8,17 @@ char	*get_texture_line(char *s, t_data *cub)
 
 	split = ft_split(s, " ");
 	if (ft_strlen2d(split) != 2)
-		exiting(cub, 1);
+		exiting(game, "Invalid texture", PARSE);
 	new = ft_strdup(split[1]);
-	check = open(new, O_RDONLY);
-	if (check == -1)
-		exiting(cub, 1);
-	close(check);
 	free2d(split, ft_strlen2d(split));
+	check = open(new, O_RDONLY);
+	close(check);
+	if (check == -1)
+		exiting(game, "Invalid texture Path", PARSE);
 	return (new);
 }
 
-void	get_colors(int *tab, char *s, t_data *cub)
+void	get_colors(int *tab, char *s, t_game *game)
 {
 	char	**split;
 	char	*tmp;
@@ -31,10 +31,10 @@ void	get_colors(int *tab, char *s, t_data *cub)
 		if (s[i] == ',')
 			j++;
 	if (j != 2)
-		exiting(cub, 1);
+		exiting(game, "Must separate with 1 comma", PARSE);
 	split = ft_split(s, ",");
 	if (ft_strlen2d(split) != 3)
-		exiting(cub, 1);
+		exiting(game, "Set only 3 colors", PARSE);
 	i = -1;
 	while (++i < 3)
 	{
@@ -43,51 +43,51 @@ void	get_colors(int *tab, char *s, t_data *cub)
 		free(tmp);
 	}
 	if (tab[0] == -1 || tab[1] == -1 || tab[2] == -1)
-		exiting(cub, 1);
+		exiting(game, "Invalid colors (0 ~ 255)", PARSE);
 	free2d(split, ft_strlen2d(split));
 }
 
-int	check_line(t_data *cub, char *tmp)
+int	check_line(t_data *data, char *tmp)
 {
 	if (ft_strncmp("NO ", tmp, 3) == 0)
-		cub->no = get_texture_line(tmp, cub);
+		data->no = get_texture_line(tmp, data->game);
 	else if (ft_strncmp("SO ", tmp, 3) == 0)
-		cub->so = get_texture_line(tmp, cub);
+		data->so = get_texture_line(tmp, data->game);
 	else if (ft_strncmp("WE ", tmp, 3) == 0)
-		cub->we = get_texture_line(tmp, cub);
+		data->we = get_texture_line(tmp, data->game);
 	else if (ft_strncmp("EA ", tmp, 3) == 0)
-		cub->ea = get_texture_line(tmp, cub);
+		data->ea = get_texture_line(tmp, data->game);
 	else if (ft_strncmp("F ", tmp, 2) == 0)
-		get_colors(cub->f, tmp + 2, cub);
+		get_colors(data->f, tmp + 2, data->game);
 	else if (ft_strncmp("C ", tmp, 2) == 0)
-		get_colors(cub->c, tmp + 2, cub);
+		get_colors(data->c, tmp + 2, data->game);
 	else
 		return (0);
 	return (1);
 }
 
-void	store_instructions(char *s, t_data *cub)
+void	store_instructions(char *s, t_data *data)
 {
 	char	*tmp;
 	int		i;
 
-	cub->fd = open(s, O_RDONLY);
-	if (cub->fd == -1)
-		exiting(cub, 1);
-	(1) && (i = 0, cub->line = get_next_line(cub->fd));
-	while (cub->line)
+	data->fd = open(s, O_RDONLY);
+	if (data->fd == -1)
+		exiting(data->game, "Can't open map", PARSE);
+	(1) && (i = 0, data->line = get_next_line(data->fd));
+	while (data->line)
 	{
-		tmp = ft_strtrim(cub->line, " \n");
-		if (check_line(cub, tmp))
+		tmp = ft_strtrim(data->line, " \n");
+		if (check_line(data, tmp))
 			i++;
 		else if (i != 6 && tmp[0])
-			(free(tmp), exiting(cub, 1));
-		(free(tmp), free(cub->line));
-		cub->line = get_next_line(cub->fd);
+			(free(tmp), exiting(data->game, "Invalid map", PARSE));
+		(free(tmp), free(data->line));
+		data->line = get_next_line(data->fd);
 		if (i == 6)
 			break ;
 	}
-	if (i != 6 || cub->c[0] == -1 || cub->f[0] == -1 || !cub->ea
-		|| !cub->no || !cub->so || !cub->we)
-		exiting(cub, 1);
+	if (i != 6 || data->c[0] == -1 || data->f[0] == -1 || !data->ea
+		|| !data->no || !data->so || !data->we)
+		exiting(data->game, "Can't open map", PARSE);
 }

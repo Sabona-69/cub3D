@@ -1,4 +1,4 @@
-#include "cub3d_b.h"
+#include "../include/cub3d_b.h"
 
 void	ft_clear_img(mlx_image_t *img)
 {
@@ -24,7 +24,6 @@ void	load_textures(t_game *game)
 	game->tx->w = mlx_load_png(game->data->we);
 	game->tx->s = mlx_load_png(game->data->so);
 	game->tx->n = mlx_load_png(game->data->no);
-	printf("address of game->tx->e == %p\n", game->tx->e);
 }
 
 long	get_time(void)
@@ -57,8 +56,8 @@ mlx_image_t		**generating_frames(t_game *game, char *path, int frames)
 		new[i]->enabled = (i == 0);
 		mlx_resize_image(new[i], WIDTH, HEIGHT);
 		mlx_image_to_window(game->win, new[i], 0, 0);
-		free(tx);
 		free(join);
+		free(tx);
 		free(tmp);
 		i++;
 	}
@@ -70,9 +69,6 @@ void	init_animation(t_game *game)
 	game->anim->i = 0;
 	game->anim->time = get_time();
 	game->anim->img = generating_frames(game, "assets/animation/", FRAMES);
-	// printf("address of game->tx->e == %p\n", game->tx->e);
-	// printf("address of game->anim->img == %p\n", game->anim->img);
-	// printf("address of game->anim->img == %p\n", game->anim->img);
 }
 
 void animation(t_game *game)
