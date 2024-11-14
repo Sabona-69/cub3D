@@ -27,6 +27,23 @@ void	check_elements(t_data *data)
 		exiting(data->game, "Invalid Player Position", PARSE);
 }
 
+void	check_doors(t_game *game, int y, int x)
+{
+	int		hz;
+	int		vr;
+	char	**s;
+
+	hz = 0;
+	vr = 0;
+	s = game->data->map;
+	if (s[y - 1][x] == '1' && s[y + 1][x] == '1')
+		hz = 1;
+	if (s[y][x - 1] == '1' && s[y][x + 1] == '1')
+		vr = 1;
+	if (!hz && !vr)
+		exiting(game, "Invalid door", PARSE);
+}
+
 void	check_space(char **map, t_game *game)
 {
 	size_t		y;
@@ -46,6 +63,8 @@ void	check_space(char **map, t_game *game)
 				if (map[y][x - 1] == ' ' || map[y][x + 1] == ' '
 					|| map[y - 1][x] == ' ' || map[y + 1][x] == ' ')
 					exiting(game, "Invalid map", PARSE);
+				if (map[y][x] == 'D')
+					check_doors(game, y, x);
 			}
 			x++;
 		}

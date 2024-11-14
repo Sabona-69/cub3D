@@ -21,10 +21,10 @@
 # define WIDTH			2560
 # define FOV			90
 # define TILE_SIZE		32
-# define ROTATION_SPEED 0.06
-# define MOVE_SPEED		5
+# define ROTATION_SPEED 0.045
+# define MOVE_SPEED		4
 # define COLLISION		3
-# define ANIMATION_DELAY 100
+# define ANIMATION_DELAY 70
 # define FRAMES 10
 
 // flags exiting
@@ -171,8 +171,5 @@ double		calcul_distance(t_pos_d start, t_pos_d end);
 double		normalize_angle(double angle);
 void		adjust_step(t_game *game, t_pos_d *delta, int is_vertical);
 void		my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
-
-
-
 
 #endif

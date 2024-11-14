@@ -1,9 +1,10 @@
 #include "../../include/cub3d_b.h"
 
-void	check_sides(char **map, int x_len, t_game *game)
+void	check_sides(char **map, t_game *game)
 {
 	int		y;
 	int		x;
+	int		x_len;
 
 	y = 1;
 	while (map[y])
@@ -19,8 +20,6 @@ void	check_sides(char **map, int x_len, t_game *game)
 
 void	check_walls(char **map, t_game *game)
 {
-	int		y_len;
-	int		x_len;
 	int		y;
 	int		x;
 
@@ -31,15 +30,15 @@ void	check_walls(char **map, t_game *game)
 			exiting(game, "Invalid map", PARSE);
 		x++;
 	}
-	y_len = game->data->width - 1;
-	x = skip_char(map[y_len], ' ');
-	while (map[y_len][x])
+	y = game->data->width - 1;
+	x = skip_char(map[y], ' ');
+	while (map[y][x])
 	{
-		if (!ft_strchr("1 ", map[y_len][x]))
+		if (!ft_strchr("1 ", map[y][x]))
 			exiting(game, "Invalid map", PARSE);
 		x++;
 	}
-	check_sides(map, x_len, game);
+	check_sides(map, game);
 }
 
 void	check_empty_map(t_data *data)

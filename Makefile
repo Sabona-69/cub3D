@@ -16,7 +16,7 @@ BSRC		= bonus/cub3d_b.c bonus/get_next_line_b.c bonus/parse/parse_utils_b.c\
 			bonus/parse/map_b.c bonus/parse/store_instructions_b.c bonus/parse/store_map_b.c \
 			bonus/create_game_b.c bonus/raycast_b.c bonus/movement_b.c bonus/game_utils_b.c bonus/walls_b.c \
 
-CFLAGS	=  -g3 -fsanitize=address#-Wall -Werror -Wextra 
+CFLAGS	=  -Wall -Werror -Wextra #-g3 -fsanitize=address#-Wall -Werror -Wextra 
 
 
 BNAME	= cub3D_bonus
