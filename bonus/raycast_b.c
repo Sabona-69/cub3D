@@ -80,4 +80,5 @@ void raycasting(t_game *game)
 		game->rays->index++;
 		game->rays->angl += (game->player->view / game->win->width);
 	}
+	draw_minimap(game);
 }
