@@ -172,4 +172,8 @@ double		normalize_angle(double angle);
 void		adjust_step(t_game *game, t_pos_d *delta, int is_vertical);
 void		my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 
+//mini map
+
+void	draw_minimap(t_game *game);
+
 #endif

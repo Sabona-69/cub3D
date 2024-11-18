@@ -13,7 +13,7 @@ SRC		= mandatory/cub3d.c mandatory/get_next_line.c mandatory/parse/parse_utils.c
 			mandatory/create_game.c mandatory/raycast.c mandatory/movement.c mandatory/game_utils.c mandatory/walls.c \
 
 BSRC		= bonus/cub3d_b.c bonus/get_next_line_b.c bonus/parse/parse_utils_b.c\
-			bonus/parse/map_b.c bonus/parse/store_instructions_b.c bonus/parse/store_map_b.c \
+			bonus/parse/map_b.c bonus/parse/store_instructions_b.c bonus/parse/store_map_b.c bonus/mini_map.c\
 			bonus/create_game_b.c bonus/raycast_b.c bonus/movement_b.c bonus/game_utils_b.c bonus/walls_b.c \
 
 CFLAGS	=  -Wall -Werror -Wextra #-g3 -fsanitize=address#-Wall -Werror -Wextra 
