@@ -57,7 +57,8 @@ mlx_image_t		**generating_frames(t_game *game, char *path, int frames)
 		mlx_resize_image(new[i], WIDTH, HEIGHT);
 		mlx_image_to_window(game->win, new[i], 0, 0);
 		free(join);
-		free(tx);
+		mlx_delete_texture(tx);
+		// free(tx);
 		free(tmp);
 		i++;
 	}
@@ -118,6 +119,44 @@ void	set_player(t_game *game)
 	game->player->turn = STOP;
 }
 
+void 	func(void *data)
+{
+	t_game *game;
+	// int		i;
+
+	game = data;
+	free(game->data->ea);
+	free(game->data->we);
+	free(game->data->so);
+	free(game->data->no);
+	if (game->data->map)
+		free2d(game->data->map, ft_strlen2d(game->data->map));
+	free(game->data->line);
+	close(game->data->fd);
+	// if (status == GAME)
+	// {
+	// 	mlx_close_window(game->win);
+	// 	mlx_delete_image(game->win, game->img);
+	// 	i = -1;
+	// 	while (++i < FRAMES)
+	// 		if (game->anim->img[i])
+	// 			mlx_delete_image(game->win, game->anim->img[i]);
+		free(game->anim->img);
+		free(game->anim);
+		mlx_delete_texture(game->tx->e);
+		mlx_delete_texture(game->tx->w);
+		mlx_delete_texture(game->tx->s);
+		mlx_delete_texture(game->tx->n);
+		free(game->tx);
+		free(game->rays);
+		free(game->player);
+		free(game->data);
+		free(game);
+	// if (message)
+	// 	(printf(RED"%s !\n" RESET, message), exit(1));
+	exit(0);
+}
+
 void create_game(t_game *game)
 {
 	game->win = mlx_init(WIDTH, HEIGHT, "cub3D", true);
@@ -129,4 +168,6 @@ void create_game(t_game *game)
 	mlx_loop_hook(game->win, &update, game);
 	mlx_key_hook(game->win, &handle_key, game);
 	mlx_loop(game->win);
+	printf ("here\n");
+	mlx_close_hook(game->win, func, (void *)game);
 }
