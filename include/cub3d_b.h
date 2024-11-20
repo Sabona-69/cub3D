@@ -39,6 +39,14 @@
 # define YELLOW "\033[0;33m"
 # define RESET "\033[0m"
 
+// mini map 
+
+# define MINI_W 200
+# define MINI_H 200
+# define PLAYER_SIZE 10
+# define RADIUS 100
+# define MINI_S 10
+
 typedef struct s_game t_game;
 
 typedef enum e_status
@@ -131,6 +139,7 @@ typedef struct s_game
 	t_data		*data;
 	t_pl		*player;
 	t_ray		*rays;
+	int			mouse_on;
 }	t_game;
 
 // Utils

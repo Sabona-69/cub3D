@@ -54,7 +54,7 @@ static double	vertical_intersect(t_game *game)
 	return (calcul_distance(inter, game->player->start));
 }
 
-void raycasting(t_game *game)
+void	raycasting(t_game *game)
 {
 	t_pos_d	distance;
 
