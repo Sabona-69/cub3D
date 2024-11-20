@@ -49,13 +49,13 @@ void	get_colors(int *tab, char *s, t_game *game)
 
 int	check_line(t_data *data, char *tmp)
 {
-	if (ft_strncmp("NO ", tmp, 3) == 0)
+	if (ft_strncmp("NO ", tmp, 3) == 0 && !data->no)
 		data->no = get_texture_line(tmp, data->game);
-	else if (ft_strncmp("SO ", tmp, 3) == 0)
+	else if (ft_strncmp("SO ", tmp, 3) == 0 && !data->so)
 		data->so = get_texture_line(tmp, data->game);
-	else if (ft_strncmp("WE ", tmp, 3) == 0)
+	else if (ft_strncmp("WE ", tmp, 3) == 0 && !data->we)
 		data->we = get_texture_line(tmp, data->game);
-	else if (ft_strncmp("EA ", tmp, 3) == 0)
+	else if (ft_strncmp("EA ", tmp, 3) == 0 && !data->ea)
 		data->ea = get_texture_line(tmp, data->game);
 	else if (ft_strncmp("F ", tmp, 2) == 0)
 		get_colors(data->f, tmp + 2, data->game);
