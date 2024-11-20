@@ -49,10 +49,15 @@ void	allocate_t_game(t_game **game)
 	(*game)->tx = ft_malloc(sizeof(t_tx));
 }
 
+void f(){
+	system("leaks cub3D_bonus");
+}
+
 int	main(int ac, char **av)
 {
 	t_game	*game;
 
+	atexit(f);
 	check_input(ac, av);
 	allocate_t_game(&game);
 	parse_it(av[1], game);
