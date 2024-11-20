@@ -1,112 +1,32 @@
 #include "../include/cub3d_b.h"
-// #include "../leaks.h"
-
-
-// #define ERROR 2
 
 void	exiting(t_game *game, char *message, int status)
 {
 	int		i;
 
-	free(game->data->ea);
-	free(game->data->we);
-	free(game->data->so);
+	i = -1;
+	(free(game->data->ea), free(game->data->we), free(game->data->so));
 	free(game->data->no);
 	if (game->data->map)
 		free2d(game->data->map, ft_strlen2d(game->data->map));
-	free(game->data->line);
-	close(game->data->fd);
+	(free(game->data->line), close(game->data->fd));
 	if (status == GAME)
 	{
 		mlx_close_window(game->win);
 		mlx_delete_image(game->win, game->img);
-		i = -1;
 		while (++i < FRAMES)
 			if (game->anim->img[i])
 				mlx_delete_image(game->win, game->anim->img[i]);
-		free(game->anim->img);
-		free(game->anim);
+		(free(game->anim->img), free(game->anim));
 		mlx_delete_texture(game->tx->e);
 		mlx_delete_texture(game->tx->w);
-		mlx_delete_texture(game->tx->s);
-		mlx_delete_texture(game->tx->n);
-		free(game->tx);
-		free(game->rays);
-		free(game->player);
-		free(game->data);
-		free(game);
+		(mlx_delete_texture(game->tx->s), mlx_delete_texture(game->tx->n));
+		(free(game->tx), free(game->rays), free(game->player));
+		(free(game->data), free(game));
 	}
 	if (message)
 		(printf(RED"%s !\n" RESET, message), exit(1));
 	exit(0);
-}
-
-void	my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
-{
-	if (x < 0)
-		return ;
-	else if (x >= img->width)
-		return ;
-	if (y < 0)
-		return ;
-	else if (y >= img->height)
-		return ;
-	mlx_put_pixel(img, x, y, color);
-}
-
-void handle_key(mlx_key_data_t keydata, void *param)
-{
-	t_game	*game;
-
-	game = param;
-	if (keydata.key == MLX_KEY_ESCAPE && (keydata.action == MLX_PRESS))
-		exiting(game, NULL, GAME);
-	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS))
-		game->player->walk = LEFT;
-	else if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS))
-		game->player->walk = RIGHT;
-	else if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS))
-		game->player->walk = DOWN;
-	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		game->player->walk = UP;
-	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
-		game->player->turn = TURN_LEFT;
-	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
-		game->player->turn = TURN_RIGHT;
-	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_RELEASE))
-		game->player->walk = STOP;
-	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_RELEASE))
-		game->player->walk = STOP;
-	else if (keydata.key == MLX_KEY_S && (keydata.action == MLX_RELEASE))
-		game->player->walk = STOP;
-	else if (keydata.key == MLX_KEY_W && (keydata.action == MLX_RELEASE))
-		game->player->walk = STOP;
-	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE)
-		game->player->turn = STOP;
-	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
-		game->player->turn = STOP;
-}
-
-void	adjust_step(t_game *game, t_pos_d *delta, int is_vertical)
-{
-	if (is_vertical)
-	{
-		if (game->rays->left)
-			delta->x *= -1;
-		if (game->rays->up && delta->y > 0)
-			delta->y *= -1;
-		if (game->rays->down && delta->y < 0)
-			delta->y *= -1;
-	}
-	else
-	{
-		if (game->rays->up)
-			delta->y *= -1;
-		if (game->rays->left && delta->x > 0)
-			delta->x *= -1;
-		if (game->rays->right && delta->x < 0)
-			delta->x *= -1;
-	}
 }
 
 void	check_input(int ac, char **av)
@@ -119,39 +39,22 @@ void	check_input(int ac, char **av)
 	}
 }
 
-void    *ft_malloc(size_t size)
+void	allocate_t_game(t_game **game)
 {
-    void    *new;
-
-    new = malloc(size);
-    if (!new)
-        (ft_putstr_fd("malloc failed !", 2), exit(1));
-    ft_bzero(new, size);
-    return(new);
+	(*game) = ft_malloc(sizeof(t_game));
+	(*game)->data = ft_malloc(sizeof(t_data));
+	(*game)->rays = ft_malloc(sizeof(t_ray));
+	(*game)->player = ft_malloc(sizeof(t_pl));
+	(*game)->anim = ft_malloc(sizeof(t_anim));
+	(*game)->tx = ft_malloc(sizeof(t_tx));
 }
 
-void    allocate_t_game(t_game **game)
+int	main(int ac, char **av)
 {
-    (*game) = ft_malloc(sizeof(t_game));
-    (*game)->data = ft_malloc(sizeof(t_data));
-    (*game)->rays = ft_malloc(sizeof(t_ray));
-    (*game)->player = ft_malloc(sizeof(t_pl));
-    (*game)->anim= ft_malloc(sizeof(t_anim));
-    (*game)->tx = ft_malloc(sizeof(t_tx));
-}
+	t_game	*game;
 
-void f()
-{
-	system("leaks --fullStacks --list cub3D_bonus");
-}
-
-int    main(int ac, char **av)
-{
-    t_game    *game;
-
-	atexit(f);
-    check_input(ac, av);
-    allocate_t_game(&game);
-    parse_it(av[1], game);
-    create_game(game);
+	check_input(ac, av);
+	allocate_t_game(&game);
+	parse_it(av[1], game);
+	create_game(game);
 }

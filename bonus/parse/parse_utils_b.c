@@ -9,10 +9,10 @@ int	is_empty(char *s)
 	return (TRUE);
 }
 
-char *ft_strtrim_end(char const *s1, char const *set)
+char	*ft_strtrim_end(char const *s1, char const *set)
 {
-	size_t j;
-	char *p;
+	size_t	j;
+	char	*p;
 
 	if (s1 == NULL || set == NULL)
 		return (NULL);
@@ -78,7 +78,7 @@ int	my_atoi(char *str)
 
 int	ft_strlen2d(char **s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!s)
@@ -88,9 +88,9 @@ int	ft_strlen2d(char **s)
 	return (i);
 }
 
-int skip_char(char *s, char c)
+int	skip_char(char *s, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] && s[i] == c)

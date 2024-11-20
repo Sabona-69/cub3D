@@ -3,28 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   movement_b.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:22:45 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/12 13:20:35 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:44:59 by tbesbess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d_b.h"
 
-int check_collision(t_game *game, int x, int y)
+int	check_collision(t_game *game, int x, int y)
 {
-    int top_left;
-    int top_right;
-    int bottom_left;
-    int bottom_right;
+	int	top_left;
+	int	top_right;
+	int	bottom_left;
+	int	bottom_right;
 
-    top_left = is_wall(x - COLLISION, y - COLLISION, game);
-    top_right = is_wall(x + COLLISION, y - COLLISION, game);
-    bottom_left = is_wall(x - COLLISION, y + COLLISION, game);
-    bottom_right = is_wall(x + COLLISION, y + COLLISION, game);
-
-    return (top_left || top_right || bottom_left || bottom_right);
+	top_left = is_wall(x - COLLISION, y - COLLISION, game);
+	top_right = is_wall(x + COLLISION, y - COLLISION, game);
+	bottom_left = is_wall(x - COLLISION, y + COLLISION, game);
+	bottom_right = is_wall(x + COLLISION, y + COLLISION, game);
+	return (top_left || top_right || bottom_left || bottom_right);
 }
 
 void	walk_player(t_game *game, double move_x, double move_y)

@@ -1,17 +1,11 @@
 #include "../include/cub3d_b.h"
 
-# define MINI_W 200
-# define MINI_H 200
-# define PLAYER_SIZE 10
-# define RADIUS 100
-# define MINI_S 10
-
-void draw_player_direction(t_game *game)
+void	draw_player_direction(t_game *game)
 {
-	t_pos center;
-	int i;
-	int x;
-	int y;
+	t_pos	center;
+	int		i;
+	int		x;
+	int		y;
 
 	center.x = MINI_W / 2;
 	center.y = MINI_H / 2;
@@ -27,9 +21,9 @@ void draw_player_direction(t_game *game)
 
 void	draw_player(t_game *game)
 {
-	t_pos center;
-	int x;
-	int y;
+	t_pos	center;
+	int		x;
+	int		y;
 
 	center.x = MINI_W / 2;
 	center.y = MINI_H / 2;
@@ -40,25 +34,25 @@ void	draw_player(t_game *game)
 		while (x < center.x + PLAYER_SIZE)
 		{
 			if (pow(x - center.x, 2) + pow(y - center.y, 2) < 8)
-			my_pixel_put(game->img, x, y, 0xFF055555);
+				my_pixel_put(game->img, x, y, 0xFF055555);
 			x++;
 		}
 		y++;
 	}
 }
 
-void render_minimap(t_game *game, t_pos *map, int x, int y)
+void	render_minimap(t_game *game, t_pos *map, int x, int y)
 {
 	if (map->y >= 0 && map->x >= 0
-	&& map->x < game->data->height
-	&& map->y < game->data->width)
+		&& map->x < game->data->height
+		&& map->y < game->data->width)
 	{
 		if (game->data->map[map->y][map->x] == '1')
 			my_pixel_put(game->img, x, y, 0xFF000000);
 		else if (game->data->map[map->y][map->x] == 'D')
 			my_pixel_put(game->img, x, y, 0x7FFF00FF);
 		else
-		my_pixel_put(game->img, x, y, 0xFFFFFFFF);
+			my_pixel_put(game->img, x, y, 0xFFFFFFFF);
 	}
 	else
 		my_pixel_put(game->img, x, y, 0xFF000000);
@@ -82,8 +76,8 @@ void	draw_minimap(t_game *game)
 			map.x = (x + player.x) / MINI_S;
 			map.y = (y + player.y) / MINI_S;
 			if (pow(x - RADIUS, 2)
-			+ pow(y - RADIUS, 2) <= pow(RADIUS, 2))
-			render_minimap(game, &map, x, y);
+				+ pow(y - RADIUS, 2) <= pow(RADIUS, 2))
+				render_minimap(game, &map, x, y);
 			x++;
 		}
 		y++;
