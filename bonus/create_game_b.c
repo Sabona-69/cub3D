@@ -6,7 +6,8 @@ void	load_textures(t_game *game)
 	game->tx->w = mlx_load_png(game->data->we);
 	game->tx->s = mlx_load_png(game->data->so);
 	game->tx->n = mlx_load_png(game->data->no);
-	if (!game->tx->e || !game->tx->w || !game->tx->s || !game->tx->n)
+	game->tx->door = mlx_load_png("assets/door.png");
+	if (!game->tx->e || !game->tx->w || !game->tx->s || !game->tx->n || !game->tx->door)
 		exiting(game, "Invalid texture");
 }
 
