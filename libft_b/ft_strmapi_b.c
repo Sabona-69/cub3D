@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi_b.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 16:28:44 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/11/21 02:44:10 by hel-omra         ###   ########.fr       */
+/*   Created: 2023/11/12 15:32:12 by hel-omra          #+#    #+#             */
+/*   Updated: 2024/11/21 07:19:46 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft_b.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*sub;
-	size_t	src_len;
-	size_t	i;
+	char			*new;
+	unsigned int	i;
 
 	i = 0;
-	if (!s)
+	if (!s || !f)
 		return (NULL);
-	src_len = ft_strlen(s);
-	if (start > src_len)
-		return (ft_strdup(""));
-	if (len > src_len - start)
-		len = src_len - start;
-	sub = (char *)ft_malloc(len + 1, MALLOC);
-	if (!sub)
+	new = (char *)malloc(ft_strlen(s) + 1);
+	if (!new)
 		return (NULL);
-	while (i < len && s[start])
+	while (i < ft_strlen(s))
 	{
-		sub[i] = s[start];
+		new[i] = f(i, s[i]);
 		i++;
-		start++;
 	}
-	sub[i] = '\0';
-	return (sub);
+	new[i] = '\0';
+	return (new);
 }

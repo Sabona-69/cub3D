@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_utils_b.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:27:11 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/20 12:38:22 by tbesbess         ###   ########.fr       */
+/*   Updated: 2024/11/21 06:56:37 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,4 @@ int	is_wall(double x, double y, t_game *game)
 	if (game->data->map[m.y][m.x] == '1')
 		return (1);
 	return (0);
-}
-
-void	*ft_malloc(size_t size)
-{
-	void	*new;
-
-	new = malloc(size);
-	if (!new)
-		(ft_putstr_fd("malloc failed !", 2), exit(1));
-	ft_bzero(new, size);
-	return (new);
 }

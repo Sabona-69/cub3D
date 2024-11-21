@@ -1,5 +1,5 @@
-# ifndef CUB3D_H
-# define CUB3D_H
+# ifndef CUB3D_B_H
+# define CUB3D_B_H
 // #include "../leaks.h"
 
 
@@ -10,6 +10,7 @@
 # include <limits.h>
 # include <math.h>
 # include <sys/time.h>
+# include "garbage_collector_b.h"
 # include "../libft/libft.h"
 # include "../../../MLX42/include/MLX42/MLX42.h"
 
@@ -19,18 +20,13 @@
 
 # define HEIGHT			1440
 # define WIDTH			2560
-# define FOV			90
+# define FOV			60
 # define TILE_SIZE		32
 # define ROTATION_SPEED 0.045
 # define MOVE_SPEED		4
 # define COLLISION		3
 # define ANIMATION_DELAY 150
 # define FRAMES 10
-
-// flags exiting
-
-# define PARSE 0
-# define GAME 1
 
 // colors
 
@@ -143,17 +139,14 @@ typedef struct s_game
 }	t_game;
 
 // Utils
-void	exiting(t_game *game, char *message, int status);
-void    *ft_malloc(size_t size);
+void	exiting(t_game *game, char *message);
 
 char	**strjoin2d(char **str, char *s);
 char	*ft_strtrim_end(char const *s1, char const *set);
 char	*get_next_line(int fd);
-void	free2d(char **s, int i);
 int		skip_char(char *s, char c);
 int		ft_strlen2d(char **s);
 int		is_empty(char *s);
-int		my_atoi(char *str);
 
 // Parse
 

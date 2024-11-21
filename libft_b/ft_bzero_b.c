@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_bzero_b.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 22:32:32 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/11/21 07:01:38 by hel-omra         ###   ########.fr       */
+/*   Created: 2023/11/03 18:34:49 by hel-omra          #+#    #+#             */
+/*   Updated: 2024/11/21 07:19:46 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft_b.h"
 
-int	ft_atoi(const char *str)
+void	ft_bzero(void *s, size_t n)
 {
-	int	res;
+	char		*p;
+	size_t		i;
 
-	res = 0;
-	if (!*str)
-		return (-1);
-	while (*str)
+	i = 0;
+	p = (char *)s;
+	while (i < n)
 	{
-		if (*str < '0' || *str > '9')
-			return (-1);
-		res = res * 10 + *str - '0';
-		if (res > 255)
-			return (-1);
-		str++;
+		p[i] = 0;
+		i++;
 	}
-	return (res);
 }

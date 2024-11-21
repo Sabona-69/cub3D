@@ -19,21 +19,19 @@ char	*ft_reader(char *s, int fd)
 	char	*buffer;
 	char	*tmp;
 
-	buffer = malloc((size_t)BUFFER_SIZE + 1);
+	buffer = ft_malloc((size_t)BUFFER_SIZE + 1, MALLOC);
 	if (!buffer)
-		return (free(s), s = NULL);
+		return (NULL);
 	rd = 1;
 	while (rd > 0 && check_nl(s) == 0)
 	{
-		rd = read (fd, buffer, BUFFER_SIZE);
+		rd = read(fd, buffer, BUFFER_SIZE);
 		if (rd == -1)
-			return ((free (s), free (buffer), buffer = NULL, s = NULL));
+			return (NULL);
 		buffer[rd] = '\0';
 		tmp = s;
 		s = ft_strjoin(s, buffer);
-		free(tmp);
 	}
-	free (buffer);
 	return (s);
 }
 
@@ -49,13 +47,13 @@ char	*ft_output(char *s)
 		i++;
 	if (s[i] == '\n')
 		i++;
-	output = malloc (i + 1);
+	output = ft_malloc(i + 1, MALLOC);
 	if (!output)
-		return (free(s), s = NULL);
+		return (NULL);
 	i = 0;
 	while (s[i] && s[i] != '\n')
 	{
-		output [i] = s[i];
+		output[i] = s[i];
 		i++;
 	}
 	if (s[i] == '\n')
@@ -73,11 +71,10 @@ char	*ft_rest(char *s)
 	while (s[i] && s[i] != '\n')
 		i++;
 	if (s[i] == '\0')
-		return (free(s), s = NULL);
+		return (NULL);
 	if (s[i] == '\n')
 		i++;
 	rest = ft_strdup(&s[i]);
-	free(s);
 	return (rest);
 }
 
@@ -86,15 +83,14 @@ char	*get_next_line(int fd)
 	static char		*s;
 	char			*output;
 
-	output = NULL;
 	if (fd < 0)
-		return (free(s), s = NULL);
+		return (NULL);
 	s = ft_reader(s, fd);
 	if (!s)
-		return (free(s), s = NULL);
+		return (NULL);
 	output = ft_output(s);
 	if (!output)
-		return (free(s), s = NULL);
+		return (NULL);
 	s = ft_rest(s);
 	return (output);
 }

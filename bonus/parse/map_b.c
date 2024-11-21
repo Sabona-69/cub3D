@@ -14,7 +14,7 @@ void	check_elements(t_data *data)
 		while (data->map[y][++x])
 		{
 			if (!ft_strchr("10 WESND", data->map[y][x]))
-				exiting(data->game, "Invalid map", PARSE);
+				exiting(data->game, "Invalid map");
 			if (ft_strchr("WESN", data->map[y][x]))
 			{
 				data->player_postion.x = x;
@@ -24,7 +24,7 @@ void	check_elements(t_data *data)
 		}
 	}
 	if (count != 1)
-		exiting(data->game, "Invalid Player Position", PARSE);
+		exiting(data->game, "Invalid Player Position");
 }
 
 void	check_doors(t_game *game, int y, int x)
@@ -41,7 +41,7 @@ void	check_doors(t_game *game, int y, int x)
 	if (s[y][x - 1] == '1' && s[y][x + 1] == '1')
 		vr = 1;
 	if (!hz && !vr)
-		exiting(game, "Invalid door", PARSE);
+		exiting(game, "Invalid door");
 }
 
 void	check_space(char **map, t_game *game)
@@ -59,10 +59,10 @@ void	check_space(char **map, t_game *game)
 			{
 				if (ft_strlen(map[y - 1]) - 1 < x
 					|| ft_strlen(map[y + 1]) - 1 < x)
-					exiting(game, "Invalid map", PARSE);
+					exiting(game, "Invalid map");
 				if (map[y][x - 1] == ' ' || map[y][x + 1] == ' '
 					|| map[y - 1][x] == ' ' || map[y + 1][x] == ' ')
-					exiting(game, "Invalid map", PARSE);
+					exiting(game, "Invalid map");
 				if (map[y][x] == 'D')
 					check_doors(game, y, x);
 			}
@@ -95,10 +95,10 @@ void	get_map_ready(t_data *data)
 		{
 			str = data->map[i];
 			data->map[i] = ft_strjoin(data->map[i], " ");
-			free(str);
 		}
 	}
-	(1) && (data->height = len, data->width = ft_strlen2d(data->map));
+	data->height = len;
+	data->width = ft_strlen2d(data->map);
 }
 
 void	parse_it(char *s, t_game *game)

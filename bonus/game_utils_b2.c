@@ -31,7 +31,7 @@ void	handle_key(mlx_key_data_t keydata, void *param)
 
 	game = param;
 	if (keydata.key == MLX_KEY_ESCAPE && (keydata.action == MLX_PRESS))
-		exiting(game, NULL, GAME);
+		exiting(game, NULL);
 	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS))
 		game->player->walk = LEFT;
 	else if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS))

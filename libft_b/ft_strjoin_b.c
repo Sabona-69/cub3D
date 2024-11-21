@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strjoin_b.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 22:32:32 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/11/21 07:01:38 by hel-omra         ###   ########.fr       */
+/*   Created: 2023/11/09 15:36:31 by hel-omra          #+#    #+#             */
+/*   Updated: 2024/11/21 07:19:46 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft_b.h"
 
-int	ft_atoi(const char *str)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int	res;
+	char		*p;
 
-	res = 0;
-	if (!*str)
-		return (-1);
-	while (*str)
-	{
-		if (*str < '0' || *str > '9')
-			return (-1);
-		res = res * 10 + *str - '0';
-		if (res > 255)
-			return (-1);
-		str++;
-	}
-	return (res);
+	if (!s1 && !s2)
+		return (NULL);
+	if (s1 && !s2)
+		return (ft_strdup(s1));
+	if (!s1 && s2)
+		return (ft_strdup(s2));
+	p = (char *)ft_malloc((ft_strlen(s1) + ft_strlen (s2)) + 1, MALLOC);
+	ft_memcpy(p, s1, ft_strlen(s1));
+	ft_memcpy (p + ft_strlen(s1), s2, ft_strlen(s2));
+	p[ft_strlen(s2) + ft_strlen(s1)] = '\0';
+	return (p);
 }
