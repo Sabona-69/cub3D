@@ -8,13 +8,14 @@ char	*get_texture_line(char *s, t_game *game)
 
 	split = ft_split(s, " ");
 	if (ft_strlen2d(split) != 2)
-		exiting(game, "Invalid texture", PARSE);
+		exiting(game, "Invalid texture");
 	new = ft_strdup(split[1]);
-	free2d(split, ft_strlen2d(split));
+	if (!new)
+		return (NULL);
 	check = open(new, O_RDONLY);
 	close(check);
 	if (check == -1)
-		exiting(game, "Invalid texture Path", PARSE);
+		exiting(game, "Invalid texture Path");
 	return (new);
 }
 
@@ -31,20 +32,18 @@ void	get_colors(int *tab, char *s, t_game *game)
 		if (s[i] == ',')
 			j++;
 	if (j != 2)
-		exiting(game, "Must separate with 1 comma", PARSE);
+		exiting(game, "Must separate with 1 comma");
 	split = ft_split(s, ",");
 	if (ft_strlen2d(split) != 3)
-		exiting(game, "Set only 3 colors", PARSE);
+		exiting(game, "Set only 3 colors");
 	i = -1;
 	while (++i < 3)
 	{
 		tmp = ft_strtrim(split[i], " ");
-		tab[i] = my_atoi(tmp);
-		free(tmp);
+		tab[i] = ft_atoi(tmp);
 	}
 	if (tab[0] == -1 || tab[1] == -1 || tab[2] == -1)
-		exiting(game, "Invalid colors (0 ~ 255)", PARSE);
-	free2d(split, ft_strlen2d(split));
+		exiting(game, "Invalid colors (0 ~ 255)");
 }
 
 int	check_line(t_data *data, char *tmp)
@@ -73,21 +72,21 @@ void	store_instructions(char *s, t_data *data)
 
 	data->fd = open(s, O_RDONLY);
 	if (data->fd == -1)
-		exiting(data->game, "Can't open map", PARSE);
-	(1) && (i = 0, data->line = get_next_line(data->fd));
+		exiting(data->game, "Can't open map");
+	i = 0;
+	data->line = get_next_line(data->fd);
 	while (data->line)
 	{
 		tmp = ft_strtrim(data->line, " \n");
 		if (check_line(data, tmp))
 			i++;
 		else if (i != 6 && tmp[0])
-			(free(tmp), exiting(data->game, "Invalid map", PARSE));
-		(free(tmp), free(data->line));
+			exiting(data->game, "Invalid Ins");
 		data->line = get_next_line(data->fd);
 		if (i == 6)
 			break ;
 	}
 	if (i != 6 || data->c[0] == -1 || data->f[0] == -1 || !data->ea
 		|| !data->no || !data->so || !data->we)
-		exiting(data->game, "Can't open map", PARSE);
+		exiting(data->game, "Invalid map");
 }

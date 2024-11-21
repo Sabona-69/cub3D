@@ -12,8 +12,8 @@ void	check_sides(char **map, t_game *game)
 		x_len = ft_strlen(map[y]) - 1;
 		x = skip_char(map[y], ' ');
 		if (is_empty(map[y]) == FALSE && (!ft_strchr("1 ", map[y][x_len])
-			|| !ft_strchr("1 ", map[y][x_len])))
-			exiting(game, "Invalid map", PARSE);
+			|| !ft_strchr("1 ", map[y][0])))
+			exiting(game, "Invalid map");
 		y++;
 	}
 }
@@ -27,7 +27,7 @@ void	check_walls(char **map, t_game *game)
 	while (map[0][x])
 	{
 		if (!ft_strchr("1 ", map[0][x]))
-			exiting(game, "Invalid map", PARSE);
+			exiting(game, "Invalid map");
 		x++;
 	}
 	y = game->data->width - 1;
@@ -35,7 +35,7 @@ void	check_walls(char **map, t_game *game)
 	while (map[y][x])
 	{
 		if (!ft_strchr("1 ", map[y][x]))
-			exiting(game, "Invalid map", PARSE);
+			exiting(game, "Invalid map");
 		x++;
 	}
 	check_sides(map, game);
@@ -50,13 +50,10 @@ void	check_empty_map(t_data *data)
 		tmp = ft_strtrim(data->line, "\n");
 		if (!is_empty(tmp))
 			break ;
-		free(data->line);
-		free(tmp);
 		data->line = get_next_line(data->fd);
 	}
-	free(tmp);
 	if (!data->line)
-		return (exiting(data->game, "Empty map", PARSE));
+		return (exiting(data->game, "Empty map"));
 }
 
 void	store_map(t_data *data)
@@ -72,7 +69,7 @@ void	store_map(t_data *data)
 		tmp = data->line;
 		data->line = ft_strtrim_end(data->line, " \n");
 		if (!data->line[0])
-			(free(data->line), data->line = ft_strdup(" "));
+			data->line = ft_strdup(" ");
 		if (min_len < line_start)
 			line_start = min_len;
 		if (data->line[0] == ' ')
@@ -80,10 +77,9 @@ void	store_map(t_data *data)
 		else if (data->line[0])
 			min_len = 0;
 		map = strjoin2d(map, data->line);
-		(free(tmp), free(data->line), data->line = get_next_line(data->fd));
+		data->line = get_next_line(data->fd);
 	}
-	(free(data->line), min_len = -1);
+	min_len = -1;
 	while (map[++min_len])
 		data->map = strjoin2d(data->map, &(map[min_len][line_start]));
-	free2d(map, ft_strlen2d(map));
 }

@@ -1,40 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr_b.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 16:28:44 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/11/21 02:44:10 by hel-omra         ###   ########.fr       */
+/*   Created: 2023/11/01 18:47:03 by hel-omra          #+#    #+#             */
+/*   Updated: 2024/11/21 07:19:46 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include <unistd.h>
+#include "libft_b.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strnstr(const char *str, const char *fnd, size_t len)
 {
-	char	*sub;
-	size_t	src_len;
 	size_t	i;
+	size_t	j;
 
 	i = 0;
-	if (!s)
-		return (NULL);
-	src_len = ft_strlen(s);
-	if (start > src_len)
-		return (ft_strdup(""));
-	if (len > src_len - start)
-		len = src_len - start;
-	sub = (char *)ft_malloc(len + 1, MALLOC);
-	if (!sub)
-		return (NULL);
-	while (i < len && s[start])
+	if (fnd[0] == '\0')
+		return ((char *)str);
+	while (str[i] && i < len)
 	{
-		sub[i] = s[start];
+		j = 0;
+		while (str[i + j] == fnd[j] && i + j < len)
+		{
+			if (fnd[j + 1] == '\0')
+				return ((char *)str + i);
+			j++;
+		}
 		i++;
-		start++;
 	}
-	sub[i] = '\0';
-	return (sub);
+	return (NULL);
 }

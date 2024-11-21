@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy_b.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 16:28:44 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/11/21 02:44:10 by hel-omra         ###   ########.fr       */
+/*   Created: 2023/11/04 14:07:32 by hel-omra          #+#    #+#             */
+/*   Updated: 2024/11/21 07:19:46 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft_b.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+
 {
-	char	*sub;
-	size_t	src_len;
+	char	*d;
+	char	*s;
 	size_t	i;
 
+	d = (char *)dst;
+	s = (char *)src;
 	i = 0;
-	if (!s)
-		return (NULL);
-	src_len = ft_strlen(s);
-	if (start > src_len)
-		return (ft_strdup(""));
-	if (len > src_len - start)
-		len = src_len - start;
-	sub = (char *)ft_malloc(len + 1, MALLOC);
-	if (!sub)
-		return (NULL);
-	while (i < len && s[start])
+	if (s == d)
+		return (dst);
+	while (n > i)
 	{
-		sub[i] = s[start];
+		d[i] = s[i];
 		i++;
-		start++;
 	}
-	sub[i] = '\0';
-	return (sub);
+	return (dst);
 }

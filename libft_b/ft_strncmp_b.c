@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp_b.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 16:28:44 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/11/21 02:44:10 by hel-omra         ###   ########.fr       */
+/*   Created: 2023/10/31 22:01:05 by hel-omra          #+#    #+#             */
+/*   Updated: 2024/11/21 07:19:46 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft_b.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+
 {
-	char	*sub;
-	size_t	src_len;
 	size_t	i;
 
 	i = 0;
-	if (!s)
-		return (NULL);
-	src_len = ft_strlen(s);
-	if (start > src_len)
-		return (ft_strdup(""));
-	if (len > src_len - start)
-		len = src_len - start;
-	sub = (char *)ft_malloc(len + 1, MALLOC);
-	if (!sub)
-		return (NULL);
-	while (i < len && s[start])
-	{
-		sub[i] = s[start];
+	while (s1[i] == s2[i] && i < n && s1[i] && s2[i])
 		i++;
-		start++;
-	}
-	sub[i] = '\0';
-	return (sub);
+	if (i == n)
+		return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

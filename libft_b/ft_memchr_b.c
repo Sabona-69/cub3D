@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memchr_b.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 22:32:32 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/11/21 07:01:38 by hel-omra         ###   ########.fr       */
+/*   Created: 2023/11/06 12:11:39 by hel-omra          #+#    #+#             */
+/*   Updated: 2024/11/21 07:19:46 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft_b.h"
 
-int	ft_atoi(const char *str)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	res;
+	unsigned char	*s1;
 
-	res = 0;
-	if (!*str)
-		return (-1);
-	while (*str)
+	s1 = (unsigned char *)s;
+	while (n--)
 	{
-		if (*str < '0' || *str > '9')
-			return (-1);
-		res = res * 10 + *str - '0';
-		if (res > 255)
-			return (-1);
-		str++;
+		if (*s1 == (unsigned char)c)
+			return (s1);
+		s1++;
 	}
-	return (res);
+	return (NULL);
 }

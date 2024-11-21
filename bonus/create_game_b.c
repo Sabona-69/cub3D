@@ -6,6 +6,8 @@ void	load_textures(t_game *game)
 	game->tx->w = mlx_load_png(game->data->we);
 	game->tx->s = mlx_load_png(game->data->so);
 	game->tx->n = mlx_load_png(game->data->no);
+	if (!game->tx->e || !game->tx->w || !game->tx->s || !game->tx->n)
+		exiting(game, "Invalid texture");
 }
 
 void	update(void *p)
@@ -61,8 +63,14 @@ void	handle_mouse(void *param)
 
 void	create_game(t_game *game)
 {
+	if (WIDTH < 0 || WIDTH > 2560 || HEIGHT < 0 || HEIGHT > 1440)
+		exiting(game, "Invalid resolution");
 	game->win = mlx_init(WIDTH, HEIGHT, "cub3D", true);
+	if (!game->win)
+		exiting(game, "mlx failed");
 	game->img = mlx_new_image(game->win, WIDTH, HEIGHT);
+	if (!game->img)
+		exiting(game, "mlx img failed");
 	mlx_image_to_window(game->win, game->img, 0, 0);
 	load_textures(game);
 	init_animation(game);
