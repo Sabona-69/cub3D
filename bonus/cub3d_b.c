@@ -38,6 +38,7 @@ void	allocate_t_game(t_game **game)
 	(*game)->player = ft_malloc(sizeof(t_pl), MALLOC);
 	(*game)->anim = ft_malloc(sizeof(t_anim), MALLOC);
 	(*game)->tx = ft_malloc(sizeof(t_tx), MALLOC);
+	(*game)->door = ft_malloc(sizeof(t_dr), MALLOC);
 }
 
 void f(){

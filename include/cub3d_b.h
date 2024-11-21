@@ -85,6 +85,11 @@ typedef struct s_data
 	t_game	*game;
 }	t_data;
 
+typedef	struct s_dr
+{
+	int		hit_door;
+}	t_dr;
+
 typedef	struct s_pl
 {
 	double		direction;
@@ -101,6 +106,7 @@ typedef struct s_tx
 	mlx_texture_t	*s;
 	mlx_texture_t	*w;
 	mlx_texture_t	*e;
+	mlx_texture_t	*door;
 }	t_tx;
 
 typedef struct s_ray
@@ -135,6 +141,7 @@ typedef struct s_game
 	t_data		*data;
 	t_pl		*player;
 	t_ray		*rays;
+	t_dr		*door;
 	int			mouse_on;
 }	t_game;
 
