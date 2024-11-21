@@ -1,7 +1,7 @@
 #ifndef GARBAGE_COLLECTOR_B_H
 # define GARBAGE_COLLECTOR_B_H
-
-# include "cub3d_b.h"
+#include <unistd.h>
+// # include "cub3d.h"
 
 typedef struct s_list
 {
