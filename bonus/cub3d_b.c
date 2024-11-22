@@ -2,6 +2,11 @@
 
 void	exiting(t_game *game, char *message)
 {
+	if (game->pid != 0)
+	{
+		if (kill(game->pid, SIGKILL) != 0)
+			printf ("not killed\n");
+	}
 	if (game->tx->e)
 		mlx_delete_texture(game->tx->e);
 	if (game->tx->w)
@@ -51,7 +56,7 @@ int	main(int ac, char **av)
 {
 	t_game	*game;
 
-	atexit(f);
+	// atexit(f);
 	check_input(ac, av);
 	allocate_t_game(&game);
 	parse_it(av[1], game);

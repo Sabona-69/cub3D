@@ -2,7 +2,7 @@
 # define CUB3D_B_H
 // #include "../leaks.h"
 
-
+# include <signal.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -18,8 +18,8 @@
 # define TRUE			1
 # define FALSE			0
 
-# define HEIGHT			1440
-# define WIDTH			2560
+# define HEIGHT			1080
+# define WIDTH			1920
 # define FOV			60
 # define TILE_SIZE		32
 # define ROTATION_SPEED 0.045
@@ -143,6 +143,7 @@ typedef struct s_game
 	t_ray		*rays;
 	t_dr		*door;
 	int			mouse_on;
+	int			pid;
 }	t_game;
 
 // Utils
@@ -191,5 +192,6 @@ void			adjust_step(t_game *game, t_pos_d *delta, int is_vertical);
 
 //mini map
 void	draw_minimap(t_game *game);
+void    play_sound();
 
 #endif
