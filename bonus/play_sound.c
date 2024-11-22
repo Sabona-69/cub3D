@@ -25,7 +25,7 @@ void play_sound()
     char *env[] = { NULL };
 
     av[0] = cmd;
-    av[1] = "/Users/tbesbess/Desktop/masira1.mp3";
+    av[1] = "/Users/tbesbess/Desktop/Cub3D_last/r.mp3";
     av[2] = NULL;
 
     if (execve(cmd, av, env) == -1) {
