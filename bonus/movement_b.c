@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_b.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:22:45 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/20 12:44:59 by tbesbess         ###   ########.fr       */
+/*   Updated: 2024/11/23 03:12:32 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,47 @@ int	check_collision(t_game *game, int x, int y)
 	return (top_left || top_right || bottom_left || bottom_right);
 }
 
+static void	open_the_door(t_game *game)
+{
+	t_pos_d		front;
+	t_pos		m;
+	double		angle;
+
+	angle = game->player->direction;
+	front.x = game->player->start.x + cos(angle) * TILE_SIZE;
+	front.y = game->player->start.y + sin(angle) * TILE_SIZE;
+	m.x = floor(front.x / TILE_SIZE);
+	m.y = floor(front.y / TILE_SIZE);
+	if (game->data->map[m.y][m.x] == 'D' && game->door->is_open)
+	{
+		if (game->door->is_closed)
+		{
+			game->door->pos.x = m.x;
+			game->door->pos.y = m.y;
+			game->door->is_closed = 0;
+			game->data->map[m.y][m.x] = '0';
+		}
+	}
+}
+
+static void	close_the_door(t_game *game)
+{
+	t_pos_d		player;
+	t_pos_d		door;
+	double		distance;
+
+	player.x = game->player->start.x;
+	player.y = game->player->start.y;
+	door.x = (game->door->pos.x + 0.5) * TILE_SIZE;
+	door.y = (game->door->pos.y + 0.5) * TILE_SIZE;
+	distance = sqrt(pow(player.x - door.x, 2) + pow(player.y - door.y, 2));
+	if (distance >= TILE_SIZE)
+	{
+		game->data->map[game->door->pos.y][game->door->pos.x] = 'D';
+		game->door->is_closed = 1;
+	}
+}
+
 void	walk_player(t_game *game, double move_x, double move_y)
 {
 	int	new_x;
@@ -33,10 +74,17 @@ void	walk_player(t_game *game, double move_x, double move_y)
 
 	new_x = round(game->player->start.x + move_x);
 	new_y = round(game->player->start.y + move_y);
+	if (game->door->is_open)
+	{
+		open_the_door(game);
+		game->door->is_open = 0;
+	}
 	if (!check_collision(game, new_x, game->player->start.y))
 		game->player->start.x = new_x;
 	if (!check_collision(game, game->player->start.x, new_y))
 		game->player->start.y = new_y;
+	if (!game->door->is_closed)
+		close_the_door(game);
 }
 
 double	normalize_angle(double angle)

@@ -87,7 +87,12 @@ typedef struct s_data
 
 typedef	struct s_dr
 {
+	t_pos	pos;
 	int		hit_door;
+	int		h_door;
+	int		v_door;
+	int		is_closed;
+	int		is_open;
 }	t_dr;
 
 typedef	struct s_pl

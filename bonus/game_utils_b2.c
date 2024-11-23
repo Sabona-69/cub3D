@@ -23,6 +23,8 @@ void	key_release(mlx_key_data_t keydata, t_game *game)
 		game->player->turn = STOP;
 	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
 		game->player->turn = STOP;
+	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_RELEASE)
+		game->door->is_open = 0;
 }
 
 void	handle_key(mlx_key_data_t keydata, void *param)
@@ -44,6 +46,8 @@ void	handle_key(mlx_key_data_t keydata, void *param)
 		game->player->turn = TURN_LEFT;
 	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 		game->player->turn = TURN_RIGHT;
+	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
+		game->door->is_open = 1;
 	else if (keydata.key == MLX_KEY_X && keydata.action == MLX_PRESS)
 		toggle_mouse(game);
 	key_release(keydata, game);
