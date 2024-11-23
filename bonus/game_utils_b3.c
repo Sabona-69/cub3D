@@ -56,7 +56,7 @@ void	init_animation(t_game *game)
 {
 	game->anim->i = 0;
 	game->anim->time = get_time();
-	game->anim->img = generating_frames(game, "assets/animation/", FRAMES);
+	game->anim->img = generating_frames(game, "assets/res/", FRAMES);
 	if (!game->anim->img)
 		exiting(game, "Malloc failed");
 }
