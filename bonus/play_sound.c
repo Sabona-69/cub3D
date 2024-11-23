@@ -25,6 +25,7 @@ void play_sound()
     char *env[] = { NULL };
 
     av[0] = cmd;
+    // av[1] = "/Users/hel-omra/Dedsktop/Cub3D_last/assets/r.mp3";
     av[1] = "/Users/tbesbess/Desktop/Cub3D_last/assets/r.mp3";
     av[2] = NULL;
 
