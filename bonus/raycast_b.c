@@ -28,6 +28,7 @@ static double	horizontal_intersect(t_game *game)
 	}
 	game->rays->h_wall.x = inter.x;
 	game->rays->h_wall.y = inter.y;
+	game->door->h_door = game->door->hit_door;
 	return (calcul_distance(inter, game->player->start));
 }
 
@@ -51,6 +52,7 @@ static double	vertical_intersect(t_game *game)
 	}
 	game->rays->v_wall.x = inter.x;
 	game->rays->v_wall.y = inter.y;
+	game->door->v_door = game->door->hit_door;
 	return (calcul_distance(inter, game->player->start));
 }
 
@@ -70,11 +72,13 @@ void	raycasting(t_game *game)
 		{
 			game->rays->distance = distance.y;
 			game->rays->was_hit_vertical = 1;
+			game->door->hit_door = game->door->v_door;
 		}
 		else
 		{
 			game->rays->distance = distance.x;
 			game->rays->was_hit_vertical = 0;
+			game->door->hit_door = game->door->h_door;
 		}
 		projected_wall(game);
 		game->rays->index++;
