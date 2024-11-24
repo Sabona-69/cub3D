@@ -76,14 +76,14 @@ void	create_game(t_game *game)
 	load_textures(game);
 	init_animation(game);
 	set_player(game);
-	// game->pid = fork();
-	// if (game->pid == 0)
-	// 	play_sound();
-	// if (game->pid != 0) {
+	game->pid = fork();
+	if (game->pid == 0)
+		play_sound();
+	if (game->pid != 0) {
 		mlx_loop_hook(game->win, &update, game);
 		mlx_key_hook(game->win, &handle_key, game);
 		mlx_cursor_hook(game->win, (void *)handle_mouse, game);
 		mlx_loop(game->win);
 
-	// }
+	}
 }
