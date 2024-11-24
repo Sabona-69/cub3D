@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_b.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:22:45 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/23 03:12:32 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/24 13:06:42 by tbesbess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,18 @@ static void	open_the_door(t_game *game)
 	m.y = floor(front.y / TILE_SIZE);
 	if (game->data->map[m.y][m.x] == 'D' && game->door->is_open)
 	{
-		if (game->door->is_closed)
+		game->pid_door = fork();
+		if (game->pid_door == 0)
+			play_sound_door();
+		else
 		{
-			game->door->pos.x = m.x;
-			game->door->pos.y = m.y;
-			game->door->is_closed = 0;
-			game->data->map[m.y][m.x] = '0';
+			if (game->door->is_closed)
+			{
+				game->door->pos.x = m.x;
+				game->door->pos.y = m.y;
+				game->door->is_closed = 0;
+				game->data->map[m.y][m.x] = '0';
+			}
 		}
 	}
 }

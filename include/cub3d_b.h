@@ -149,6 +149,7 @@ typedef struct s_game
 	t_dr		*door;
 	int			mouse_on;
 	int			pid;
+	int			pid_door;
 }	t_game;
 
 // Utils
@@ -198,5 +199,6 @@ void			adjust_step(t_game *game, t_pos_d *delta, int is_vertical);
 //mini map
 void	draw_minimap(t_game *game);
 void    play_sound();
+void	play_sound_door();
 
 #endif
