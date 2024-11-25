@@ -16,12 +16,12 @@ static void	draw_wall(t_game *game, int wall_t, int wall_b, double wall_h)
 {
 	t_pos			offset;
 	mlx_texture_t	*texture;
-	uint32_t		*arr;
-	uint32_t		color;
+	int		*arr;
+	int		color;
 	int				y;
 
 	texture = get_texture(game);
-	arr = (uint32_t *)texture->pixels;
+	arr = (int *)texture->pixels;
 	offset.x = get_texture_x(texture, game);
 	if (game->tx->w == texture || game->tx->s == texture)
 		offset.x = texture->width - offset.x - 1;

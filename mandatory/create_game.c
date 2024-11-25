@@ -15,7 +15,7 @@ void	update(void *p)
 	t_game	*game;
 
 	game = p;
-	ft_clear_img(game->img);
+	// ft_clear_img(game->img);
 	movement(game, 0, 0);
 	raycasting(game);
 }

@@ -6,7 +6,7 @@
 /*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:27:11 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/21 12:00:40 by tbesbess         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:55:05 by tbesbess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ double	calcul_distance(t_pos_d start, t_pos_d end)
 	return (sqrt(pow(start.x - end.x, 2) + pow(start.y - end.y, 2)));
 }
 
-uint32_t	ft_get_color(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
+int	ft_get_color(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a << 0);
 }
 
-uint32_t	reverse_bytes(uint32_t c)
+int	reverse_bytes(int c)
 {
-	uint32_t	b;
+	int	b;
 
 	b = 0;
 	b |= (c & 0xFF) << 24;
