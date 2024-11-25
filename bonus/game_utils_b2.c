@@ -53,7 +53,7 @@ void	handle_key(mlx_key_data_t keydata, void *param)
 	key_release(keydata, game);
 }
 
-void	my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
+void	my_pixel_put(mlx_image_t *img, int x, int y, int color)
 {
 	if (x < 0)
 		return ;

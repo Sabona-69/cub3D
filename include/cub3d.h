@@ -145,7 +145,7 @@ void	check_space(char **map, t_game *game);
 
 
 // Game utils
-void			my_pixel_put(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+void			my_pixel_put(mlx_image_t *img, int x, int y, int color);
 void			init_animation(t_game *game);
 mlx_texture_t	*get_texture(t_game *game);
 int				get_texture_x(mlx_texture_t *texture, t_game *game);
@@ -156,8 +156,8 @@ void			handle_key(mlx_key_data_t keydata, void *param);
 void			movement(t_game *game, double move_x, double move_y);
 int				is_wall(double x, double y, t_game *game);
 void			projected_wall(t_game *game);
-uint32_t		reverse_bytes(uint32_t c);
-uint32_t		ft_get_color(uint32_t r, uint32_t g, uint32_t b, uint32_t a);
+int				reverse_bytes(int c);
+int				ft_get_color(int r, int g, int b, int a);
 double			calcul_distance(t_pos_d start, t_pos_d end);
 double			normalize_angle(double angle);
 
