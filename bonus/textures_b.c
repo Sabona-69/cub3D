@@ -3,10 +3,7 @@
 mlx_texture_t	*get_texture(t_game *game)
 {
 	if (game->door->hit_door)
-	{
-		
 		return (game->tx->door);
-	}
 	if (game->rays->was_hit_vertical)
 	{
 		if (game->rays->angl > M_PI / 2 && game->rays->angl < 3 * (M_PI / 2))

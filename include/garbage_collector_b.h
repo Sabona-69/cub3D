@@ -13,8 +13,7 @@ typedef enum e_call
 {
 	FREE,
 	MALLOC
-}t_call;
-
+}	t_call;
 
 t_list	*new_node(void	*ptr);
 t_list	*last_node(t_list **head);

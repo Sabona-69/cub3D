@@ -7,7 +7,8 @@ void	load_textures(t_game *game)
 	game->tx->s = mlx_load_png(game->data->so);
 	game->tx->n = mlx_load_png(game->data->no);
 	game->tx->door = mlx_load_png("assets/door.png");
-	if (!game->tx->e || !game->tx->w || !game->tx->s || !game->tx->n || !game->tx->door)
+	if (!game->tx->e || !game->tx->w || !game->tx->s
+		|| !game->tx->n || !game->tx->door)
 		exiting(game, "Invalid texture");
 }
 
@@ -19,6 +20,7 @@ void	update(void *p)
 	movement(game, 0, 0);
 	animation(game);
 	raycasting(game);
+	draw_minimap(game);
 }
 
 void	set_player(t_game *game)
@@ -78,11 +80,11 @@ void	create_game(t_game *game)
 	game->pid = fork();
 	if (game->pid == 0)
 		play_sound(OPENING);
-	if (game->pid != 0) {
+	if (game->pid != 0)
+	{
 		mlx_loop_hook(game->win, &update, game);
 		mlx_key_hook(game->win, &handle_key, game);
 		mlx_cursor_hook(game->win, (void *)handle_mouse, game);
 		mlx_loop(game->win);
-
 	}
 }

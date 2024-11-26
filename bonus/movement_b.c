@@ -6,25 +6,11 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:22:45 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/26 00:44:00 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/26 02:04:59 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d_b.h"
-
-int	check_collision(t_game *game, int x, int y)
-{
-	int	top_left;
-	int	top_right;
-	int	bottom_left;
-	int	bottom_right;
-
-	top_left = is_wall(x - COLLISION, y - COLLISION, game);
-	top_right = is_wall(x + COLLISION, y - COLLISION, game);
-	bottom_left = is_wall(x - COLLISION, y + COLLISION, game);
-	bottom_right = is_wall(x + COLLISION, y + COLLISION, game);
-	return (top_left || top_right || bottom_left || bottom_right);
-}
 
 static void	open_the_door(t_game *game)
 {
@@ -91,14 +77,6 @@ void	walk_player(t_game *game, double move_x, double move_y)
 		game->player->start.y = new_y;
 	if (!game->door->is_closed)
 		close_the_door(game);
-}
-
-double	normalize_angle(double angle)
-{
-	angle = fmod(angle, 2 * M_PI);
-	if (angle < 0)
-		angle += 2 * M_PI;
-	return (angle);
 }
 
 void	turn(t_game *game, t_status status)
