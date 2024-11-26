@@ -1,5 +1,19 @@
 #include "../include/cub3d_b.h"
 
+int	check_collision(t_game *game, int x, int y)
+{
+	int	top_left;
+	int	top_right;
+	int	bottom_left;
+	int	bottom_right;
+
+	top_left = is_wall(x - COLLISION, y - COLLISION, game);
+	top_right = is_wall(x + COLLISION, y - COLLISION, game);
+	bottom_left = is_wall(x - COLLISION, y + COLLISION, game);
+	bottom_right = is_wall(x + COLLISION, y + COLLISION, game);
+	return (top_left || top_right || bottom_left || bottom_right);
+}
+
 long	get_time(void)
 {
 	struct timeval	time;

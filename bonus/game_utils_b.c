@@ -6,25 +6,11 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:27:11 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/26 02:05:08 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/26 02:12:16 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d_b.h"
-
-int	check_collision(t_game *game, int x, int y)
-{
-	int	top_left;
-	int	top_right;
-	int	bottom_left;
-	int	bottom_right;
-
-	top_left = is_wall(x - COLLISION, y - COLLISION, game);
-	top_right = is_wall(x + COLLISION, y - COLLISION, game);
-	bottom_left = is_wall(x - COLLISION, y + COLLISION, game);
-	bottom_right = is_wall(x + COLLISION, y + COLLISION, game);
-	return (top_left || top_right || bottom_left || bottom_right);
-}
 
 double	normalize_angle(double angle)
 {
