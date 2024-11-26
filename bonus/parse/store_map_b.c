@@ -11,7 +11,7 @@ void	check_sides(char **map, t_game *game)
 	{
 		x_len = ft_strlen(map[y]) - 1;
 		x = skip_char(map[y], ' ');
-		if (is_empty(map[y]) == FALSE && (!ft_strchr("1 ", map[y][x_len])
+		if (is_empty(map[y]) == false && (!ft_strchr("1 ", map[y][x_len])
 			|| !ft_strchr("1 ", map[y][0])))
 			exiting(game, "Invalid map");
 		y++;

@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:57:37 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/11/21 03:03:10 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/11/26 01:26:39 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include "../include/garbage_collector_b.h"
+# include "../include/garbage_collector.h"
 
 //  Libc functions
 int			ft_isalpha(int c);

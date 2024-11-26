@@ -15,7 +15,7 @@ AR 			= ar cr
 
 OBJ 		= $(FILES:.c=.o)
 
-NAME		= libft.a
+NAME		= libft_b.a
 
 all 	: $(NAME)
 

@@ -16,7 +16,6 @@ void	update(void *p)
 	t_game	*game;
 
 	game = p;
-	// ft_clear_img(game->img);
 	movement(game, 0, 0);
 	animation(game);
 	raycasting(game);
@@ -78,7 +77,7 @@ void	create_game(t_game *game)
 	set_player(game);
 	game->pid = fork();
 	if (game->pid == 0)
-		play_sound();
+		play_sound(OPENING);
 	if (game->pid != 0) {
 		mlx_loop_hook(game->win, &update, game);
 		mlx_key_hook(game->win, &handle_key, game);

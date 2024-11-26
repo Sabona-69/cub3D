@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_b.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:22:45 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/24 13:06:42 by tbesbess         ###   ########.fr       */
+/*   Updated: 2024/11/26 00:44:00 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	open_the_door(t_game *game)
 	{
 		game->pid_door = fork();
 		if (game->pid_door == 0)
-			play_sound_door();
+			play_sound(DOOR_ENTER);
 		else
 		{
 			if (game->door->is_closed)
