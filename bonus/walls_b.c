@@ -14,10 +14,10 @@ static void	draw_ceiling(t_game *game, int wall_t)
 
 static void	draw_wall(t_game *game, int wall_t, int wall_b, double wall_h)
 {
-	t_pos			offset;
 	mlx_texture_t	*texture;
-	int		*arr;
-	int		color;
+	t_pos			offset;
+	int				*arr;
+	int				color;
 	int				y;
 
 	texture = get_texture(game);

@@ -58,31 +58,29 @@ static double	vertical_intersect(t_game *game)
 
 void	raycasting(t_game *game)
 {
-	t_pos_d	distance;
+	t_pos_d	dis;
 
-	game->rays->index = 0;
+	game->rays->index = -1;
 	game->rays->angl = game->player->direction - (game->player->view / 2);
-	while (game->rays->index < game->win->width)
+	while (++game->rays->index < game->win->width)
 	{
 		game->rays->angl = normalize_angle(game->rays->angl);
 		check_rayfacing(game, game->rays->angl);
-		distance.y = vertical_intersect(game);
-		distance.x = horizontal_intersect(game);
-		if (distance.y <= distance.x)
+		dis.y = vertical_intersect(game);
+		dis.x = horizontal_intersect(game);
+		if (dis.y <= dis.x)
 		{
-			game->rays->distance = distance.y;
+			game->rays->distance = dis.y;
 			game->rays->was_hit_vertical = 1;
 			game->door->hit_door = game->door->v_door;
 		}
 		else
 		{
-			game->rays->distance = distance.x;
+			game->rays->distance = dis.x;
 			game->rays->was_hit_vertical = 0;
 			game->door->hit_door = game->door->h_door;
 		}
 		projected_wall(game);
-		game->rays->index++;
 		game->rays->angl += (game->player->view / game->win->width);
 	}
-	draw_minimap(game);
 }

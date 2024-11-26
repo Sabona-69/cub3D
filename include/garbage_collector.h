@@ -1,7 +1,7 @@
 #ifndef GARBAGE_COLLECTOR_H
 # define GARBAGE_COLLECTOR_H
 
-#include <unistd.h>
+# include <unistd.h>
 
 typedef struct s_list
 {
@@ -13,8 +13,7 @@ typedef enum e_call
 {
 	FREE,
 	MALLOC
-}t_call;
-
+}	t_call;
 
 t_list	*new_node(void	*ptr);
 t_list	*last_node(t_list **head);
