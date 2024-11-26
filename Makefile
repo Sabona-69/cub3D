@@ -1,5 +1,7 @@
 NAME	= cub3D
 
+BNAME	= cub3D_bonus
+
 CC		= cc 
 
 RM		= rm -f
@@ -10,7 +12,7 @@ BOBJ	= $(BSRC:.c=.o)
 
 SRC		= mandatory/cub3d.c mandatory/get_next_line.c mandatory/parse/parse_utils.c\
 			mandatory/parse/map.c mandatory/parse/store_instructions.c mandatory/parse/store_map.c  mandatory/create_game.c \
-			mandatory/game_utils.c mandatory/game_utils2.c mandatory/game_utils3.c mandatory/garbage_collector.c  \
+			mandatory/game_utils.c mandatory/game_utils2.c mandatory/garbage_collector.c  \
 			mandatory/movement.c mandatory/raycast.c mandatory/textures.c mandatory/walls.c
 
 BSRC		= bonus/cub3d_b.c bonus/get_next_line_b.c bonus/parse/parse_utils_b.c\
@@ -20,12 +22,9 @@ BSRC		= bonus/cub3d_b.c bonus/get_next_line_b.c bonus/parse/parse_utils_b.c\
 
 CFLAGS	=  -Ofast #-g3 -fsanitize=address ##-Wall -Werror -Wextra 
 
-
-BNAME	= cub3D_bonus
-
 LIBFT	= libft/libft.a
 
-LIBFT_B	= libft_b/libft.a
+LIBFT_B	= libft_b/libft_b.a
 
 INCLUDE = include/cub3d_b.h libft/libft.h
 

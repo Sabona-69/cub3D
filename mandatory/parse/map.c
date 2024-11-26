@@ -13,7 +13,7 @@ void	check_elements(t_data *data)
 		x = -1;
 		while (data->map[y][++x])
 		{
-			if (!ft_strchr("10 WESND", data->map[y][x]))
+			if (!ft_strchr("10 WESN", data->map[y][x]))
 				exiting(data->game, "Invalid map");
 			if (ft_strchr("WESN", data->map[y][x]))
 			{
@@ -38,7 +38,7 @@ void	check_space(char **map, t_game *game)
 		x = 1;
 		while (map[y][x])
 		{
-			if (ft_strchr("WESN0D", map[y][x]))
+			if (ft_strchr("WESN0", map[y][x]))
 			{
 				if (ft_strlen(map[y - 1]) - 1 < x
 					|| ft_strlen(map[y + 1]) - 1 < x)

@@ -1,22 +1,23 @@
 # ifndef CUB3D_B_H
 # define CUB3D_B_H
-// #include "../leaks.h"
 
 # include <signal.h>
 # include <fcntl.h>
-# include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <limits.h>
 # include <math.h>
 # include <sys/time.h>
 # include "garbage_collector_b.h"
-# include "../libft/libft.h"
+# include "../libft_b/libft_b.h"
 # include "../../../MLX42/include/MLX42/MLX42.h"
 
+
+// Sounds
+# define OPENING 0
+# define DOOR_ENTER 1
+
 # define BUFFER_SIZE	1024
-# define TRUE			1
-# define FALSE			0
 
 # define HEIGHT			1080
 # define WIDTH			1920
@@ -178,7 +179,6 @@ void			init_animation(t_game *game);
 mlx_texture_t	*get_texture(t_game *game);
 int				get_texture_x(mlx_texture_t *texture, t_game *game);
 int				get_texture_y(mlx_texture_t *texture, t_game *game, int y, int wall_h);
-void			ft_clear_img(mlx_image_t *img);
 void			set_player(t_game *game);
 void			handle_key(mlx_key_data_t keydata, void *param);
 void			movement(t_game *game, double move_x, double move_y);
@@ -198,7 +198,7 @@ void			adjust_step(t_game *game, t_pos_d *delta, int is_vertical);
 
 //mini map
 void	draw_minimap(t_game *game);
-void    play_sound();
-void	play_sound_door();
+void    play_sound(int status);
+
 
 #endif

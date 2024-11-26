@@ -3,12 +3,12 @@
 int	is_empty(char *s)
 {
 	if (!s)
-		return (TRUE);
+		return (true);
 	while (*s && (*s == ' ' || *s == '\n'))
 		s++;
 	if (*s)
-		return (FALSE);
-	return (TRUE);
+		return (false);
+	return (true);
 }
 
 char	*ft_strtrim_end(char const *s1, char const *set)

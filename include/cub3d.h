@@ -4,20 +4,15 @@
 
 
 # include <fcntl.h>
-# include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <limits.h>
 # include <math.h>
-# include <sys/time.h>
-# include "garbage_collector_b.h"
+# include "garbage_collector.h"
 # include "../libft/libft.h"
 # include "../../../MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE	1024
-# define TRUE			1
-# define FALSE			0
-
 # define HEIGHT			1440
 # define WIDTH			2560
 # define FOV			60
@@ -25,8 +20,6 @@
 # define ROTATION_SPEED 0.045
 # define MOVE_SPEED		4
 # define COLLISION		3
-# define ANIMATION_DELAY 150
-# define FRAMES 10
 
 // colors
 
@@ -121,7 +114,6 @@ typedef struct s_game
 	t_data		*data;
 	t_pl		*player;
 	t_ray		*rays;
-	int			mouse_on;
 }	t_game;
 
 // Utils
@@ -146,11 +138,9 @@ void	check_space(char **map, t_game *game);
 
 // Game utils
 void			my_pixel_put(mlx_image_t *img, int x, int y, int color);
-void			init_animation(t_game *game);
 mlx_texture_t	*get_texture(t_game *game);
 int				get_texture_x(mlx_texture_t *texture, t_game *game);
 int				get_texture_y(mlx_texture_t *texture, t_game *game, int y, int wall_h);
-void			ft_clear_img(mlx_image_t *img);
 void			set_player(t_game *game);
 void			handle_key(mlx_key_data_t keydata, void *param);
 void			movement(t_game *game, double move_x, double move_y);

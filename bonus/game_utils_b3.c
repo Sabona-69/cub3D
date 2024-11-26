@@ -1,23 +1,5 @@
 #include "../include/cub3d_b.h"
 
-void	ft_clear_img(mlx_image_t *img)
-{
-	u_int32_t	i;
-	u_int16_t	j;
-
-	i = 0;
-	while (i < img->height)
-	{
-		j = 0;
-		while (j < img->width)
-		{
-			mlx_put_pixel(img, j, i, 0);
-			j++;
-		}
-		i++;
-	}
-}
-
 long	get_time(void)
 {
 	struct timeval	time;
