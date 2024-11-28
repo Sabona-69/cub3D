@@ -7,7 +7,7 @@ void	play_sound(int status)
 	av[0] = "/Users/hel-omra/.brew/bin/mpg123";
 	av[1] = "-q";
 	if (status == OPENING)
-		av[2] = "/Users/hel-omra/Documents/cub3D/assets/r1.mp3";
+		av[2] = "/Users/hel-omra/Documents/cub3D/assets/dkhla.mp3";
 	else
 		av[2] = "/Users/hel-omra/Documents/cub3D/assets/lahybarek_t.mp3";
 	av[3] = NULL;

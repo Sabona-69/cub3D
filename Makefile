@@ -20,7 +20,7 @@ BSRC		= bonus/cub3d_b.c bonus/get_next_line_b.c bonus/parse/parse_utils_b.c\
 			bonus/create_game_b.c bonus/raycast_b.c bonus/movement_b.c bonus/game_utils_b.c bonus/game_utils_b2.c \
 			bonus/game_utils_b3.c bonus/textures_b.c bonus/walls_b.c bonus/garbage_collector_b.c bonus/play_sound.c \
 
-CFLAGS	=  -Ofast #-g3 -fsanitize=address ##-Wall -Werror -Wextra 
+CFLAGS	=  -Ofast -Wall -Werror -Wextra
 
 LIBFT	= libft/libft.a
 
@@ -28,9 +28,13 @@ LIBFT_B	= libft_b/libft_b.a
 
 INCLUDE = include/cub3d_b.h libft/libft.h
 
-INCLUDE_B = include/cub3d_b.h libft/libft.h 
+INCLUDE_B = include/cub3d_b.h libft/libft.h
 
+MLX42 = /Users/$(USER)/MLX42/build/libmlx42.a
+
+GLFW = /Users/$(USER)/homebrew/opt/glfw/lib
 all: $(NAME)
+
 
 bonus: $(BNAME)
 
@@ -41,11 +45,11 @@ bonus/%.o: bonus/%.c $(INCLUDE_B)
 			$(CC) $(CFLAGS) -c $<  -o $@
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) /Users/$(USER)/MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/homebrew/opt/glfw/lib" -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX42) -Iinclude -lglfw -L$(GLFW) -o $(NAME)
 
 
 $(BNAME): $(BOBJ) $(LIBFT_B)
-	$(CC) $(CFLAGS) $(BOBJ) $(LIBFT_B) /Users/$(USER)/MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/homebrew/opt/glfw/lib" -o $(BNAME)
+	$(CC) $(CFLAGS) $(BOBJ) $(LIBFT_B) $(MLX42) -Iinclude -lglfw -L$(GLFW) -o $(BNAME)
 
 $(LIBFT):
 			make -C libft
