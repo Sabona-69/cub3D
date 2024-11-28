@@ -57,11 +57,11 @@ void	my_pixel_put(mlx_image_t *img, int x, int y, int color)
 {
 	if (x < 0)
 		return ;
-	else if (x >= img->width)
+	else if ((uint32_t)x >= img->width)
 		return ;
 	if (y < 0)
 		return ;
-	else if (y >= img->height)
+	else if ((uint32_t)y >= img->height)
 		return ;
 	mlx_put_pixel(img, x, y, color);
 }
