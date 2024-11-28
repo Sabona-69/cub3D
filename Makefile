@@ -20,7 +20,7 @@ BSRC		= bonus/cub3d_b.c bonus/get_next_line_b.c bonus/parse/parse_utils_b.c\
 			bonus/create_game_b.c bonus/raycast_b.c bonus/movement_b.c bonus/game_utils_b.c bonus/game_utils_b2.c \
 			bonus/game_utils_b3.c bonus/textures_b.c bonus/walls_b.c bonus/garbage_collector_b.c bonus/play_sound.c \
 
-CFLAGS	=  -Ofast -Wall -Werror -Wextra
+CFLAGS	=  -O3 -ffast-math -Wall -Werror -Wextra
 
 LIBFT	= libft/libft.a
 
@@ -33,6 +33,7 @@ INCLUDE_B = include/cub3d_b.h libft/libft.h
 MLX42 = /Users/$(USER)/MLX42/build/libmlx42.a
 
 GLFW = /Users/$(USER)/homebrew/opt/glfw/lib
+
 all: $(NAME)
 
 
