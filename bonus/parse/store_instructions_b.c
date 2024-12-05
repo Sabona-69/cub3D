@@ -1,6 +1,6 @@
 #include "../../include/cub3d_b.h"
 
-char	*get_texture_line(char *s, t_game *game)
+static char	*get_texture_line(char *s, t_game *game)
 {
 	char	**split;
 	char	*new;
@@ -19,7 +19,7 @@ char	*get_texture_line(char *s, t_game *game)
 	return (new);
 }
 
-void	get_colors(int *tab, char *s, t_game *game)
+static void	get_colors(int *tab, char *s, t_game *game)
 {
 	char	**split;
 	char	*tmp;
@@ -46,7 +46,7 @@ void	get_colors(int *tab, char *s, t_game *game)
 		exiting(game, "Invalid colors (0 ~ 255)");
 }
 
-int	check_line(t_data *data, char *tmp)
+static int	check_line(t_data *data, char *tmp)
 {
 	if (ft_strncmp("NO ", tmp, 3) == 0 && !data->no)
 		data->no = get_texture_line(tmp, data->game);

@@ -1,6 +1,6 @@
 #include "../../include/cub3d_b.h"
 
-void	check_sides(char **map, t_game *game)
+static void	check_sides(char **map, t_game *game)
 {
 	int		y;
 	int		x;

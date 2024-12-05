@@ -1,6 +1,6 @@
 #include "../include/cub3d.h"
 
-void	load_textures(t_game *game)
+static void	load_textures(t_game *game)
 {
 	game->tx->e = mlx_load_png(game->data->ea);
 	game->tx->w = mlx_load_png(game->data->we);
@@ -10,7 +10,7 @@ void	load_textures(t_game *game)
 		exiting(game, "Invalid texture");
 }
 
-void	update(void *p)
+static void	update(void *p)
 {
 	t_game	*game;
 
@@ -19,7 +19,7 @@ void	update(void *p)
 	raycasting(game);
 }
 
-void	set_player(t_game *game)
+static void	set_player(t_game *game)
 {
 	char	c;
 
@@ -51,7 +51,8 @@ void	create_game(t_game *game)
 	game->img = mlx_new_image(game->win, WIDTH, HEIGHT);
 	if (!game->img)
 		exiting(game, "mlx img failed");
-	mlx_image_to_window(game->win, game->img, 0, 0);
+	if (mlx_image_to_window(game->win, game->img, 0, 0) == -1)
+		exiting(game, "mlx img to window failed");
 	load_textures(game);
 	set_player(game);
 	mlx_loop_hook(game->win, &update, game);

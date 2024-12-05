@@ -1,6 +1,6 @@
 #include "../include/cub3d_b.h"
 
-void	draw_player_direction(t_game *game)
+static void	draw_player_direction(t_game *game)
 {
 	t_pos	center;
 	int		i;
@@ -19,7 +19,7 @@ void	draw_player_direction(t_game *game)
 	}
 }
 
-void	draw_player(t_game *game)
+static void	draw_player(t_game *game)
 {
 	t_pos	center;
 	int		x;
@@ -41,7 +41,7 @@ void	draw_player(t_game *game)
 	}
 }
 
-void	render_minimap(t_game *game, t_pos *map, int x, int y)
+static void	render_minimap(t_game *game, t_pos *map, int x, int y)
 {
 	if (map->y >= 0 && map->x >= 0
 		&& map->x < game->data->height

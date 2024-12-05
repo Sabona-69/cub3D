@@ -7,7 +7,6 @@
 # include <stdio.h>
 # include <limits.h>
 # include <math.h>
-# include <sys/time.h>
 # include "garbage_collector_b.h"
 # include "../libft_b/libft_b.h"
 # include "../../../MLX42/include/MLX42/MLX42.h"
@@ -25,18 +24,17 @@
 # define ROTATION_SPEED 0.045
 # define MOVE_SPEED		4
 # define COLLISION		3
-# define ANIMATION_DELAY 0
+
 # define FRAMES 24
+# define ANIMATION_PATH "assets/animation/"
 
 // colors
-
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define YELLOW "\033[0;33m"
 # define RESET "\033[0m"
 
 // mini map 
-
 # define MINI_W 200
 # define MINI_H 200
 # define PLAYER_SIZE 10
@@ -133,7 +131,6 @@ typedef struct s_ray
 typedef struct s_anim
 {
 	mlx_image_t		**img;
-	long			time;
 	int				i;
 }	t_anim;
 
@@ -168,7 +165,6 @@ void			store_instructions(char *s, t_data *data);
 void			check_empty_map(t_data *data);
 void			store_map(t_data *data);
 void			check_walls(char **map, t_game *game);
-void			check_space(char **map, t_game *game);
 
 // Game utils
 int				check_collision(t_game *game, int x, int y);
@@ -178,7 +174,6 @@ mlx_texture_t	*get_texture(t_game *game);
 int				get_texture_x(mlx_texture_t *texture, t_game *game);
 int				get_texture_y(mlx_texture_t *texture, t_game *game, \
 int y, int wall_h);
-void			set_player(t_game *game);
 void			handle_key(mlx_key_data_t keydata, void *param);
 void			movement(t_game *game, double move_x, double move_y);
 int				is_wall(double x, double y, t_game *game);
@@ -189,6 +184,7 @@ double			calcul_distance(t_pos_d start, t_pos_d end);
 double			normalize_angle(double angle);
 
 // Game
+void			init_animation(t_game *game);
 void			animation(t_game *game);
 void			raycasting(t_game *game);
 void			create_game(t_game *game);

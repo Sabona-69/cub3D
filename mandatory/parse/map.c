@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-void	check_elements(t_data *data)
+static void	check_elements(t_data *data)
 {
 	int		x;
 	int		y;
@@ -27,7 +27,7 @@ void	check_elements(t_data *data)
 		exiting(data->game, "Invalid Player Position");
 }
 
-void	check_space(char **map, t_game *game)
+static void	check_space(char **map, t_game *game)
 {
 	size_t		y;
 	size_t		x;
@@ -53,7 +53,7 @@ void	check_space(char **map, t_game *game)
 	}
 }
 
-void	get_map_ready(t_data *data)
+static void	get_map_ready(t_data *data)
 {
 	int		len;
 	int		tmp;

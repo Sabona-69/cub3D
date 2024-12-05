@@ -1,6 +1,6 @@
 #include "../include/cub3d.h"
 
-void	check_rayfacing(t_game *game, double angle)
+static void	check_rayfacing(t_game *game, double angle)
 {
 	game->rays->down = angle > 0 && angle < M_PI;
 	game->rays->up = !game->rays->down;

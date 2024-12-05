@@ -1,6 +1,6 @@
 #include "../include/cub3d_b.h"
 
-void	load_textures(t_game *game)
+static void	load_textures(t_game *game)
 {
 	game->tx->e = mlx_load_png(game->data->ea);
 	game->tx->w = mlx_load_png(game->data->we);
@@ -12,7 +12,7 @@ void	load_textures(t_game *game)
 		exiting(game, "Invalid texture");
 }
 
-void	update(void *p)
+static void	update(void *p)
 {
 	t_game	*game;
 
@@ -23,7 +23,7 @@ void	update(void *p)
 	draw_minimap(game);
 }
 
-void	set_player(t_game *game)
+static void	set_player(t_game *game)
 {
 	char	c;
 
@@ -45,7 +45,7 @@ void	set_player(t_game *game)
 	game->player->turn = STOP;
 }
 
-void	handle_mouse(void *param)
+static void	handle_mouse(void *param)
 {
 	t_game	*game;
 	int		mouse_x;
@@ -67,13 +67,14 @@ void	create_game(t_game *game)
 {
 	if (WIDTH < 0 || WIDTH > 2560 || HEIGHT < 0 || HEIGHT > 1440)
 		exiting(game, "Invalid resolution");
-	game->win = mlx_init(WIDTH, HEIGHT, "cub3D", true);
+	game->win = mlx_init(WIDTH, HEIGHT, "cub3D_bonus", true);
 	if (!game->win)
 		exiting(game, "mlx failed");
 	game->img = mlx_new_image(game->win, WIDTH, HEIGHT);
 	if (!game->img)
 		exiting(game, "mlx img failed");
-	mlx_image_to_window(game->win, game->img, 0, 0);
+	if (mlx_image_to_window(game->win, game->img, 0, 0) == -1)
+		exiting(game, "mlx img to window failed");
 	load_textures(game);
 	init_animation(game);
 	set_player(game);

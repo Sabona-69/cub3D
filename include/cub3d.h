@@ -126,7 +126,6 @@ void			store_instructions(char *s, t_data *data);
 void			check_empty_map(t_data *data);
 void			store_map(t_data *data);
 void			check_walls(char **map, t_game *game);
-void			check_space(char **map, t_game *game);
 
 // Game utils
 void			my_pixel_put(mlx_image_t *img, int x, int y, int color);
@@ -134,7 +133,6 @@ mlx_texture_t	*get_texture(t_game *game);
 int				get_texture_x(mlx_texture_t *texture, t_game *game);
 int				get_texture_y(mlx_texture_t *texture, t_game *game \
 , int y, int wall_h);
-void			set_player(t_game *game);
 void			handle_key(mlx_key_data_t keydata, void *param);
 void			movement(t_game *game, double move_x, double move_y);
 int				is_wall(double x, double y, t_game *game);

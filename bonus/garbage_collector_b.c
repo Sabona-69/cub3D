@@ -1,4 +1,3 @@
-#include "../include/garbage_collector_b.h"
 #include "../include/cub3d_b.h"
 
 t_list	*new_node(void	*ptr)
@@ -64,10 +63,10 @@ void	*ft_malloc(size_t size, t_call call)
 	{
 		ptr = malloc(size);
 		if (!ptr)
-			return (clear_all(&head), NULL);
+			(clear_all(&head), exit(1));
 		tmp = new_node(ptr);
 		if (!tmp)
-			return (clear_all(&head), free(ptr), NULL);
+			(clear_all(&head), free(ptr), exit(1));
 		add_back(&head, tmp);
 		ft_bzero(ptr, size);
 		return (ptr);
