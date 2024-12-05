@@ -1,6 +1,6 @@
 #include "../include/cub3d.h"
 
-int	check_nl(char *s)
+static int	check_nl(char *s)
 {
 	if (!s)
 		return (0);
@@ -13,7 +13,7 @@ int	check_nl(char *s)
 	return (0);
 }
 
-char	*ft_reader(char *s, int fd)
+static char	*ft_reader(char *s, int fd)
 {
 	int		rd;
 	char	*buffer;
@@ -35,7 +35,7 @@ char	*ft_reader(char *s, int fd)
 	return (s);
 }
 
-char	*ft_output(char *s)
+static char	*ft_output(char *s)
 {
 	char	*output;
 	int		i;
@@ -62,7 +62,7 @@ char	*ft_output(char *s)
 	return (output);
 }
 
-char	*ft_rest(char *s)
+static char	*ft_rest(char *s)
 {
 	char	*rest;
 	int		i;

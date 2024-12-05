@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:22:45 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/26 02:04:59 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:29:48 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	close_the_door(t_game *game)
 	}
 }
 
-void	walk_player(t_game *game, double move_x, double move_y)
+static void	walk_player(t_game *game, double move_x, double move_y)
 {
 	int	new_x;
 	int	new_y;
@@ -82,15 +82,10 @@ void	walk_player(t_game *game, double move_x, double move_y)
 void	turn(t_game *game, t_status status)
 {
 	if (status == RIGHT)
-	{
 		game->player->direction += ROTATION_SPEED;
-		game->player->direction = normalize_angle(game->player->direction);
-	}
 	else if (status == LEFT)
-	{
 		game->player->direction -= ROTATION_SPEED;
-		game->player->direction = normalize_angle(game->player->direction);
-	}
+	game->player->direction = normalize_angle(game->player->direction);
 }
 
 void	movement(t_game *game, double move_x, double move_y)

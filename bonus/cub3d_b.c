@@ -27,7 +27,7 @@ void	exiting(t_game *game, char *message)
 	exit(0);
 }
 
-void	check_input(int ac, char **av)
+static void	check_input(int ac, char **av)
 {
 	if (ac != 2 || ft_strlen(av[1]) < 4
 		|| ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
@@ -38,7 +38,7 @@ void	check_input(int ac, char **av)
 	}
 }
 
-void	allocate_t_game(t_game **game)
+static void	allocate_t_game(t_game **game)
 {
 	(*game) = ft_malloc(sizeof(t_game), MALLOC);
 	(*game)->data = ft_malloc(sizeof(t_data), MALLOC);
@@ -59,8 +59,3 @@ int	main(int ac, char **av)
 	create_game(game);
 	exiting(game, NULL);
 }
-
-// void f(){
-// 	system("leaks cub3D_bonus");
-// }
-	// atexit(f);

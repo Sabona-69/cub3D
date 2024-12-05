@@ -1,6 +1,6 @@
 #include "../include/cub3d.h"
 
-void	key_release(mlx_key_data_t keydata, t_game *game)
+static void	key_release(mlx_key_data_t keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_RELEASE))
 		game->player->walk = STOP;

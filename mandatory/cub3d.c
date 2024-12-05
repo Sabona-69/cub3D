@@ -19,7 +19,7 @@ void	exiting(t_game *game, char *message)
 	exit(0);
 }
 
-void	check_input(int ac, char **av)
+static void	check_input(int ac, char **av)
 {
 	if (ac != 2 || ft_strlen(av[1]) < 4
 		|| ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
@@ -30,7 +30,7 @@ void	check_input(int ac, char **av)
 	}
 }
 
-void	allocate_t_game(t_game **game)
+static void	allocate_t_game(t_game **game)
 {
 	(*game) = ft_malloc(sizeof(t_game), MALLOC);
 	(*game)->data = ft_malloc(sizeof(t_data), MALLOC);
