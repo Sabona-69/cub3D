@@ -55,7 +55,7 @@ void	create_game(t_game *game)
 		exiting(game, "mlx img to window failed");
 	load_textures(game);
 	set_player(game);
-	mlx_loop_hook(game->win, &update, game);
-	mlx_key_hook(game->win, &handle_key, game);
+	mlx_loop_hook(game->win, update, game);
+	mlx_key_hook(game->win, handle_key, game);
 	mlx_loop(game->win);
 }

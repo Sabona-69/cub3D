@@ -83,9 +83,9 @@ void	create_game(t_game *game)
 		play_sound(OPENING);
 	if (game->pid != 0)
 	{
-		mlx_loop_hook(game->win, &update, game);
-		mlx_key_hook(game->win, &handle_key, game);
-		mlx_cursor_hook(game->win, (void *)handle_mouse, game);
+		mlx_loop_hook(game->win, update, game);
+		mlx_key_hook(game->win, handle_key, game);
+		mlx_cursor_hook(game->win, handle_mouse, game);
 		mlx_loop(game->win);
 	}
 }
