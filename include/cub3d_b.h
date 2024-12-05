@@ -184,14 +184,13 @@ double			calcul_distance(t_pos_d start, t_pos_d end);
 double			normalize_angle(double angle);
 
 // Game
+void			draw_minimap(t_game *game);
+void			play_sound(int status);
 void			init_animation(t_game *game);
 void			animation(t_game *game);
 void			raycasting(t_game *game);
 void			create_game(t_game *game);
 void			adjust_step(t_game *game, t_pos_d *delta, int is_vertical);
 
-//mini map
-void			draw_minimap(t_game *game);
-void			play_sound(int status);
 
 #endif
