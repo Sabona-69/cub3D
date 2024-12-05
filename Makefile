@@ -36,7 +36,6 @@ GLFW = /Users/$(USER)/homebrew/opt/glfw/lib
 
 all: $(NAME)
 
-
 bonus: $(BNAME)
 
 mandatory/%.o: mandatory/%.c $(INCLUDE)

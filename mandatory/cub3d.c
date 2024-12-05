@@ -24,8 +24,7 @@ static void	check_input(int ac, char **av)
 	if (ac != 2 || ft_strlen(av[1]) < 4
 		|| ft_strcmp(".cub", av[1] + ft_strlen(av[1]) - 4) != 0)
 	{
-		ft_putstr_fd(RED"Error\n", 2);
-		ft_putstr_fd("./cub3D + \"map path\"\n"RESET, 2);
+		ft_putstr_fd("./cub3D_bonus + \"map path\"\n"RESET, 2);
 		exit(1);
 	}
 }
