@@ -1,11 +1,29 @@
 #include "../include/cub3d.h"
 
-static void	check_rayfacing(t_game *game, double angle)
+// static void	check_rayfacing(t_game *game, double angle)
+// {
+// 	game->rays->down = angle > 0 && angle < M_PI;
+// 	game->rays->up = !game->rays->down;
+// 	game->rays->right = angle < (M_PI / 2) || angle > (3 * M_PI / 2);
+// 	game->rays->left = !game->rays->right;
+// }
+
+static void check_rayfacing(t_game *game, double angle)
 {
-	game->rays->down = angle > 0 && angle < M_PI;
-	game->rays->up = !game->rays->down;
-	game->rays->right = angle < (M_PI / 2) || angle > (3 * M_PI / 2);
-	game->rays->left = !game->rays->right;
+    if (angle > 0 && angle < M_PI) {
+        game->rays->down = 1;
+        game->rays->up = 0;
+    } else {
+        game->rays->down = 0;
+        game->rays->up = 1;
+    }
+    if (angle < M_PI / 2 || angle > 3 * M_PI / 2) {
+        game->rays->right = 1;
+        game->rays->left = 0;
+    } else {
+        game->rays->right = 0;
+        game->rays->left = 1;
+    }
 }
 
 static double	horizontal_intersect(t_game *game)
