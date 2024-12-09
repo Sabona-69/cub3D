@@ -26,9 +26,9 @@ LIBFT	= libft/libft.a
 
 LIBFT_B	= libft_b/libft_b.a
 
-INCLUDE = include/cub3d_b.h libft/libft.h
+INCLUDE = include/cub3d.h libft/libft.h
 
-INCLUDE_B = include/cub3d_b.h libft/libft.h
+INCLUDE_B = include/cub3d_b.h libft/libft_b.h
 
 MLX42 = /Users/$(USER)/MLX42/build/libmlx42.a
 
