@@ -1,26 +1,24 @@
 #include "../include/cub3d.h"
 
-// static void	check_rayfacing(t_game *game, double angle)
-// {
-// 	game->rays->down = angle > 0 && angle < M_PI;
-// 	game->rays->up = !game->rays->down;
-// 	game->rays->right = angle < (M_PI / 2) || angle > (3 * M_PI / 2);
-// 	game->rays->left = !game->rays->right;
-// }
-
-static void check_rayfacing(t_game *game, double angle)
+static void    check_rayfacing(t_game *game, double angle)
 {
-    if (angle > 0 && angle < M_PI) {
+    if (angle > 0 && angle < M_PI)
+    {
         game->rays->down = 1;
         game->rays->up = 0;
-    } else {
+    }
+    else
+    {
         game->rays->down = 0;
         game->rays->up = 1;
     }
-    if (angle < M_PI / 2 || angle > 3 * M_PI / 2) {
+    if (angle < M_PI / 2 || angle > 3 * M_PI / 2)
+    {
         game->rays->right = 1;
         game->rays->left = 0;
-    } else {
+    }
+    else
+    {
         game->rays->right = 0;
         game->rays->left = 1;
     }
@@ -78,8 +76,9 @@ void	raycasting(t_game *game)
 
 	game->rays->index = 0;
 	game->rays->angl = game->player->direction - (game->player->view / 2);
-	while (game->rays->index < game->win->width)
-	{
+	while (game->rays->index < 3000)
+	{ 
+		fprintf(stderr, "%d\n", game->rays->index);
 		game->rays->angl = normalize_angle(game->rays->angl);
 		check_rayfacing(game, game->rays->angl);
 		distance.y = vertical_intersect(game);
