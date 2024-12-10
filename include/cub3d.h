@@ -11,8 +11,8 @@
 # include "../../../MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE	1024
-# define HEIGHT			1440
-# define WIDTH			2560
+# define HEIGHT			1080
+# define WIDTH			1920
 # define FOV			60
 # define TILE_SIZE		32
 # define ROTATION_SPEED 0.045
@@ -50,6 +50,7 @@ typedef struct s_pos_d
 	double		x;
 	double		y;
 }	t_pos_d;
+
 typedef struct s_data
 {
 	char	**map;
@@ -71,8 +72,7 @@ typedef struct s_data
 typedef struct s_pl
 {
 	double		direction;
-	t_pos_d		start;
-	t_pos_d		move;
+	t_pos_d		start;;
 	double		view;
 	t_status	walk;
 	t_status	turn;

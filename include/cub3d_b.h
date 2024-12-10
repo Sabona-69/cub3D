@@ -98,7 +98,6 @@ typedef struct s_pl
 {
 	double		direction;
 	t_pos_d		start;
-	t_pos_d		move;
 	double		view;
 	t_status	walk;
 	t_status	turn;

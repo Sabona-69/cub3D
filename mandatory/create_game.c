@@ -1,4 +1,4 @@
-#include "../include/cub3d.h"
+ #include "../include/cub3d.h"
 
 static void	load_textures(t_game *game)
 {

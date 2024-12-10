@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbesbess <tbesbess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:27:11 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/11/25 12:55:05 by tbesbess         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:43:29 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	is_wall(double x, double y, t_game *game)
 {
 	t_pos	m;
 
-	if (x < 0 || y < 0)
-		return (1);
 	m.x = floor(x / TILE_SIZE);
 	m.y = floor(y / TILE_SIZE);
 	if (m.y < 0 || m.y >= game->data->width
