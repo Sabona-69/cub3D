@@ -29,7 +29,7 @@ static void	draw_wall(t_game *game, int wall_t, int wall_b, double wall_h)
 	while (y < wall_b)
 	{
 		offset.y = get_texture_y(texture, game, y, wall_h);
-		color = reverse_bytes(arr[offset.y * texture->width + offset.x]);
+		color = reverse_bytes(arr[ offset.y * texture->width + offset.x]);
 		my_pixel_put(game->img, game->rays->index, y, color);
 		y++;
 	}
