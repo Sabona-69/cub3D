@@ -43,13 +43,16 @@ static void	draw_player(t_game *game)
 
 static void	render_minimap(t_game *game, t_pos *map, int x, int y)
 {
+	char	c;
+
+	c = game->data->map[map->y][map->x];
 	if (map->y >= 0 && map->x >= 0
 		&& map->x < game->data->height
 		&& map->y < game->data->width)
 	{
-		if (game->data->map[map->y][map->x] == '1')
+		if (c == '1' || c == ' ')
 			my_pixel_put(game->img, x, y, 0xFF000000);
-		else if (game->data->map[map->y][map->x] == 'D')
+		else if (c  == 'D')
 			my_pixel_put(game->img, x, y, 0x7FFF00FF);
 		else
 			my_pixel_put(game->img, x, y, 0xFFFFFFFF);

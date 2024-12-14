@@ -41,10 +41,17 @@ static void	set_player(t_game *game)
 	game->player->turn = STOP;
 }
 
+static void protect_macros(t_game *game)
+{
+	if (WIDTH < 150 || WIDTH > 2560 || HEIGHT < 150 || HEIGHT > 1440)
+		exiting(game, "Invalid resolution");
+	if (FOV < 60 || FOV > 90)
+		exiting(game, "Invalid FOV (between 60 ~ 90)");
+}
+
 void	create_game(t_game *game)
 {
-	if (WIDTH < 0 || WIDTH > 2560 || HEIGHT < 0 || HEIGHT > 1440)
-		exiting(game, "Invalid resolution");
+	protect_macros(game);
 	game->win = mlx_init(WIDTH, HEIGHT, "cub3D", true);
 	if (!game->win)
 		exiting(game, "mlx failed");
