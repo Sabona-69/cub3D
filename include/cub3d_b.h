@@ -191,5 +191,4 @@ void			raycasting(t_game *game);
 void			create_game(t_game *game);
 void			adjust_step(t_game *game, t_pos_d *delta, int is_vertical);
 
-
 #endif

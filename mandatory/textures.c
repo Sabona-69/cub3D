@@ -1,4 +1,4 @@
- #include "../include/cub3d.h"
+#include "../include/cub3d.h"
 
 mlx_texture_t	*get_texture(t_game *game)
 {

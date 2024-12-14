@@ -1,4 +1,3 @@
-
 #include "../include/cub3d.h"
 
 static void	check_rayfacing(t_game *game, double angle)
@@ -44,7 +43,6 @@ static double	horizontal_intersect(t_game *game)
 		inter.y += delta.y;
 	}
 	game->rays->h_wall = inter.x;
-	// game->rays->h_wall.y = inter.y;
 	return (calcul_distance(inter, game->player->start));
 }
 
@@ -66,7 +64,6 @@ static double	vertical_intersect(t_game *game)
 		inter.x += delta.x;
 		inter.y += delta.y;
 	}
-	// game->rays->v_wall.x = inter.x;
 	game->rays->v_wall = inter.y;
 	return (calcul_distance(inter, game->player->start));
 }
@@ -78,7 +75,7 @@ void	raycasting(t_game *game)
 	game->rays->index = 0;
 	game->rays->angl = game->player->direction - (game->player->view / 2);
 	while (game->rays->index < game->win->width)
-	{ 
+	{
 		game->rays->angl = normalize_angle(game->rays->angl);
 		check_rayfacing(game, game->rays->angl);
 		distance.y = vertical_intersect(game);
