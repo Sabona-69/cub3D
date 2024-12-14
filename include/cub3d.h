@@ -90,8 +90,8 @@ typedef struct s_ray
 {
 	int			index;
 	double		angl;
-	doube		h_wall;
-	doube		v_wall;
+	double		h_wall;
+	double		v_wall;
 	double		distance;
 	double		angle;
 	int			up;
