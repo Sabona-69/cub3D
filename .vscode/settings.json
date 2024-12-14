@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"iostream": "cpp",
+		"cub3d_b.h": "c",
+		"garbage_collector.h": "c",
+		"stdio.h": "c",
+		"algorithm": "c",
+		"mlx42.h": "c"
+	}
+}
