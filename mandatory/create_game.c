@@ -1,4 +1,4 @@
- #include "../include/cub3d.h"
+#include "../include/cub3d.h"
 
 static void	load_textures(t_game *game)
 {
@@ -41,7 +41,7 @@ static void	set_player(t_game *game)
 	game->player->turn = STOP;
 }
 
-static void protect_macros(t_game *game)
+static void	protect_macros(t_game *game)
 {
 	if (WIDTH < 150 || WIDTH > 2560 || HEIGHT < 150 || HEIGHT > 1440)
 		exiting(game, "Invalid resolution");

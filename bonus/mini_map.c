@@ -52,7 +52,7 @@ static void	render_minimap(t_game *game, t_pos *map, int x, int y)
 	{
 		if (c == '1' || c == ' ')
 			my_pixel_put(game->img, x, y, 0xFF000000);
-		else if (c  == 'D')
+		else if (c == 'D')
 			my_pixel_put(game->img, x, y, 0x7FFF00FF);
 		else
 			my_pixel_put(game->img, x, y, 0xFFFFFFFF);

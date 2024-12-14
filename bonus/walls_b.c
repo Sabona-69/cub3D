@@ -12,7 +12,8 @@ static void	draw_ceiling(t_game *game, int top_half)
 		my_pixel_put(game->img, game->rays->index, i++, color);
 }
 
-static void	draw_wall(t_game *game, int top_half, int bottom_half, double wall_height)
+static void	draw_wall(t_game *game, int top_half
+, int bottom_half, double wall_height)
 {
 	mlx_texture_t	*texture;
 	t_pos			offset;

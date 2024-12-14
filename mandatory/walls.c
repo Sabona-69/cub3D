@@ -12,7 +12,8 @@ static void	draw_ceiling(t_game *game, int top_half)
 		my_pixel_put(game->img, game->rays->index, i++, color);
 }
 
-static void	draw_wall(t_game *game, int top_half, int bottom_half, double wall_height)
+static void	draw_wall(t_game *game, int top_half
+, int bottom_half, double wall_height)
 {
 	mlx_texture_t	*texture;
 	t_pos			offset;
@@ -49,11 +50,11 @@ void	projected_wall(t_game *game)
 {
 	double	wall_height;
 	double	new_projection;
-	int		top_half; 
+	int		top_half;
 	int		bottom_half;
 
 	game->rays->distance *= cos(game->rays->angl - game->player->direction);
-	new_projection = (game->win->width / 2) / tan(game->player->view / 2); 
+	new_projection = (game->win->width / 2) / tan(game->player->view / 2);
 	wall_height = (TILE_SIZE / game->rays->distance) * new_projection;
 	bottom_half = (game->win->height / 2) + (wall_height / 2);
 	top_half = (game->win->height / 2) - (wall_height / 2);
