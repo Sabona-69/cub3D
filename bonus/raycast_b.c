@@ -26,8 +26,8 @@ static double	horizontal_intersect(t_game *game)
 		inter.x += delta.x;
 		inter.y += delta.y;
 	}
-	game->rays->h_wall.x = inter.x;
-	game->rays->h_wall.y = inter.y;
+	game->rays->h_wall = inter.x;
+	// game->rays->h_wall.y = inter.y;
 	game->door->h_door = game->door->hit_door;
 	return (calcul_distance(inter, game->player->start));
 }

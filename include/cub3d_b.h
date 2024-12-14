@@ -116,8 +116,8 @@ typedef struct s_ray
 {
 	int			index;
 	double		angl;
-	t_pos_d		h_wall;
-	t_pos_d		v_wall;
+	double		h_wall;
+	double		v_wall;
 	double		distance;
 	double		angle;
 	int			up;
@@ -172,7 +172,7 @@ void			init_animation(t_game *game);
 mlx_texture_t	*get_texture(t_game *game);
 int				get_texture_x(mlx_texture_t *texture, t_game *game);
 int				get_texture_y(mlx_texture_t *texture, t_game *game, \
-int y, int wall_h);
+int y, int wall_height);
 void			handle_key(mlx_key_data_t keydata, void *param);
 void			movement(t_game *game, double move_x, double move_y);
 int				is_wall(double x, double y, t_game *game);

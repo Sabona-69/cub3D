@@ -43,8 +43,8 @@ static double	horizontal_intersect(t_game *game)
 		inter.x += delta.x;
 		inter.y += delta.y;
 	}
-	game->rays->h_wall.x = inter.x;
-	game->rays->h_wall.y = inter.y;
+	game->rays->h_wall = inter.x;
+	// game->rays->h_wall.y = inter.y;
 	return (calcul_distance(inter, game->player->start));
 }
 
@@ -53,7 +53,7 @@ static double	vertical_intersect(t_game *game)
 	t_pos_d	inter;
 	t_pos_d	delta;
 
-	inter.x = floor(game->player->start.x / TILE_SIZE) * TILE_SIZE; //  / 32 
+	inter.x = floor(game->player->start.x / TILE_SIZE) * TILE_SIZE;
 	if (game->rays->right)
 		inter.x += TILE_SIZE;
 	inter.y = game->player->start.y
@@ -66,8 +66,8 @@ static double	vertical_intersect(t_game *game)
 		inter.x += delta.x;
 		inter.y += delta.y;
 	}
-	game->rays->v_wall.x = inter.x;
-	game->rays->v_wall.y = inter.y;
+	// game->rays->v_wall.x = inter.x;
+	game->rays->v_wall = inter.y;
 	return (calcul_distance(inter, game->player->start));
 }
 
