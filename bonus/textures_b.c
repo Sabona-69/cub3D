@@ -25,22 +25,22 @@ int	get_texture_x(mlx_texture_t *texture, t_game *game)
 	double	offset_x;
 
 	if (game->rays->was_hit_vertical)
-		offset_x = fmod(game->rays->v_wall.y, TILE_SIZE);
+		offset_x = fmod(game->rays->v_wall, TILE_SIZE);
 	else
-		offset_x = fmod(game->rays->h_wall.x, TILE_SIZE);
+		offset_x = fmod(game->rays->h_wall, TILE_SIZE);
 	offset_x = (offset_x * texture->width) / TILE_SIZE;
 	return (offset_x);
 }
 
-int	get_texture_y(mlx_texture_t *texture, t_game *game, int y, int wall_h)
+int	get_texture_y(mlx_texture_t *texture, t_game *game, int y, int wall_height)
 {
 	double	step;
 	double	offset_y;
-	int		wall_t;
+	int		top_half;
 
-	wall_t = (game->win->height / 2) - (wall_h / 2);
-	step = (double)texture->height / wall_h;
-	offset_y = ((y - wall_t) * step);
+	top_half = (game->win->height / 2) - (wall_height / 2);
+	step = (double)texture->height / wall_height;
+	offset_y = ((y - top_half) * step);
 	if (offset_y >= texture->height)
 		offset_y = texture->height - 1;
 	if (offset_y < 0)

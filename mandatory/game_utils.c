@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 10:27:11 by tbesbess          #+#    #+#             */
-/*   Updated: 2024/12/10 14:43:29 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:11:06 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	is_wall(double x, double y, t_game *game)
 	m.y = floor(y / TILE_SIZE);
 	if (m.y < 0 || m.y >= game->data->width
 		|| m.x < 0 || m.x >= game->data->height)
+		return (1);
+	if (game->data->map[m.y][m.x] == '1')
 		return (1);
 	return (0);
 }
