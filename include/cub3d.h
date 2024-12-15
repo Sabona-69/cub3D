@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:33:43 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/12/15 00:33:45 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:46:30 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <limits.h>
 # include <math.h>
 # include "garbage_collector.h"
 # include "../libft/libft.h"

@@ -6,14 +6,12 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:33:48 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/12/15 00:33:50 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:39:14 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GARBAGE_COLLECTOR_H
 # define GARBAGE_COLLECTOR_H
-
-# include <unistd.h>
 
 typedef struct s_list
 {
