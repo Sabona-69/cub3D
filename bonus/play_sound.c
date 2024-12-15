@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:33:28 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/12/15 00:33:30 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:43:32 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,3 @@ void	play_sound(int status)
 	if (execve(av[0], av, NULL) == -1)
 		perror("execve failed");
 }
-
-	// av[2] = "/Users/tbesbess/Desktop/Cub3D_last/assets/r.mp3";
-	// av[2] = "/Users/tbesbess/Desktop/Cub3D_last/assets/lahybarek_t.mp3";
