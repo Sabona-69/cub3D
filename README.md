@@ -1,4 +1,3 @@
-```
 # Cub3D - 42 Project
 
 ## Table of Contents
@@ -78,4 +77,3 @@ Run the game with:
 ## Authors
 **hel-omra** and **tbesbess**  
 [42 Intra Profiles](https://profile.intra.42.fr/)
-```
