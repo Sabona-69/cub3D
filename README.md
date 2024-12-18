@@ -77,5 +77,6 @@ Run the game with:
 ## Authors
 **hel-omra** and **tbesbess**
 [42 Intra Profiles]
-[hel-omra](https://profile.intra.42.fr/users/hel-omra)
-[tbesbess](https://profile.intra.42.fr/users/tbesbess)
+
+- [hel-omra](https://profile.intra.42.fr/users/hel-omra)
+- [tbesbess](https://profile.intra.42.fr/users/tbesbess)
