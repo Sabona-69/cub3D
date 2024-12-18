@@ -46,14 +46,20 @@ Here, `map.cub` is a valid map file adhering to the project specifications.
 ## Bonus Part
 
 ### Bonus Overview
-The bonus part introduces advanced features and enhancements to the basic game engine, adding more depth and interaction to the game.
+The bonus part expands the basic game engine by introducing new interactive and visual features, enhancing the gameplay experience.
 
 ### Features
-- **Doors and Keys:** Add doors that can be opened with keys or triggers.
-- **Enemies and AI:** Implement enemies with basic AI for chasing or attacking the player.
-- **Multiple Levels:** Allow progression through different maps or levels.
-- **Minimap:** Display a minimap showing the player’s position and surroundings.
-- **Improved Graphics:** Add textures to walls, floors, and ceilings, and implement sprite rendering for objects.
+1. **Minimap:**
+   - A dynamic minimap displays the player’s position and surroundings for easier navigation.
+2. **Interactive Doors:**
+   - Doors can be opened by pressing the spacebar if the player is close enough.
+   - Doors close automatically when the player moves far enough away.
+3. **Animations:**
+   - Animations run smoothly at 24 frames per second (FPS) to enhance the visual appeal.
+4. **Background Music:**
+   - Two songs are integrated:
+     - The first plays at the beginning of the game.
+     - The second is triggered when the player passes through a door.
 
 ### Compilation and Execution
 To compile the bonus version, use:
@@ -73,6 +79,7 @@ Run the game with:
 - [Raycasting Tutorial](https://lodev.org/cgtutor/raycasting.html)
 - [MiniLibX Documentation](https://harm-smith.github.io/42-graphics/)
 - [Wolfenstein 3D - Wikipedia](https://en.wikipedia.org/wiki/Wolfenstein_3D)
+
 
 ## Authors
 **hel-omra** and **tbesbess**
