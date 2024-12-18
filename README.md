@@ -75,5 +75,7 @@ Run the game with:
 - [Wolfenstein 3D - Wikipedia](https://en.wikipedia.org/wiki/Wolfenstein_3D)
 
 ## Authors
-**hel-omra** and **tbesbess**  
-[42 Intra Profiles](https://profile.intra.42.fr/)
+**hel-omra** and **tbesbess**
+[42 Intra Profiles]
+[hel-omra](https://profile.intra.42.fr/users/hel-omra)
+[tbesbess](https://profile.intra.42.fr/users/tbesbess)
