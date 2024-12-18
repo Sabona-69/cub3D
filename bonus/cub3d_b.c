@@ -61,14 +61,8 @@ static void	allocate_t_game(t_game **game)
 	(*game)->door = ft_malloc(sizeof(t_dr), MALLOC);
 }
 
-void f(){
-	system("leaks cub3D_bonus");
-}
-
 int	main(int ac, char **av)
 {
-	atexit(f);
-	
 	t_game	*game;
 
 	check_input(ac, av);
