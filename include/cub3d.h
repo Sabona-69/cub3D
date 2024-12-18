@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:33:43 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/12/15 17:46:30 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:13:52 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <math.h>
 # include "garbage_collector.h"
 # include "../libft/libft.h"
-# include "../../../MLX42/include/MLX42/MLX42.h"
+# include "/Users/hel-omra/MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE	1024
 # define HEIGHT			1080

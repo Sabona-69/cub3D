@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:33:28 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/12/15 17:43:32 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:10:55 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	play_sound(int status)
 	av[0] = "/Users/hel-omra/.brew/bin/mpg123";
 	av[1] = "-q";
 	if (status == OPENING)
-		av[2] = "/Users/hel-omra/Documents/cub3D/assets/dkhla.mp3";
+		av[2] = "assets/dkhla.mp3";
 	else
-		av[2] = "/Users/hel-omra/Documents/cub3D/assets/lahybarek_t.mp3";
+		av[2] = "assets/lahybarek_t.mp3";
 	av[3] = NULL;
 	if (execve(av[0], av, NULL) == -1)
 		perror("execve failed");
